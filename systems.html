@@ -7,26 +7,33 @@
   <meta name="description" content="Independent researcher and systems engineer working on deterministic AI governance and geometry-driven field computation (AUFG).">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <header class="topbar">
-  <nav class="topnav" aria-label="Primary">
-    <a href="index.html" aria-current="page">Home</a>
-    <a href="research.html">Research</a>
-    <a href="systems.html">Systems</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
 
-  
+  <header class="topbar">
+    <nav class="topnav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="systems.html" aria-current="page">Systems</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
   <main>
     <h1>Systems</h1>
 
     <p>
       I build execution-governed systems for exploratory computation and AI workflows.
       The focus is reliability under iteration: determinism, auditability, and fail-closed control.
+    </p>
+
+    <h2>AUFG Research System</h2>
+    <p>
+      AUFG (Alexandrian Unified Field Geometry) is run like a lab-grade computational program: every experiment is
+      state-locked, reproducible, and falsification-first. Runs produce structured artifacts (meta, logs, failures,
+      summaries) under deterministic authority rules, so results can be replayed exactly and compared across revisions.
+      The goal is not “pretty outputs,” but stable measurement: when something changes, the system proves why.
     </p>
 
     <h2>Fail-Closed Execution Governance</h2>
@@ -61,12 +68,20 @@
       I design systems that preserve development velocity while maintaining reproducibility and interpretability across runs.
     </p>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="research.html">Research</a>
-      <a href="systems.html">Systems</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <footer class="footerbar">
+      <nav class="footernav" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="systems.html">Systems</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
+    </footer>
+
   </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
