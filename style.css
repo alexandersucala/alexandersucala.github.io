@@ -7,6 +7,40 @@ body {
   line-height: 1.6;
 }
 
+/* TOP NAV BANNER */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #fff;
+  border-bottom: 1px solid #000; /* line BELOW nav */
+  padding: 16px 22px;            /* controls top bar height */
+}
+
+.topnav{
+  max-width: 760px;              /* match main width */
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;     /* right side */
+  gap: 22px;
+}
+
+.topnav a{
+  text-decoration: none;         /* no underline */
+  color: #000;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;           /* makes hover underline look clean */
+}
+
+.topnav a:hover{
+  border-bottom: 1px solid #000;
+}
+
+.topnav a[aria-current="page"]{
+  font-weight: 700;
+}
+
+/* MAIN LAYOUT */
 main {
   max-width: 760px;
   padding: 72px 22px;
@@ -39,19 +73,12 @@ li {
   margin-bottom: 0.6rem;
 }
 
-nav {
-  margin-top: 2.6rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid #000;
+/* IMPORTANT: disable the old "nav section" styling */
+nav{
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
-
-nav a {
-  margin-right: 1.2rem;
-  text-decoration: none;
-  color: #000;
-  border-bottom: 1px solid transparent;
-}
-
-nav a:hover {
-  border-bottom: 1px solid #000;
+nav a{
+  margin: 0;
 }
