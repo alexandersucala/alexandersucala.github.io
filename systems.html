@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Systems — Alexander Sucala</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Systems</h1>
+
+    <p>
+      I build execution-governed systems for exploratory computation and AI workflows.
+      The focus is reliability under iteration: determinism, auditability, and fail-closed control.
+    </p>
+
+    <h2>Fail-Closed Execution Governance</h2>
+    <p>
+      A run is considered invalid unless correctness is explicitly established.
+      Preflight validation and runtime enforcement convert silent failure modes into explicit invalid runs,
+      preventing “successful but incorrect” outputs from contaminating results.
+    </p>
+
+    <h2>Artifact-First Authority</h2>
+    <p>
+      Execution produces authoritative artifacts for every attempt—successful or not.
+      Metadata, failure logs, and run directories are created or reserved before computation begins,
+      enabling traceability and post-hoc auditing at scale.
+    </p>
+
+    <h2>Deterministic Seed and Interface Authority</h2>
+    <p>
+      Determinism is treated as an execution invariant. Seeds are derived from canonical inputs, not runtime randomness.
+      Parameter transmission and callable interfaces are enforced at runtime to prevent silent drift.
+    </p>
+
+    <h2>Corpus-Governed Novelty Checking</h2>
+    <p>
+      New ideas are evaluated against a canonical indexed corpus of prior patents and papers.
+      The workflow is designed to reduce overlap risk and accelerate iteration: index → overlap scan → verdict → design-around.
+    </p>
+
+    <h2>Exploratory Research Infrastructure</h2>
+    <p>
+      Long-horizon experimentation requires governance beyond unit tests and CI.
+      I design systems that preserve development velocity while maintaining reproducibility and interpretability across runs.
+    </p>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </main>
+</body>
+</html>
