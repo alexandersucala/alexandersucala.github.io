@@ -10,16 +10,16 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <header class="topbar">
-  <nav class="topnav" aria-label="Primary">
-    <a href="index.html" aria-current="page">Home</a>
-    <a href="research.html">Research</a>
-    <a href="systems.html">Systems</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+    <nav class="topnav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="systems.html">Systems</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
   </header>
 
-  
   <main>
     <h1>Contact</h1>
 
@@ -45,12 +45,20 @@
       Alexander prioritizes clear scope, auditable artifacts, and fail-closed execution in exploratory systems.
     </p>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="research.html">Research</a>
-      <a href="systems.html">Systems</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <footer class="footerbar">
+      <nav class="footernav" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="systems.html">Systems</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
+    </footer>
+
   </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
