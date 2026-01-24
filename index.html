@@ -4,21 +4,91 @@
   <meta charset="UTF-8">
   <title>Alexander Sucala</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Independent researcher and systems engineer building deterministic AI governance architectures and geometry-driven field computation (AUFG).">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
-    <h1>Alexander Sucala</h1>
-    <p class="tagline">
-      Fail-closed execution, AI governance, and exploratory computational systems.
-    </p>
+    <header>
+      <h1>Alexander Sucala</h1>
+      <p class="tagline">Independent Researcher · Systems Engineer · Inventor</p>
+      <p class="subtag">
+        Deterministic AI governance, fail-closed execution, and geometry-driven field computation (AUFG).
+      </p>
+    </header>
 
-    <nav>
-      <a href="index.html">Home</a>
+    <nav aria-label="Primary">
+      <a href="index.html" aria-current="page">Home</a>
       <a href="research.html">Research</a>
       <a href="systems.html">Systems</a>
       <a href="contact.html">Contact</a>
     </nav>
+
+    <section class="about" aria-label="About">
+      <h2>About</h2>
+
+      <p>
+        I’m Alexander Sucala, an independent researcher and systems engineer working on deterministic AI governance
+        architectures and geometry-driven field computation. I design artifact-based control frameworks for large
+        language model (LLM) systems and lead the Alexandrian Unified Field Geometry (AUFG) program—an independent,
+        falsification-first effort in geometry-driven field computation.
+      </p>
+
+      <p>
+        My AI work centers on externalized authority, reproducibility, failure-mode isolation, and auditability in
+        autonomous and semi-autonomous systems. I treat LLMs as probabilistic components embedded within deterministic
+        control structures—not as decision-making agents.
+      </p>
+
+      <p>
+        I run lab-grade, falsification-first research with strict experimental locking, constraint ledgers, and
+        reproducible pipelines. I’ve authored multiple research papers and filed multiple provisional patent
+        applications spanning AI governance, exploratory computational systems, and geometric coupling architectures.
+      </p>
+
+      <p>
+        Background: I grew up in the Bay Area and studied computer science, engineering, and business administration.
+      </p>
+    </section>
+
+    <section class="highlights" aria-label="Highlights">
+      <h2>What I build</h2>
+      <ul>
+        <li>Fail-closed execution and deterministic orchestration for AI-assisted workflows</li>
+        <li>Artifact-based governance: validation, audit trails, and authority separation</li>
+        <li>Reproducible research pipelines for exploratory computational systems</li>
+        <li>AUFG: geometry-driven field models and computational experiments</li>
+      </ul>
+      <p class="note">
+        I design systems that fail closed, replay exactly, and stay auditable under stress.
+      </p>
+    </section>
+
+    <section class="personal" aria-label="Personal">
+      <h2>Outside of work</h2>
+      <p>
+        For fun I ride motorcycles, hike, travel, read, and keep building—AI systems, research tooling, and experiments.
+      </p>
+    </section>
+
+    <section class="cta" aria-label="Contact call to action">
+      <h2>Work with me</h2>
+      <p>
+        If you’re hiring, exploring licensing, or evaluating research collaborations, reach out.
+      </p>
+      <p class="cta-links">
+        <a class="button" href="contact.html">Contact</a>
+        <a class="button secondary" href="research.html">Read the papers</a>
+      </p>
+    </section>
+
+    <footer>
+      <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
+    </footer>
   </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
