@@ -23,6 +23,7 @@ body {
   display: flex;
   justify-content: flex-end;     /* right side */
   gap: 22px;
+  flex-wrap: wrap;
 }
 
 .topnav a{
@@ -73,12 +74,47 @@ li {
   margin-bottom: 0.6rem;
 }
 
-/* IMPORTANT: disable the old "nav section" styling */
-nav{
+/* FOOTER NAV (optional, if you're keeping the bottom links) */
+.footerbar{
+  max-width: 760px;
+  margin: 64px auto 0 auto;
+  padding: 0 22px 36px 22px;
+}
+
+.footernav{
+  border-top: 1px solid #000;
+  padding-top: 16px;
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.footernav a{
+  text-decoration: none;
+  color: #000;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+}
+
+.footernav a:hover{
+  border-bottom: 1px solid #000;
+}
+
+/* IMPORTANT:
+   If any old pages still use a plain <nav> (without topnav/footernav),
+   this prevents the old "nav section" look from coming back. */
+nav:not(.topnav):not(.footernav){
   margin: 0;
   padding: 0;
   border: 0;
 }
-nav a{
+nav:not(.topnav):not(.footernav) a{
   margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 520px){
+  .topnav, .footernav{
+    gap: 14px;
+  }
 }
