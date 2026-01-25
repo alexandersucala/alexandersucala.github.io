@@ -4,37 +4,89 @@
   <meta charset="UTF-8">
   <title>Alexander Sucala — Plain Language</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plain-language overview of Alexander Sucala’s work: deterministic AI governance, fail-closed execution, and reliable research systems.">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <header class="topbar">
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <nav class="topnav" aria-label="Primary">
+        <a href="index_plain.html" aria-current="page">Home</a>
+        <a href="research.html">Research</a>
+        <a href="systems.html">Systems</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
       <a class="toggle" href="index.html">Translate back to engineering</a>
-    </header>
+    </div>
+  </header>
 
-    <h1>Alexander Sucala</h1>
-    <p class="tagline">
-      I build reliable systems that keep complex software and AI experiments from quietly breaking.
-    </p>
+  <main>
+    <section class="hero">
+      <h1>Alexander Sucala</h1>
+      <p class="tagline">Plain-language overview</p>
+      <p class="subtag">
+        I build reliable systems that keep complex software and AI experiments from quietly breaking.
+      </p>
+    </section>
 
-    <p>
-      A lot of modern research and AI work fails in sneaky ways: the code runs, but the result is wrong because something
-      drifted—an input changed, a function signature changed, a file didn’t get saved, or randomness behaved differently.
-      Over time, this can waste weeks and corrupt conclusions.
-    </p>
+    <section class="about" aria-label="About">
+      <h2>What I do</h2>
 
-    <p>
-      My work is about preventing that. I build “fail-closed” execution systems that check the setup before a run,
-      enforce what’s allowed while it runs, and always produce an auditable record of what happened. If something is off,
-      the system stops early instead of producing misleading output.
-    </p>
+      <p>
+        A lot of modern research and AI work fails in sneaky ways: the code runs, but the result is wrong because something
+        drifted—an input changed, a function signature changed, a file didn’t get saved, or randomness behaved differently.
+        Over time, that wastes weeks and can corrupt conclusions.
+      </p>
 
-    <nav>
-      <a href="index_plain.html">Home</a>
-      <a href="research.html">Research</a>
-      <a href="systems.html">Systems</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+      <p>
+        My work is about preventing that. I build <em>fail-closed</em> execution systems that check the setup before a run,
+        enforce what’s allowed while it runs, and always produce an auditable record of what happened. If something is off,
+        the system stops early instead of producing misleading output.
+      </p>
+
+      <p>
+        If you want the technical version (with the exact terms and framing), use the button at the top:
+        <strong>Translate back to engineering</strong>.
+      </p>
+    </section>
+
+    <section class="highlights" aria-label="Highlights">
+      <h2>What that looks like in practice</h2>
+      <ul>
+        <li>Runs that stop when assumptions are violated (instead of “finishing” with bad results)</li>
+        <li>Reproducible workflows where the same inputs produce the same outputs</li>
+        <li>Clear audit trails: what ran, with what files, settings, and versions</li>
+        <li>Guardrails that catch drift (changed code, changed data, missing files, changed parameters)</li>
+      </ul>
+      <p class="note">
+        The goal: fewer silent failures, faster debugging, and research you can trust months later.
+      </p>
+    </section>
+
+    <section class="personal" aria-label="Personal">
+      <h2>Outside of work</h2>
+      <p>
+        For fun I ride motorcycles, hike, travel, read, and keep building—systems, tools, and experiments.
+      </p>
+    </section>
+
+    <footer class="footerbar">
+      <nav class="footernav" aria-label="Footer">
+        <a href="index_plain.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="systems.html">Systems</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
+    </footer>
   </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
