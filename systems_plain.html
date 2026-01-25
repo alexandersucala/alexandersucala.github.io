@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta
     name="description"
-    content="Plain language overview of the systems Alexander Sucala builds focused on reliable execution clear records and reproducible research workflows."
+    content="Plain language overview of the systems Alexander Sucala builds focused on trustworthy AI outputs enforced context and reproducible research workflows."
   >
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -32,28 +32,30 @@
     <section class="hero">
       <h1>Systems</h1>
       <p class="subtag">
-        Alexander builds systems that keep research and AI programs reliable while improvement happens quickly so a
-        result is not trusted just because it looks successful or correct.
+        Alexander builds systems that keep research and AI programs reliable while improvement happens quickly so results are not trusted
+        just because they look confident.
       </p>
     </section>
 
     <section class="about" aria-label="Overview">
       <h2>What these systems are for</h2>
+
       <p>
-        In real research and real software the worst failures are the quiet ones that look correct.
-        A program finishes results appear and only later it becomes clear something was wrong.
-        Inputs changed a setting differed or the system failed silently.
+        A lot of AI systems fail in a subtle way. The software runs correctly and nothing crashes, but the answer itself is unreliable.
+        Large language models are designed to produce the most statistically likely response from limited information.
+        When required context or authoritative information is missing, the model fills the gaps with plausible guesses.
+        The result looks confident and complete, but may be wrong in ways that are difficult to notice later.
       </p>
 
       <p>
         These systems are designed to make that almost impossible.
-        Problems are caught early a clear record of what happened is kept and results are repeatable no matter which AI is used
-        when it is used or where it is run.
+        Inputs context and prior work are safeguarded so the AI only uses verified and allowed information.
+        If required information is missing or cannot be verified, the system stops instead of producing a convincing but untrustworthy answer.
       </p>
 
       <p>
-        In short Alexander designs AI systems that either work correctly or stop loudly so mistakes are obvious
-        and can be fixed instead of quietly repeating.
+        In short Alexander designs AI systems that either produce answers backed by known information or refuse to answer until the correct
+        information is present.
       </p>
     </section>
 
@@ -63,29 +65,29 @@
       <h3>AUFG research system</h3>
       <p>
         AUFG runs like a lab program.
-        Each experiment creates its own historical record,
+        Each experiment creates its own historical record with locked inputs and repeatable conditions,
         making results easy to reproduce and compare across changes.
         The goal is not impressive charts but trustworthy measurement.
       </p>
 
-      <h3>Execution that stops on error</h3>
+      <h3>Fail closed execution</h3>
       <p>
-        If something is wrong the run is marked invalid and stops early.
-        This prevents results that look finished but are actually based on bad assumptions.
+        If required information is missing or a validation check fails the run is marked invalid and stops early.
+        This prevents outputs that look finished but are actually based on incomplete context or unsupported assumptions.
       </p>
 
-      <h3>Record first execution</h3>
+      <h3>Artifact first records</h3>
       <p>
         Every attempt leaves behind a clear record.
-        Even failed runs produce useful evidence,
+        Even failed runs produce useful evidence including metadata logs and failure traces,
         making debugging faster and decisions easier to defend later.
       </p>
 
-      <h3>Controlled randomness and enforced interfaces</h3>
+      <h3>Deterministic inputs and enforced interfaces</h3>
       <p>
         Randomness is controlled instead of left to chance.
-        Inputs and interfaces are enforced so small silent changes
-        do not slip in unnoticed.
+        Inputs interfaces and parameters are enforced so small silent changes do not slip in unnoticed
+        and so repeated runs use the same authoritative context.
       </p>
 
       <h3>Novelty checking against prior work</h3>
@@ -97,8 +99,7 @@
       <h3>Exploratory research infrastructure</h3>
       <p>
         Long term exploration needs more than basic testing.
-        These systems protect how tests are run and keep clarity
-        while still allowing work to move quickly.
+        These systems protect context traceability and result integrity while still allowing work to move quickly.
       </p>
     </section>
 
