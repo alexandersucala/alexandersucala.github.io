@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alexander Sucala — Plain Language</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plain-language overview of the systems Alexander Sucala builds: fail-closed execution, audit trails, and reproducible research workflows.">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <nav class="topnav" aria-label="Primary">
+        <a href="index_plain.html">Home</a>
+        <a href="research_plain.html">Research</a>
+        <a href="systems_plain.html" aria-current="page">Systems</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <a class="toggle" href="systems.html">Translate back to engineering</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Systems</h1>
+      <p class="tagline">Plain-language overview</p>
+      <p class="subtag">
+        I build systems that keep research and AI workflows reliable while you iterate fast—so you don’t accidentally trust
+        a “successful run” that was actually wrong.
+      </p>
+    </section>
+
+    <section class="about" aria-label="Overview">
+      <h2>What these systems are for</h2>
+      <p>
+        In real research and real software, the dangerous failures are the quiet ones: a run finishes, you get outputs,
+        and only later you realize something drifted (inputs, code, parameters, randomness, or environment). These systems
+        are designed to catch that early, record what happened, and make results repeatable.
+      </p>
+    </section>
+
+    <section class="highlights" aria-label="Systems list">
+      <h2>Core systems</h2>
+
+      <h3>AUFG research system</h3>
+      <p>
+        AUFG runs like a lab program. Each experiment writes a structured run folder (metadata, logs, failures, summaries),
+        and the system makes it easy to reproduce and compare runs across changes. The goal isn’t pretty graphs—it’s
+        trustworthy measurement.
+      </p>
+
+      <h3>Fail-closed execution</h3>
+      <p>
+        If something is wrong, the run should be marked invalid and stop early. That prevents “completed” runs with bad
+        assumptions from contaminating your conclusions.
+      </p>
+
+      <h3>Artifact-first records</h3>
+      <p>
+        Every attempt produces an auditable record. Even failures leave behind organized evidence, so debugging is faster
+        and results can be defended later.
+      </p>
+
+      <h3>Deterministic randomness and enforced interfaces</h3>
+      <p>
+        Randomness is controlled, not left to chance. Seeds come from canonical inputs, and interfaces/parameters are
+        enforced so silent drift is harder to sneak in.
+      </p>
+
+      <h3>Novelty checking against prior work</h3>
+      <p>
+        New ideas are checked against an indexed library of prior papers/patents so you can catch overlap early and
+        iterate faster: scan → overlap verdict → design-around.
+      </p>
+
+      <h3>Exploratory research infrastructure</h3>
+      <p>
+        Long-horizon exploration needs more than unit tests. These systems keep velocity high while protecting
+        reproducibility and interpretability across many runs.
+      </p>
+    </section>
+
+    <footer class="footerbar">
+      <nav class="footernav" aria-label="Footer">
+        <a href="index_plain.html">Home</a>
+        <a href="research_plain.html">Research</a>
+        <a href="systems_plain.html">Systems</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
