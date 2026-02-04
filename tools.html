@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tools — Alexander Sucala</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Working demonstrations of Alexander Sucala's patents and research in production systems.">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <nav class="topnav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="research.html">Papers</a>
+        <a href="patents.html">Patents</a>
+        <a href="systems.html">Systems</a>
+        <a href="tools.html" aria-current="page">Tools</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Tools</h1>
+
+    <p>
+      These tools demonstrate Alexander's patents and research in production. Each system implements 
+      fail-closed execution, deterministic state management, and artifact-based authority control.
+    </p>
+
+    <section style="margin-top: 3rem;">
+      <h2>Finance Assistant</h2>
+      
+      <p>
+        <strong>What it demonstrates:</strong> This tool implements <em>Fail-Closed Execution</em>, 
+        <em>State-Locked AI Orchestration</em>, <em>Artifact-Based Authority</em>, and 
+        <em>Intent-Contract Enforcement</em> patents in a production stock analysis system.
+      </p>
+
+      <p>
+        <strong>Why it matters:</strong> Most AI systems fail open—producing output regardless of data quality. 
+        This system fails closed, gating all responses behind explicit confidence scores (HIGH/MEDIUM/LOW) derived 
+        from data freshness and source validation. It proves that deterministic control structures can govern 
+        probabilistic LLM outputs without sacrificing utility.
+      </p>
+
+      <p>
+        <strong>Technical implementation:</strong> File-backed state management with 5-minute realtime caching, 
+        structured intent parsing with multi-ticker support, confidence-scored output gating, and deterministic 
+        follow-up routing. Uses Alpha Vantage for market data, Brave Search for news articles, and Anthropic Claude 
+        for analysis generation—all wrapped in fail-closed validation.
+      </p>
+
+      <p style="margin-top: 1.5rem;">
+        <a href="tools/finance-assistant.html" 
+           style="display: inline-block; padding: 12px 24px; background: #000; color: #fff; 
+                  text-decoration: none; border: 2px solid #000; border-radius: 6px; 
+                  font-weight: 600; transition: all 0.2s;"
+           onmouseover="this.style.background='#fff'; this.style.color='#000';"
+           onmouseout="this.style.background='#000'; this.style.color='#fff';">
+          Launch Finance Assistant →
+        </a>
+      </p>
+
+      <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">
+        <strong>Note:</strong> Educational use only. Not financial advice. Demonstrates patent architecture, 
+        not investment recommendations.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="footerbar">
+    <nav class="footernav" aria-label="Footer">
+      <a href="index.html">Home</a>
+      <a href="research.html">Papers</a>
+      <a href="systems.html">Systems</a>
+      <a href="tools.html">Tools</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
+
+---
+
+## 📁 Create Tools Directory
+
+Create the directory structure:
+```
+C:\Alexandersucala.com\
+  ├── tools.html (NEW - landing page)
+  └── tools/
+      └── finance-assistant.html (MOVE your fixed index.html here)
