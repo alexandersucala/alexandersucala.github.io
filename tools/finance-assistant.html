@@ -430,12 +430,50 @@
         const API_URL = 'https://finance-assistant-backend-production.up.railway.app';
         const SESSION_ID = 'user_' + Math.random().toString(36).substr(2, 9);
         
-        function addMessage(content, isUser = false, confidence = null, sources = null, followups = null) {
+        function addMessage(content, isUser = false, confidence = null, sources = null, followups = null, isPaywall = false) {
             const chatContainer = document.getElementById('chatContainer');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
             
             let messageHTML = '<div class="message-content">';
+            
+            // Handle paywall case
+            if (isPaywall) {
+                messageHTML += `
+                    <div class="confidence-badge confidence-low">🔒 FREE LIMIT REACHED</div>
+                    ${content}
+                    <button onclick="upgradeToPremium()" style="
+                        margin-top: 16px;
+                        padding: 12px 24px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        font-size: 16px;
+                        width: 100%;
+                        transition: all 0.2s;
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(102, 126, 234, 0.4)'" 
+                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        ✨ Upgrade to Premium - $5/month
+                    </button>
+                    <p style="font-size: 12px; opacity: 0.7; margin-top: 12px; text-align: center;">
+                        ✓ Unlimited queries &nbsp;•&nbsp; ✓ HIGH confidence data &nbsp;•&nbsp; ✓ Cancel anytime
+                    </p>
+                `;
+                messageHTML += '</div>';
+                messageDiv.innerHTML = messageHTML;
+                chatContainer.appendChild(messageDiv);
+                
+                setTimeout(() => {
+                    const rect = messageDiv.getBoundingClientRect();
+                    const containerRect = chatContainer.getBoundingClientRect();
+                    const scrollOffset = rect.top - containerRect.top + chatContainer.scrollTop - 10;
+                    chatContainer.scrollTo({top: scrollOffset, behavior: 'smooth'});
+                }, 50);
+                return;
+            }
             
             if (!isUser && confidence) {
                 const badgeClass = `confidence-${confidence.toLowerCase()}`;
@@ -465,19 +503,13 @@
             
             messageHTML += '</div>';
             messageDiv.innerHTML = messageHTML;
-            
             chatContainer.appendChild(messageDiv);
             
-            // Scroll to ACTUAL TOP of the message (not middle)
             setTimeout(() => {
                 const rect = messageDiv.getBoundingClientRect();
                 const containerRect = chatContainer.getBoundingClientRect();
                 const scrollOffset = rect.top - containerRect.top + chatContainer.scrollTop - 10;
-                
-                chatContainer.scrollTo({
-                    top: scrollOffset,
-                    behavior: 'smooth'
-                });
+                chatContainer.scrollTo({top: scrollOffset, behavior: 'smooth'});
             }, 50);
         }
         
@@ -544,7 +576,8 @@
                         false, 
                         data.confidence, 
                         data.sources,
-                        data.suggested_followups
+                        data.suggested_followups,
+                        data.paywall || false
                     );
                 } else {
                     addMessage(`<div class="error-message">${data.error || 'An error occurred'}</div>`, false);
@@ -562,6 +595,26 @@
         function askQuestion(question) {
             document.getElementById('userInput').value = question;
             sendMessage();
+        }
+        
+        async function upgradeToPremium() {
+            try {
+                const response = await fetch(`${API_URL}/api/create-checkout`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.checkout_url) {
+                    window.location.href = data.checkout_url;
+                } else {
+                    alert('Failed to create checkout session. Please try again.');
+                }
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Failed to start checkout. Please try again.');
+            }
         }
     </script>
 </body>
