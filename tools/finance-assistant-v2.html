@@ -677,16 +677,28 @@
                 
                 if (data.success) {
                     const report = data.report;
+                    
+                    // Extract quality score from quality object
+                    const qualityScore = report.quality ? (
+                        report.quality.data_integrity === 'excellent' ? 0.9 :
+                        report.quality.data_integrity === 'good' ? 0.7 :
+                        report.quality.data_integrity === 'fair' ? 0.5 : 0.3
+                    ) : undefined;
+                    
                     const metadata = {
-                        quality_score: report.quality_score,
-                        policy_status: report.policy_status,
+                        quality_score: qualityScore,
+                        policy_status: report.quality ? report.quality.policy_status : undefined,
                         report_type: report.report_type,
-                        follow_up_questions: report.follow_up_questions,
-                        citations: report.citations,
+                        follow_up_questions: (report.followups || []).map(f => f.question),
+                        citations: (report.sources || []).map(s => ({
+                            title: s.title,
+                            url: s.url || '#'
+                        })),
                         trace_id: report.trace_id
                     };
                     
-                    addMessage(report, false, metadata);
+                    // Pass the markdown content, not the whole report object
+                    addMessage(report.answer_markdown || report, false, metadata);
                 } else {
                     addMessage(`<div class="error-message">${data.error || 'An error occurred'}</div>`, false);
                 }
