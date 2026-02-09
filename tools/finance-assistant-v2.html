@@ -487,6 +487,29 @@
         // Configure API endpoint - UPDATE THIS WITH YOUR RAILWAY URL
         const API_URL = 'https://finance-assistant-v2-backend-production.up.railway.app';
         
+        // ========================================================================
+        // TICKER EXTRACTION - FIXED!
+        // ========================================================================
+        function extractTickers(question) {
+            // Common ticker patterns
+            const tickerPattern = /\b([A-Z]{1,5})\b/g;
+            
+            const tickers = new Set();
+            
+            // Extract all potential tickers
+            const matches = question.matchAll(tickerPattern);
+            for (const match of matches) {
+                const ticker = match[1];
+                // Filter out common words that aren't tickers
+                const excludeWords = ['I', 'A', 'THE', 'AND', 'OR', 'BUT', 'FOR', 'TO', 'IS', 'ARE', 'WAS', 'WERE', 'BE', 'BEEN', 'VS', 'V'];
+                if (!excludeWords.includes(ticker) && ticker.length >= 2) {
+                    tickers.add(ticker);
+                }
+            }
+            
+            return Array.from(tickers);
+        }
+        
         function formatReportContent(report) {
             let html = '';
             
@@ -640,6 +663,9 @@
             if (loading) loading.remove();
         }
         
+        // ========================================================================
+        // SEND MESSAGE - FIXED!
+        // ========================================================================
         async function sendMessage() {
             const input = document.getElementById('userInput');
             const sendBtn = document.getElementById('sendBtn');
@@ -658,6 +684,10 @@
             addLoadingMessage();
             
             try {
+                // FIXED: Extract tickers from question
+                const tickers = extractTickers(question);
+                console.log('🎯 Extracted tickers:', tickers);
+                
                 const response = await fetch(`${API_URL}/api/generate-report`, {
                     method: 'POST',
                     headers: {
@@ -665,7 +695,7 @@
                     },
                     body: JSON.stringify({ 
                         question: question,
-                        tickers: []
+                        tickers: tickers  // ← FIXED: Use extracted tickers instead of []
                     })
                 });
                 
@@ -705,7 +735,7 @@
                 
             } catch (error) {
                 removeLoadingMessage();
-                addMessage(`<div class="error-message">CONNECTION ERROR: Backend not responding at ${API_URL}<br><br>Make sure the Flask server is running on port 5000.</div>`, false);
+                addMessage(`<div class="error-message">CONNECTION ERROR: Backend not responding at ${API_URL}<br><br>Make sure the server is running.</div>`, false);
             }
             
             sendBtn.disabled = false;
@@ -719,6 +749,3 @@
     </script>
 </body>
 </html>
-  
- 
- 
