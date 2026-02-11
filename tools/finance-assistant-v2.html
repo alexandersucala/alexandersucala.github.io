@@ -488,25 +488,85 @@
         const API_URL = 'https://finance-assistant-v2-backend-production.up.railway.app';
         
         // ========================================================================
-        // TICKER EXTRACTION - FIXED!
+        // TICKER EXTRACTION - FIXED (handles lowercase company names + symbols)
         // ========================================================================
+        const COMPANY_MAP = {
+            // Big Tech
+            'apple': 'AAPL', 'aapl': 'AAPL',
+            'microsoft': 'MSFT', 'msft': 'MSFT',
+            'google': 'GOOGL', 'alphabet': 'GOOGL', 'googl': 'GOOGL', 'goog': 'GOOGL',
+            'amazon': 'AMZN', 'amzn': 'AMZN',
+            'meta': 'META', 'facebook': 'META',
+            'nvidia': 'NVDA', 'nvda': 'NVDA',
+            'tesla': 'TSLA', 'tsla': 'TSLA',
+            'netflix': 'NFLX', 'nflx': 'NFLX',
+            // Semiconductors
+            'amd': 'AMD', 'advanced micro': 'AMD',
+            'intel': 'INTC', 'intc': 'INTC',
+            'qualcomm': 'QCOM', 'qcom': 'QCOM',
+            'broadcom': 'AVGO', 'avgo': 'AVGO',
+            'tsmc': 'TSM', 'tsm': 'TSM',
+            // Finance
+            'jpmorgan': 'JPM', 'jp morgan': 'JPM', 'jpm': 'JPM',
+            'goldman': 'GS', 'goldman sachs': 'GS', 'gs': 'GS',
+            'berkshire': 'BRK.B', 'berkshire hathaway': 'BRK.B',
+            'visa': 'V',
+            'mastercard': 'MA', 'ma': 'MA',
+            // Consumer
+            'walmart': 'WMT', 'wmt': 'WMT',
+            'disney': 'DIS', 'dis': 'DIS',
+            'nike': 'NKE', 'nke': 'NKE',
+            'starbucks': 'SBUX', 'sbux': 'SBUX',
+            'mcdonalds': 'MCD', "mcdonald's": 'MCD', 'mcd': 'MCD',
+            'coca cola': 'KO', 'coca-cola': 'KO', 'ko': 'KO',
+            // Other popular
+            'palantir': 'PLTR', 'pltr': 'PLTR',
+            'salesforce': 'CRM', 'crm': 'CRM',
+            'uber': 'UBER',
+            'airbnb': 'ABNB', 'abnb': 'ABNB',
+            'spotify': 'SPOT', 'spot': 'SPOT',
+            'coinbase': 'COIN', 'coin': 'COIN',
+            'snowflake': 'SNOW', 'snow': 'SNOW',
+            'shopify': 'SHOP', 'shop': 'SHOP',
+            'paypal': 'PYPL', 'pypl': 'PYPL',
+            'square': 'SQ', 'block': 'SQ',
+            'twitter': 'X', 'x corp': 'X',
+            'amd': 'AMD',
+            'openai': 'MSFT',  // OpenAI is private; surface MSFT as proxy
+            'arm': 'ARM',
+        };
+
         function extractTickers(question) {
-            // Common ticker patterns
-            const tickerPattern = /\b([A-Z]{1,5})\b/g;
-            
             const tickers = new Set();
-            
-            // Extract all potential tickers
-            const matches = question.matchAll(tickerPattern);
-            for (const match of matches) {
-                const ticker = match[1];
-                // Filter out common words that aren't tickers
-                const excludeWords = ['I', 'A', 'THE', 'AND', 'OR', 'BUT', 'FOR', 'TO', 'IS', 'ARE', 'WAS', 'WERE', 'BE', 'BEEN', 'VS', 'V'];
-                if (!excludeWords.includes(ticker) && ticker.length >= 2) {
+            const lower = question.toLowerCase();
+
+            // 1. Check company name map (handles "apple", "nvidia", etc.)
+            for (const [name, ticker] of Object.entries(COMPANY_MAP)) {
+                // Use word boundary check to avoid partial matches
+                const regex = new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`);
+                if (regex.test(lower)) {
                     tickers.add(ticker);
                 }
             }
-            
+
+            // 2. Extract explicit uppercase tickers from the original question (e.g. "AAPL", "NVDA")
+            const upperPattern = /\b([A-Z]{2,5})\b/g;
+            const excludeWords = new Set(['I', 'A', 'THE', 'AND', 'OR', 'BUT', 'FOR', 'TO', 'IS', 'ARE',
+                                          'WAS', 'WERE', 'BE', 'BEEN', 'VS', 'AT', 'IN', 'OF', 'ON',
+                                          'BY', 'IF', 'SO', 'DO', 'MY', 'IT', 'ITS', 'HOW', 'WHY',
+                                          'WHAT', 'WHEN', 'WHO', 'CAN', 'HAS', 'HAD', 'NOT', 'ANY',
+                                          'ALL', 'NOW', 'NEW', 'TOP', 'GET', 'SET', 'BIG', 'OLD',
+                                          'UP', 'AI', 'US', 'EU', 'UK', 'IPO', 'ETF', 'GDP', 'CEO',
+                                          'CFO', 'COO', 'SEC', 'FED', 'ETF', 'P/E', 'EPS', 'Q1',
+                                          'Q2', 'Q3', 'Q4', 'YOY', 'YTD', 'MOM']);
+            const upperMatches = question.matchAll(upperPattern);
+            for (const match of upperMatches) {
+                const ticker = match[1];
+                if (!excludeWords.has(ticker)) {
+                    tickers.add(ticker);
+                }
+            }
+
             return Array.from(tickers);
         }
         
