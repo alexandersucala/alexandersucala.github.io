@@ -448,6 +448,17 @@
             margin-top: 12px;
             font-family: 'Courier New', monospace;
         }
+        
+        .inline-link {
+            color: #60a5fa;
+            text-decoration: none;
+            border-bottom: 1px dotted #60a5fa;
+        }
+        
+        .inline-link:hover {
+            color: #93c5fd;
+            border-bottom-style: solid;
+        }
     </style>
 </head>
 <body>
@@ -486,6 +497,27 @@
     <script>
         // Configure API endpoint - UPDATE THIS WITH YOUR RAILWAY URL
         const API_URL = 'https://finance-assistant-v2-backend-production.up.railway.app';
+        
+        // ========================================================================
+        // MARKDOWN RENDERING
+        // ========================================================================
+        function renderMarkdown(text) {
+            // Convert markdown links [text](url) to HTML
+            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="inline-link">$1</a>');
+            
+            // Convert **bold** to <strong>
+            text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            
+            // Convert headers (# Header)
+            text = text.replace(/^### (.+)$/gm, '<h3 style="margin-top:16px;margin-bottom:8px;font-size:14px;color:#60a5fa;">$1</h3>');
+            text = text.replace(/^## (.+)$/gm, '<h2 style="margin-top:20px;margin-bottom:10px;font-size:16px;color:#60a5fa;">$1</h2>');
+            text = text.replace(/^# (.+)$/gm, '<h1 style="margin-top:24px;margin-bottom:12px;font-size:18px;font-weight:700;">$1</h1>');
+            
+            // Convert line breaks
+            text = text.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+            
+            return text;
+        }
         
         // ========================================================================
         // TICKER EXTRACTION - FIXED (handles lowercase company names + symbols)
@@ -660,7 +692,7 @@
             }
             
             if (typeof content === 'string') {
-                const formattedContent = content.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+                const formattedContent = renderMarkdown(content);
                 messageHTML += formattedContent;
             } else {
                 messageHTML += formatReportContent(content);
@@ -674,6 +706,8 @@
                 messageHTML += '</div>';
             }
             
+            // Citations already rendered inline in markdown, hide duplicate section
+            /*
             if (!isUser && metadata && metadata.citations && metadata.citations.length > 0) {
                 messageHTML += '<div class="citations">';
                 messageHTML += '<div class="citations-title">CITATIONS:</div>';
@@ -682,6 +716,7 @@
                 });
                 messageHTML += '</div>';
             }
+            */
             
             if (!isUser && metadata && metadata.trace_id) {
                 messageHTML += `<div class="trace-id">trace: ${metadata.trace_id}</div>`;
