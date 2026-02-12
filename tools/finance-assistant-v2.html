@@ -464,24 +464,28 @@
             background: #1a1a1a;
             border: 1px solid #2a2a2a;
             border-radius: 8px;
-            padding: 12px;
+            padding: 16px;
+            width: 250px;
+            flex-shrink: 0;
         }
         
         .quality-title {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             color: #888;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #2a2a2a;
         }
         
         .quality-item {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            margin-bottom: 6px;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
             border-radius: 6px;
             font-size: 12px;
         }
@@ -502,12 +506,24 @@
         }
         
         .quality-icon {
-            font-size: 14px;
+            font-size: 16px;
+            line-height: 1;
+        }
+        
+        .quality-detail {
+            flex: 1;
         }
         
         .quality-label {
-            font-weight: 500;
+            font-weight: 600;
             color: #e0e0e0;
+            margin-bottom: 4px;
+        }
+        
+        .quality-desc {
+            font-size: 11px;
+            color: #999;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -563,8 +579,8 @@
             text = text.replace(/^## (.+)$/gm, '<h2 style="margin-top:20px;margin-bottom:10px;font-size:16px;color:#60a5fa;">$1</h2>');
             text = text.replace(/^# (.+)$/gm, '<h1 style="margin-top:24px;margin-bottom:12px;font-size:18px;font-weight:700;">$1</h1>');
             
-            // Convert line breaks
-            text = text.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+            // Convert line breaks - single newline becomes space, double newline becomes <br>
+            text = text.replace(/\n\n+/g, '<br><br>').replace(/\n/g, ' ');
             
             return text;
         }
@@ -719,20 +735,20 @@
             
             if (!isUser && metadata) {
                 // Two-column layout: main content + quality sidebar
-                messageHTML += '<div style="display: flex; gap: 16px;">';
+                messageHTML += '<div style="display: flex; gap: 20px; max-width: 100%;">';
                 
                 // Left column: Main report
-                messageHTML += '<div style="flex: 1; min-width: 0;">';
+                messageHTML += '<div style="flex: 1; min-width: 0; max-width: 800px;">';
                 
                 // Top badges (ticker context)
-                messageHTML += '<div class="metadata-bar" style="margin-bottom: 12px;">';
+                messageHTML += '<div class="metadata-bar" style="margin-bottom: 16px;">';
                 if (metadata.report_type) {
                     messageHTML += `<span class="badge report-type">${metadata.report_type.replace(/_/g, ' ')}</span>`;
                 }
                 messageHTML += '</div>';
                 
                 // Main content
-                messageHTML += '<div class="message-content">';
+                messageHTML += '<div class="message-content" style="line-height: 1.6;">';
             } else {
                 messageHTML += '<div class="message-content">';
             }
@@ -760,7 +776,7 @@
                 messageHTML += '</div>';
                 
                 // Right column: Quality sidebar
-                messageHTML += '<div style="width: 200px; flex-shrink: 0;">';
+                messageHTML += '<div style="width: 250px; flex-shrink: 0;">';
                 messageHTML += buildQualitySidebar(metadata);
                 messageHTML += '</div>';
                 
@@ -785,35 +801,49 @@
         
         function buildQualitySidebar(metadata) {
             let html = '<div class="quality-sidebar">';
-            html += '<div class="quality-title">Quality</div>';
+            html += '<div class="quality-title">Analysis Quality</div>';
             
-            // Data Quality
+            // Data Quality - with detail
             const score = metadata.quality_score || 0;
             const scoreClass = score >= 0.8 ? 'green' : score >= 0.6 ? 'yellow' : 'red';
             html += `<div class="quality-item ${scoreClass}">`;
-            html += `<span class="quality-icon">${score >= 0.8 ? '✅' : score >= 0.6 ? '⚠️' : '❌'}</span>`;
-            html += `<span class="quality-label">Data: ${(score * 100).toFixed(0)}%</span>`;
+            html += `<div class="quality-icon">${score >= 0.8 ? '✅' : score >= 0.6 ? '⚠️' : '❌'}</div>`;
+            html += `<div class="quality-detail">`;
+            html += `<div class="quality-label">Data Quality</div>`;
+            html += `<div class="quality-desc">${(score * 100).toFixed(0)}% - ${score >= 0.8 ? 'Excellent sources' : score >= 0.6 ? 'Good coverage' : 'Limited data'}</div>`;
+            html += `</div>`;
             html += '</div>';
             
-            // Policy Status
+            // Policy Status - with detail
             if (metadata.policy_status) {
                 const status = metadata.policy_status.toLowerCase();
                 const policyClass = status === 'pass' ? 'green' : status === 'rewrite' ? 'yellow' : 'red';
                 const policyIcon = status === 'pass' ? '✅' : status === 'rewrite' ? '⚠️' : '❌';
-                const policyLabel = status === 'pass' ? 'Compliant' : status === 'rewrite' ? 'Rewritten' : 'Blocked';
                 
                 html += `<div class="quality-item ${policyClass}">`;
-                html += `<span class="quality-icon">${policyIcon}</span>`;
-                html += `<span class="quality-label">${policyLabel}</span>`;
+                html += `<div class="quality-icon">${policyIcon}</div>`;
+                html += `<div class="quality-detail">`;
+                html += `<div class="quality-label">Compliance</div>`;
+                if (status === 'pass') {
+                    html += `<div class="quality-desc">No violations detected</div>`;
+                } else if (status === 'rewrite') {
+                    html += `<div class="quality-desc">Auto-corrected advisory language</div>`;
+                } else {
+                    html += `<div class="quality-desc">Blocked - cannot fix</div>`;
+                }
+                html += `</div>`;
                 html += '</div>';
             }
             
-            // Citations
+            // Citations - with detail
             if (metadata.citations && metadata.citations.length > 0) {
                 const citationClass = metadata.citations.length >= 5 ? 'green' : metadata.citations.length >= 3 ? 'yellow' : 'red';
                 html += `<div class="quality-item ${citationClass}">`;
-                html += `<span class="quality-icon">${metadata.citations.length >= 5 ? '✅' : '⚠️'}</span>`;
-                html += `<span class="quality-label">${metadata.citations.length} sources</span>`;
+                html += `<div class="quality-icon">${metadata.citations.length >= 5 ? '✅' : '⚠️'}</div>`;
+                html += `<div class="quality-detail">`;
+                html += `<div class="quality-label">Sources</div>`;
+                html += `<div class="quality-desc">${metadata.citations.length} ${metadata.citations.length === 1 ? 'source' : 'sources'} - All claims cited</div>`;
+                html += `</div>`;
                 html += '</div>';
             }
             
