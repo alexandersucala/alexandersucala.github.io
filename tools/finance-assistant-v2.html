@@ -67,7 +67,7 @@
         
         .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             height: calc(100vh - 140px);
             background: #000000;
             border-radius: 16px;
@@ -104,7 +104,7 @@
         }
         
         .message {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             animation: fadeIn 0.3s ease-in;
         }
         
@@ -119,15 +119,14 @@
         }
         
         .message.assistant {
-            display: flex;
-            justify-content: flex-start;
+            display: block;
         }
         
         .message-content {
             max-width: 85%;
-            padding: 16px 20px;
+            padding: 14px 16px;
             border-radius: 12px;
-            line-height: 1.7;
+            line-height: 1.5;
             font-size: 14px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
@@ -196,29 +195,35 @@
         }
         
         .report-section {
-            margin-top: 16px;
-            padding-top: 16px;
+            margin-top: 8px;
+            padding-top: 8px;
             border-top: 1px solid #2a2a2a;
+        }
+        
+        .report-section:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
         }
         
         .report-section h3 {
             font-size: 13px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             color: #60a5fa;
             letter-spacing: 0.5px;
         }
         
         .report-section p {
             font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 8px;
+            line-height: 1.5;
+            margin-bottom: 4px;
         }
         
         .report-section ul {
             margin-left: 20px;
             font-size: 13px;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .report-section ul li {
@@ -464,9 +469,9 @@
             background: #1a1a1a;
             border: 1px solid #2a2a2a;
             border-radius: 8px;
-            padding: 16px;
-            width: 250px;
-            flex-shrink: 0;
+            padding: 14px;
+            position: sticky;
+            top: 0;
         }
         
         .quality-title {
@@ -483,9 +488,9 @@
         .quality-item {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            padding: 12px;
-            margin-bottom: 8px;
+            gap: 8px;
+            padding: 10px;
+            margin-bottom: 6px;
             border-radius: 6px;
             font-size: 12px;
         }
@@ -575,12 +580,13 @@
             text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
             
             // Convert headers (# Header)
-            text = text.replace(/^### (.+)$/gm, '<h3 style="margin-top:16px;margin-bottom:8px;font-size:14px;color:#60a5fa;">$1</h3>');
-            text = text.replace(/^## (.+)$/gm, '<h2 style="margin-top:20px;margin-bottom:10px;font-size:16px;color:#60a5fa;">$1</h2>');
-            text = text.replace(/^# (.+)$/gm, '<h1 style="margin-top:24px;margin-bottom:12px;font-size:18px;font-weight:700;">$1</h1>');
+            text = text.replace(/^### (.+)$/gm, '<h3 style="margin-top:10px;margin-bottom:4px;font-size:14px;color:#60a5fa;">$1</h3>');
+            text = text.replace(/^## (.+)$/gm, '<h2 style="margin-top:12px;margin-bottom:6px;font-size:16px;color:#60a5fa;">$1</h2>');
+            text = text.replace(/^# (.+)$/gm, '<h1 style="margin-top:14px;margin-bottom:6px;font-size:18px;font-weight:700;">$1</h1>');
             
-            // Convert line breaks - single newline becomes space, double newline becomes <br>
-            text = text.replace(/\n\n+/g, '<br><br>').replace(/\n/g, ' ');
+            // Convert line breaks - double newline becomes paragraph break, single becomes space
+            text = text.replace(/\n\n+/g, '</p><p style="margin-top:8px;">').replace(/\n/g, ' ');
+            text = '<p>' + text + '</p>';
             
             return text;
         }
@@ -735,20 +741,20 @@
             
             if (!isUser && metadata) {
                 // Two-column layout: main content + quality sidebar
-                messageHTML += '<div style="display: flex; gap: 20px; max-width: 100%;">';
+                messageHTML += '<div style="display: flex; gap: 16px; align-items: flex-start;">';
                 
                 // Left column: Main report
-                messageHTML += '<div style="flex: 1; min-width: 0; max-width: 800px;">';
+                messageHTML += '<div style="flex: 1; min-width: 0;">';
                 
                 // Top badges (ticker context)
-                messageHTML += '<div class="metadata-bar" style="margin-bottom: 16px;">';
                 if (metadata.report_type) {
+                    messageHTML += '<div class="metadata-bar" style="margin-bottom: 8px;">';
                     messageHTML += `<span class="badge report-type">${metadata.report_type.replace(/_/g, ' ')}</span>`;
+                    messageHTML += '</div>';
                 }
-                messageHTML += '</div>';
                 
                 // Main content
-                messageHTML += '<div class="message-content" style="line-height: 1.6;">';
+                messageHTML += '<div class="message-content" style="line-height: 1.5; max-width: 100%;">';
             } else {
                 messageHTML += '<div class="message-content">';
             }
@@ -776,7 +782,7 @@
                 messageHTML += '</div>';
                 
                 // Right column: Quality sidebar
-                messageHTML += '<div style="width: 250px; flex-shrink: 0;">';
+                messageHTML += '<div style="width: 220px; flex-shrink: 0;">';
                 messageHTML += buildQualitySidebar(metadata);
                 messageHTML += '</div>';
                 
