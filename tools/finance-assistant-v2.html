@@ -459,6 +459,56 @@
             color: #93c5fd;
             border-bottom-style: solid;
         }
+        
+        .quality-sidebar {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 12px;
+        }
+        
+        .quality-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            color: #888;
+        }
+        
+        .quality-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+        
+        .quality-item.green {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid #22c55e;
+        }
+        
+        .quality-item.yellow {
+            background: rgba(234, 179, 8, 0.1);
+            border-left: 3px solid #eab308;
+        }
+        
+        .quality-item.red {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid #ef4444;
+        }
+        
+        .quality-icon {
+            font-size: 14px;
+        }
+        
+        .quality-label {
+            font-weight: 500;
+            color: #e0e0e0;
+        }
     </style>
 </head>
 <body>
@@ -665,30 +715,26 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
             
-            let messageHTML = '<div class="message-content">';
+            let messageHTML = '';
             
             if (!isUser && metadata) {
-                messageHTML += '<div class="metadata-bar">';
+                // Two-column layout: main content + quality sidebar
+                messageHTML += '<div style="display: flex; gap: 16px;">';
                 
-                if (metadata.quality_score !== undefined) {
-                    const score = metadata.quality_score;
-                    const confClass = score >= 0.8 ? 'confidence-high' : 
-                                     score >= 0.6 ? 'confidence-medium' : 'confidence-low';
-                    messageHTML += `<span class="badge ${confClass}">QUALITY: ${(score * 100).toFixed(0)}%</span>`;
-                }
+                // Left column: Main report
+                messageHTML += '<div style="flex: 1; min-width: 0;">';
                 
-                if (metadata.policy_status) {
-                    const status = metadata.policy_status.toLowerCase();
-                    const policyClass = status === 'pass' ? 'policy-pass' : 
-                                       status === 'rewrite' ? 'policy-rewrite' : 'policy-fail';
-                    messageHTML += `<span class="badge ${policyClass}">POLICY: ${metadata.policy_status}</span>`;
-                }
-                
+                // Top badges (ticker context)
+                messageHTML += '<div class="metadata-bar" style="margin-bottom: 12px;">';
                 if (metadata.report_type) {
-                    messageHTML += `<span class="badge report-type">${metadata.report_type}</span>`;
+                    messageHTML += `<span class="badge report-type">${metadata.report_type.replace(/_/g, ' ')}</span>`;
                 }
-                
                 messageHTML += '</div>';
+                
+                // Main content
+                messageHTML += '<div class="message-content">';
+            } else {
+                messageHTML += '<div class="message-content">';
             }
             
             if (typeof content === 'string') {
@@ -706,23 +752,26 @@
                 messageHTML += '</div>';
             }
             
-            // Citations already rendered inline in markdown, hide duplicate section
-            /*
-            if (!isUser && metadata && metadata.citations && metadata.citations.length > 0) {
-                messageHTML += '<div class="citations">';
-                messageHTML += '<div class="citations-title">CITATIONS:</div>';
-                metadata.citations.forEach(citation => {
-                    messageHTML += `<a href="${citation.url}" target="_blank" class="citation-link">${citation.title}</a>`;
-                });
+            // Close main content div
+            messageHTML += '</div>';
+            
+            if (!isUser && metadata) {
+                // Close left column
+                messageHTML += '</div>';
+                
+                // Right column: Quality sidebar
+                messageHTML += '<div style="width: 200px; flex-shrink: 0;">';
+                messageHTML += buildQualitySidebar(metadata);
+                messageHTML += '</div>';
+                
+                // Close two-column layout
                 messageHTML += '</div>';
             }
-            */
             
             if (!isUser && metadata && metadata.trace_id) {
                 messageHTML += `<div class="trace-id">trace: ${metadata.trace_id}</div>`;
             }
             
-            messageHTML += '</div>';
             messageDiv.innerHTML = messageHTML;
             chatContainer.appendChild(messageDiv);
             
@@ -732,6 +781,44 @@
                 const scrollOffset = rect.top - containerRect.top + chatContainer.scrollTop - 10;
                 chatContainer.scrollTo({top: scrollOffset, behavior: 'smooth'});
             }, 50);
+        }
+        
+        function buildQualitySidebar(metadata) {
+            let html = '<div class="quality-sidebar">';
+            html += '<div class="quality-title">Quality</div>';
+            
+            // Data Quality
+            const score = metadata.quality_score || 0;
+            const scoreClass = score >= 0.8 ? 'green' : score >= 0.6 ? 'yellow' : 'red';
+            html += `<div class="quality-item ${scoreClass}">`;
+            html += `<span class="quality-icon">${score >= 0.8 ? '✅' : score >= 0.6 ? '⚠️' : '❌'}</span>`;
+            html += `<span class="quality-label">Data: ${(score * 100).toFixed(0)}%</span>`;
+            html += '</div>';
+            
+            // Policy Status
+            if (metadata.policy_status) {
+                const status = metadata.policy_status.toLowerCase();
+                const policyClass = status === 'pass' ? 'green' : status === 'rewrite' ? 'yellow' : 'red';
+                const policyIcon = status === 'pass' ? '✅' : status === 'rewrite' ? '⚠️' : '❌';
+                const policyLabel = status === 'pass' ? 'Compliant' : status === 'rewrite' ? 'Rewritten' : 'Blocked';
+                
+                html += `<div class="quality-item ${policyClass}">`;
+                html += `<span class="quality-icon">${policyIcon}</span>`;
+                html += `<span class="quality-label">${policyLabel}</span>`;
+                html += '</div>';
+            }
+            
+            // Citations
+            if (metadata.citations && metadata.citations.length > 0) {
+                const citationClass = metadata.citations.length >= 5 ? 'green' : metadata.citations.length >= 3 ? 'yellow' : 'red';
+                html += `<div class="quality-item ${citationClass}">`;
+                html += `<span class="quality-icon">${metadata.citations.length >= 5 ? '✅' : '⚠️'}</span>`;
+                html += `<span class="quality-label">${metadata.citations.length} sources</span>`;
+                html += '</div>';
+            }
+            
+            html += '</div>';
+            return html;
         }
         
         function addLoadingMessage() {
