@@ -62,11 +62,6 @@
       color: #fff;
     }
 
-    .badge-beta {
-      background: #1e40af;
-      color: #fff;
-    }
-
     /* ── Architecture Diagrams (text-based) ──────────────── */
     .pipeline {
       background: #f7f7f7;
@@ -174,17 +169,6 @@
       font-family: "SF Mono", "Fira Code", "Consolas", monospace;
       white-space: nowrap;
     }
-
-    /* ── Legal links ─────────────────────────────────────── */
-    .legal-links {
-      margin-top: 1rem;
-      font-size: 0.78rem;
-      opacity: 0.7;
-    }
-
-    .legal-links a {
-      color: inherit;
-    }
   </style>
 </head>
 <body>
@@ -289,68 +273,61 @@ Final Report + Trace Log</div>
       <section class="tool-card">
         <h2>
           CodeReview AI
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-beta">Beta</span>
+          <span class="badge badge-dev">In Development</span>
         </h2>
 
         <p>
-          AI-powered code reviews grounded in your team's actual documentation.
-          Install the GitHub App, and CodeReview AI automatically scans your repo for docs,
-          classifies them into review gates, and reviews every PR against your own standards —
-          not generic best practices.
+          Automated, document-grounded code review that integrates directly with GitHub.
+          The system auto-discovers a repository's documentation, classifies it into review categories,
+          then uses that knowledge base to flag security violations, architectural drift, onboarding process
+          failures, and style issues — all with exact documentation citations.
         </p>
 
         <p>
-          <strong>Why it matters:</strong> Every finding cites the specific document and line range
-          it's based on. Findings are tagged 🔎 <em>doc-backed</em> or 💭 <em>AI suggestion</em>
-          so reviewers know what's policy enforcement and what's an intelligent observation.
-          A two-pass hallucination guard ensures no fabricated findings reach your PR.
+          <strong>Why it matters:</strong> Generic AI code review gives opinions. This system gives
+          <em>document-backed findings</em> — every flag references the company's own docs, not general
+          best practices. Findings are tagged DOCUMENT_BACKED or LLM_OPINION so reviewers know
+          what's policy and what's suggestion.
         </p>
 
-        <h3>Five Review Gates</h3>
+        <h3>Review Pipeline</h3>
+
+        <div class="pipeline">GitHub PR Webhook
+  ↓
+[/setup] Auto-Discovery — scans repo tree, fetches docs, classifies by gate
+  ↓
+[Decomposer] Splits large docs into gate-specific sections (LLM + keyword fallback)
+  ↓
+[Pass 1] Four parallel gate reviews:
+  ├── Security — auth, injection, secrets, data exposure
+  ├── Architecture — patterns, boundaries, coupling, API contracts
+  ├── Onboarding — PR format, checklists, test requirements, commit style
+  └── Style — naming, formatting, linting, import order
+  ↓
+[Pass 2] Hallucination Verification — re-checks each finding against source docs
+  ↓
+[Traffic Light] RED (blocking) / YELLOW (needs fixes) / GREEN (ready)
+  ↓
+PR Comment with cited findings</div>
+
+        <h3>Classification Pipeline</h3>
         <ul class="gate-list">
-          <li><span class="gate-label">Security</span> API keys, auth patterns, secrets, data exposure</li>
-          <li><span class="gate-label">Architecture</span> Design patterns, module boundaries, dependency rules</li>
-          <li><span class="gate-label">Legal</span> Licensing, CLA, copyright compliance</li>
-          <li><span class="gate-label">Style</span> Naming, formatting, linting, code standards</li>
-          <li><span class="gate-label">Onboarding</span> PR process, testing requirements, contribution workflow</li>
+          <li><span class="gate-label">Step 1</span> Filename heuristics — fast pattern matching (~80% accuracy)</li>
+          <li><span class="gate-label">Step 2</span> LLM content analysis — reads document content (~95% accuracy)</li>
+          <li><span class="gate-label">Step 3</span> User confirmation — human-in-the-loop (100% accuracy)</li>
         </ul>
 
-        <h3>Setup Flow</h3>
         <p>
-          Install the app and CodeReview AI auto-detects your repo, scans the tree for documentation,
-          and presents classified results with live progress — file by file, in real time.
-          Multi-topic documents (like a CONTRIBUTING.md covering security, style, and process)
-          are automatically decomposed into gate-specific sections. Confirm, and reviews start
-          on your next PR.
-        </p>
-
-        <h3>Document Discovery Pipeline</h3>
-        <ul class="gate-list">
-          <li><span class="gate-label">Step 1</span> Filename heuristics — fast pattern matching</li>
-          <li><span class="gate-label">Step 2</span> LLM content analysis — reads and classifies document content</li>
-          <li><span class="gate-label">Step 3</span> Multi-gate decomposition — splits large docs into gate-specific sections</li>
-          <li><span class="gate-label">Step 4</span> User confirmation — human-in-the-loop final review</li>
-        </ul>
-
-        <p>
-          Results post directly as a PR comment with a traffic light summary:
-          🟢 GREEN (clean), 🟡 YELLOW (needs attention), or 🔴 RED (blocking issues).
+          Tested against production repos including Stripe, Cal.com, Supabase, and Vercel documentation.
         </p>
 
         <div class="tech-stack">
           <span class="chip">FastAPI</span>
           <span class="chip">Claude API</span>
-          <span class="chip">GitHub App</span>
+          <span class="chip">GitHub API</span>
           <span class="chip">Railway</span>
-          <span class="chip">Background Workers</span>
+          <span class="chip">Dependency Injection</span>
           <span class="chip">Structured Logging</span>
-        </div>
-
-        <a href="https://github.com/apps/codereview-ai-dev" class="launch-btn">Install GitHub App →</a>
-
-        <div class="legal-links">
-          <a href="tools/codereview-ai-privacy.html">Privacy Policy</a> · <a href="tools/codereview-ai-terms.html">Terms of Service</a>
         </div>
       </section>
 

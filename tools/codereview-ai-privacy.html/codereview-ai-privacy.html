@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodeReview AI — Privacy Policy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Privacy Policy for CodeReview AI by Alexander Sucala.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <nav class="topnav" aria-label="Primary">
+      <a href="/index.html">Home</a>
+      <a href="/research.html">Research</a>
+      <a href="/patents.html">Patents</a>
+      <a href="/systems.html">Systems</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>CodeReview AI — Privacy Policy</h1>
+    <p><em>Effective: February 2026</em></p>
+
+    <h2>What We Collect</h2>
+    <p>
+      When you install CodeReview AI on a GitHub repository, we access:
+    </p>
+    <ul>
+      <li><strong>Repository documentation files</strong> (.md, .rst, .txt) — scanned during setup to build your review knowledge base.</li>
+      <li><strong>Pull request diffs and metadata</strong> — read when a PR is opened or updated, used solely to perform the code review.</li>
+      <li><strong>GitHub installation identifiers</strong> — used to associate your repository with your review configuration.</li>
+    </ul>
+
+    <h2>What We Store</h2>
+    <ul>
+      <li><strong>Documentation content</strong> — ingested and stored to power reviews. You can delete this at any time by uninstalling the app.</li>
+      <li><strong>Review results</strong> — findings, gate statuses, and traffic light outcomes are stored for quality improvement.</li>
+      <li><strong>PR diffs are not permanently stored.</strong> Diffs are processed in memory during a review and discarded after the review comment is posted.</li>
+    </ul>
+
+    <h2>What We Do Not Do</h2>
+    <ul>
+      <li>We do not sell your data to third parties.</li>
+      <li>We do not use your code to train AI models.</li>
+      <li>We do not access files beyond documentation and PR diffs.</li>
+      <li>We do not store your source code.</li>
+    </ul>
+
+    <h2>Third-Party Services</h2>
+    <p>
+      CodeReview AI uses the following third-party services to operate:
+    </p>
+    <ul>
+      <li><strong>GitHub API</strong> — to read repository contents and post review comments.</li>
+      <li><strong>Anthropic Claude API</strong> — to perform AI-powered document analysis and code review.</li>
+      <li><strong>Railway</strong> — cloud hosting for the application backend.</li>
+    </ul>
+
+    <h2>Data Retention</h2>
+    <p>
+      Documentation and review data are retained as long as the GitHub App is installed on your repository. Uninstalling the app triggers deletion of all stored data associated with your repository within 30 days.
+    </p>
+
+    <h2>Security</h2>
+    <p>
+      All communication occurs over HTTPS. GitHub tokens are used with minimum required permissions and are not stored beyond their session lifetime. Database access is restricted to the application backend.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      For privacy questions or data deletion requests: <a href="mailto:alexandersucala@gmail.com">alexandersucala@gmail.com</a>
+    </p>
+
+    <footer class="footerbar">
+      <nav class="footernav" aria-label="Footer">
+        <a href="/index.html">Home</a>
+        <a href="/tools.html">Tools</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+      <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
