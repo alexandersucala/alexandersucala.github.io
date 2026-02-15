@@ -63,6 +63,21 @@
       background: #fff;
       color: #000;
     }
+    .launch-btn-outline {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      border: 2px solid #000;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .launch-btn-outline:hover {
+      background: #000;
+      color: #fff;
+    }
     .launch-btn-disabled {
       display: inline-block;
       padding: 12px 24px;
@@ -73,6 +88,12 @@
       border-radius: 6px;
       font-weight: 600;
       cursor: default;
+    }
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
     }
   </style>
 </head>
@@ -130,11 +151,18 @@
         documentation into review gates during setup.
       </p>
 
-      <p style="margin-top: 1.5rem;">
-        <a href="https://github.com/alexandersucala/codereview-ai" class="launch-btn">
-          View on GitHub →
-        </a>
+      <p>
+        <strong>V2 Roadmap:</strong> V2 will have 2 tiers, Tier 1 is everything above. Tier 2 adds 
+        full codebase analysis on setup — scoring your repo across all five gates with a baseline strength 
+        rating for each. A historical dashboard tracks how each gate trends over time so you can see whether 
+        your codebase is improving or declining since install. Tier 1 tells you what's wrong with this PR. 
+        Tier 2 tells you what's happening to your codebase.
       </p>
+
+      <div class="btn-row">
+        <a href="tools/codereview-ai.html" class="launch-btn">Learn More →</a>
+        <a href="https://github.com/apps/codereview-ai-dev" class="launch-btn-outline">Install GitHub App →</a>
+      </div>
     </section>
 
     <!-- 2. TradeEngine — IN DEV -->

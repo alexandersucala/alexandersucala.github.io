@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodeReview AI — Alexander Sucala</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI-powered code reviews grounded in your team's documentation. Not generic best practices. Your rules, your standards, enforced on every PR.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .hero {
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+    .section {
+      margin-top: 2.5rem;
+    }
+    .section h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.8rem;
+    }
+    .section p {
+      line-height: 1.75;
+    }
+    .gate-list {
+      margin: 1rem 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    .gate-list li {
+      padding: 0.4rem 0;
+      font-size: 0.92rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .gate-list li:last-child {
+      border-bottom: none;
+    }
+    .gate-label {
+      font-weight: 600;
+      display: inline-block;
+      min-width: 5.5rem;
+    }
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      border: 2px solid #000;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-primary:hover {
+      background: #fff;
+      color: #000;
+    }
+    .btn-secondary {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      border: 2px solid #000;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      top: -3px;
+    }
+    .status-live {
+      background: #000;
+      color: #fff;
+    }
+    .status-beta {
+      background: #1e40af;
+      color: #fff;
+    }
+    .roadmap {
+      border-left: 3px solid #ccc;
+      padding-left: 1rem;
+      margin-top: 2.5rem;
+    }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+    }
+    .chip {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border: 1px solid #d0d0d0;
+      border-radius: 2px;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      white-space: nowrap;
+    }
+    .legal-links {
+      margin-top: 2.5rem;
+      font-size: 0.78rem;
+      opacity: 0.7;
+    }
+    .legal-links a {
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <nav class="topnav" aria-label="Primary">
+        <a href="/index.html">Home</a>
+        <a href="/research.html">Papers</a>
+        <a href="/patents.html">Patents</a>
+        <a href="/systems.html">Systems</a>
+        <a href="/tools.html">Tools</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>
+      CodeReview AI
+      <span class="status-badge status-live">Live</span>
+      <span class="status-badge status-beta">Beta</span>
+    </h1>
+
+    <div class="hero">
+      <p>
+        Built for engineers who are tired of repeating themselves.
+      </p>
+      <p>
+        Contributing guides, security policies, testing requirements — the docs exist,
+        but they don't enforce themselves. The same comments show up on PR after PR.
+        The same sections get pointed to over and over.
+      </p>
+      <p>
+        CodeReview AI reads your team's documentation and enforces it on every PR automatically.
+        Every word, every section, every update. Findings cite the exact doc and line so the
+        conversation starts at the right place instead of from scratch.
+      </p>
+      <p>
+        PRs arrive with a clear stoplight within two minutes: red means fix this, yellow means
+        heads up, green means good to go. The obvious stuff is already flagged. Reviews can focus
+        on architecture and judgment calls. The docs review themselves. And when a comment comes up
+        that isn't in the docs yet — update the doc. CodeReview catches it next time automatically.
+        That comment never needs to be made again.
+      </p>
+    </div>
+
+    <div class="btn-row">
+      <a href="https://github.com/apps/codereview-ai-dev" class="btn-primary">Install GitHub App →</a>
+      <a href="https://github.com/alexandersucala/codereview-ai" class="btn-secondary">View on GitHub →</a>
+    </div>
+
+    <div class="section">
+      <h2>How it works.</h2>
+      <p>
+        Setup takes two minutes. Install the GitHub App and CodeReview auto-detects your repo,
+        scans the tree for documentation, classifies every file, and shows live progress file by file.
+        Multi-topic docs get decomposed into gate-specific sections with exact line ranges. Confirm
+        what it found and you're live.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Five review gates.</h2>
+      <p>
+        Each gate reviews the diff against your docs for that category. Findings are tagged
+        🔎 doc-backed or 💭 AI suggestion so the team knows what's policy and what's observation.
+      </p>
+      <ul class="gate-list">
+        <li><span class="gate-label">Security</span> API keys, auth patterns, secrets, data exposure</li>
+        <li><span class="gate-label">Architecture</span> Design patterns, module boundaries, dependency rules</li>
+        <li><span class="gate-label">Legal</span> Licensing, CLA, copyright compliance</li>
+        <li><span class="gate-label">Style</span> Naming, formatting, linting, code standards</li>
+        <li><span class="gate-label">Onboarding</span> PR process, testing requirements, contribution workflow</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Two-pass hallucination guard.</h2>
+      <p>
+        Every finding goes through a two-pass hallucination guard before it reaches the PR. If the
+        system can't prove it came from your documentation, it gets killed. No fabricated advice.
+        No phantom rules. Docs stay fresh automatically — someone updates a policy, CodeReview
+        picks it up before the next review. No stale rules. No re-setup.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Results.</h2>
+      <p>
+        Results post as one PR comment. Traffic light at the top. Doc name, line range, and
+        violation for every finding. Expandable details. Clean, scannable, actionable.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Tested against real repos.</h2>
+      <p>
+        Tested against Cal.com, Stripe, Next.js, and Supabase — with messy multi-topic docs,
+        strict contribution policies, and large codebases. Currently in beta and free to use.
+        Actively looking for teams to put it through its paces, break things, and help shape
+        what comes next.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Stack.</h2>
+      <div class="tech-stack">
+        <span class="chip">FastAPI</span>
+        <span class="chip">Claude API</span>
+        <span class="chip">GitHub App</span>
+        <span class="chip">Railway</span>
+        <span class="chip">Background Workers</span>
+        <span class="chip">Structured Logging</span>
+      </div>
+    </div>
+
+    <div class="roadmap">
+      <h2>V2 Roadmap.</h2>
+      <p>
+        Two tiers. Tier 1 is everything above. Tier 2 adds full codebase analysis on setup —
+        scoring your repo across all five gates with a baseline strength rating for each. A
+        historical dashboard tracks how each gate trends over time so you can see whether your
+        codebase is improving or declining since install. Tier 1 tells you what's wrong with
+        this PR. Tier 2 tells you what's happening to your codebase.
+      </p>
+    </div>
+
+    <div class="btn-row">
+      <a href="https://github.com/apps/codereview-ai-dev" class="btn-primary">Install GitHub App →</a>
+      <a href="https://github.com/alexandersucala/codereview-ai" class="btn-secondary">View on GitHub →</a>
+    </div>
+
+    <div class="legal-links">
+      <a href="/tools/codereview-ai-privacy.html">Privacy Policy</a> · <a href="/tools/codereview-ai-terms.html">Terms of Service</a> · <a href="mailto:alexandersucala@gmail.com">Contact</a>
+    </div>
+  </main>
+
+  <footer class="footerbar">
+    <nav class="footernav" aria-label="Footer">
+      <a href="/index.html">Home</a>
+      <a href="/research.html">Papers</a>
+      <a href="/patents.html">Patents</a>
+      <a href="/systems.html">Systems</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
