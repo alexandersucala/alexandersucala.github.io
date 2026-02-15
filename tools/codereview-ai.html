@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CodeReview AI — Alexander Sucala</title>
+  <title>CodeReview AI | Alexander Sucala</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="AI-powered code reviews grounded in your team's documentation. Not generic best practices. Your rules, your standards, enforced on every PR.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -127,7 +127,7 @@
       color: inherit;
     }
 
-    /* ─── Mock UI Components ─── */
+    /* Mock UI Components */
     .mock-ui {
       margin: 1.8rem 0;
       border: 1px solid #d0d0d0;
@@ -166,8 +166,6 @@
       padding: 14px 16px;
       color: #c9d1d9;
     }
-
-    /* Progress log mock */
     .mock-step {
       display: flex;
       align-items: center;
@@ -179,8 +177,6 @@
     .mock-step .text-done { color: #555; }
     .mock-step .text-active { color: #1a1a1a; font-weight: 600; }
     .mock-step .elapsed { color: #999; font-size: 0.68rem; margin-left: auto; }
-
-    /* PR comment mock */
     .mock-pr-header {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 1.05rem;
@@ -231,8 +227,6 @@
       color: #999;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
-    /* Confirm screen mock */
     .mock-gate-summary {
       display: flex;
       gap: 10px;
@@ -294,8 +288,6 @@
       background: #f7f7f7;
       color: #333;
     }
-
-    /* Spinner animation for active mock step */
     .mock-spinner {
       display: inline-block;
       width: 10px; height: 10px;
@@ -305,8 +297,6 @@
       animation: mock-spin 0.8s linear infinite;
     }
     @keyframes mock-spin { to { transform: rotate(360deg); } }
-
-    /* Decomposed section mock */
     .mock-decomp-label {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 0.75rem;
@@ -334,8 +324,6 @@
       font-size: 0.68rem;
       font-family: "SF Mono", "Fira Code", "Consolas", monospace;
     }
-
-    /* Section label */
     .mock-label {
       font-size: 0.68rem;
       color: #999;
@@ -344,8 +332,6 @@
       margin-bottom: 0.4rem;
       font-weight: 600;
     }
-
-    /* Pipeline diagram */
     .pipeline-flow {
       margin: 1.5rem 0;
       padding: 1.2rem;
@@ -364,6 +350,21 @@
     }
     .pipeline-flow .pipe-dim {
       color: #999;
+    }
+    .mock-upload-area {
+      margin-top: 16px;
+      padding: 14px;
+      border: 1px dashed #d0d0d0;
+      border-radius: 6px;
+      text-align: center;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: #999;
+      background: #fff;
+    }
+    .mock-upload-area .upload-hint {
+      font-size: 0.68rem;
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -389,19 +390,16 @@
       <span class="status-badge status-beta">Beta</span>
     </h1>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- HERO -->
-    <!-- ═══════════════════════════════════════════════ -->
     <div class="hero">
       <p>
         Built for engineers who are tired of repeating themselves.
       </p>
       <p>
-        Contributing guides, security policies, testing requirements, architecture decisions — the
+        Contributing guides, security policies, testing requirements, architecture decisions. The
         docs exist, but they don't enforce themselves. The same comments show up on PR after PR.
         The same sections get pointed to over and over. Senior engineers burn time on things that
         should be automatic. New contributors push code that violates standards nobody told them
-        about. Knowledge is scattered across wikis, markdown files, and Slack threads — and none
+        about. Knowledge is scattered across wikis, markdown files, and Slack threads, and none
         of it is wired into the actual review process.
       </p>
       <p>
@@ -409,10 +407,10 @@
         automatically. Every word, every section, every update. Findings cite the exact document
         name and line range so the conversation starts at the right place instead of from scratch.
         The obvious stuff is already flagged before a human reviewer opens the PR. Reviews can
-        focus on architecture and judgment calls — the things that actually need a person.
+        focus on architecture and judgment calls, the things that actually need a person.
       </p>
       <p>
-        And when a comment comes up that isn't in the docs yet — update the doc. CodeReview picks
+        And when a comment comes up that isn't in the docs yet, update the doc. CodeReview picks
         it up automatically before the next review. That comment never needs to be made again.
         The docs become a living system. Not shelf-ware.
       </p>
@@ -423,29 +421,26 @@
       <a href="https://github.com/alexandersucala/codereview-ai" class="btn-secondary">View on GitHub &rarr;</a>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- HOW IT WORKS + MOCK: Setup Terminal -->
-    <!-- ═══════════════════════════════════════════════ -->
+    <!-- HOW IT WORKS + Setup Terminal Mock -->
     <div class="section">
       <h2>How it works.</h2>
       <p>
         Setup takes two minutes. Install the GitHub App, and CodeReview auto-detects your repository.
         It scans the full file tree, identifies documentation files, and classifies every one into
-        review categories — Security, Architecture, Legal, Style, Onboarding. You see live progress
+        review categories: Security, Architecture, Legal, Style, Onboarding. You see live progress
         as each file is discovered, fetched, and classified. Multi-topic docs get surgically decomposed
         into gate-specific sections with exact line ranges using a two-model pipeline: an LLM identifies
-        topical boundaries, then content is extracted deterministically by line number — no re-generation,
+        topical boundaries, then content is extracted deterministically by line number. No re-generation,
         no drift. Confirm what it found and you're live. No config files. No YAML. No re-setup when
         docs change.
       </p>
 
-      <!-- Mock: Setup scan terminal -->
       <div class="mock-ui">
         <div class="mock-ui-header">
           <span class="mock-dot dot-red"></span>
           <span class="mock-dot dot-yellow"></span>
           <span class="mock-dot dot-green"></span>
-          &nbsp; Setup &mdash; scanning stripe/stripe-python
+          &nbsp; Setup: scanning stripe/stripe-python
         </div>
         <div class="mock-ui-body-dark" style="color: #c9d1d9;">
           <div class="mock-step">
@@ -520,16 +515,14 @@
           </div>
           <div class="mock-step">
             <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span style="color:#f0f6fc; font-weight:600;">Done — 7 docs classified, 4 sections extracted</span>
+            <span style="color:#f0f6fc; font-weight:600;">Done: 7 docs classified, 4 sections extracted</span>
             <span class="elapsed" style="color:#484f58;">12.0s</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
     <!-- CONFIRM SCREEN MOCK -->
-    <!-- ═══════════════════════════════════════════════ -->
     <div class="section">
       <h2>Confirm what it found.</h2>
       <p>
@@ -537,17 +530,16 @@
         Single-gate files show a confidence score based on the three-step classification pipeline:
         filename heuristics first, LLM content analysis second, your confirmation third. Multi-topic
         documents are decomposed into gate-specific sections with exact line ranges. You can override
-        any assignment, drag-and-drop upload additional docs, or re-scan. Nothing gets ingested until
-        you hit confirm.
+        any assignment, upload your own docs that aren't in the repo, or re-scan. Nothing gets ingested
+        until you hit confirm.
       </p>
 
-      <!-- Mock: Confirm screen -->
       <div class="mock-ui">
         <div class="mock-ui-header">
           <span class="mock-dot dot-red"></span>
           <span class="mock-dot dot-yellow"></span>
           <span class="mock-dot dot-green"></span>
-          &nbsp; Setup &mdash; review results
+          &nbsp; Setup: review results
         </div>
         <div class="mock-ui-body">
           <div class="mock-gate-summary">
@@ -562,7 +554,7 @@
             <div>
               <span style="margin-right: 6px;">&#9745;</span>
               <span class="doc-name">SECURITY.md</span>
-              <span class="doc-meta" style="margin-left: 10px;">— Vulnerability reporting and security policy</span>
+              <span class="doc-meta" style="margin-left: 10px;">Vulnerability reporting and security policy</span>
             </div>
             <div>
               <span class="mock-gate-select">SECURITY</span>
@@ -573,7 +565,7 @@
             <div>
               <span style="margin-right: 6px;">&#9745;</span>
               <span class="doc-name">docs/ARCHITECTURE.md</span>
-              <span class="doc-meta" style="margin-left: 10px;">— System design and module boundaries</span>
+              <span class="doc-meta" style="margin-left: 10px;">System design and module boundaries</span>
             </div>
             <div>
               <span class="mock-gate-select">ARCHITECTURE</span>
@@ -584,7 +576,7 @@
             <div>
               <span style="margin-right: 6px;">&#9745;</span>
               <span class="doc-name">LICENSE</span>
-              <span class="doc-meta" style="margin-left: 10px;">— MIT License terms</span>
+              <span class="doc-meta" style="margin-left: 10px;">MIT License terms</span>
             </div>
             <div>
               <span class="mock-gate-select">LEGAL</span>
@@ -595,7 +587,7 @@
             <div>
               <span style="margin-right: 6px;">&#9745;</span>
               <span class="doc-name">docs/STYLE_GUIDE.md</span>
-              <span class="doc-meta" style="margin-left: 10px;">— Naming, formatting, linting rules</span>
+              <span class="doc-meta" style="margin-left: 10px;">Naming, formatting, linting rules</span>
             </div>
             <div>
               <span class="mock-gate-select">STYLE</span>
@@ -606,7 +598,7 @@
             <div>
               <span style="margin-right: 6px;">&#9745;</span>
               <span class="doc-name">.github/PULL_REQUEST_TEMPLATE.md</span>
-              <span class="doc-meta" style="margin-left: 10px;">— PR checklist and process</span>
+              <span class="doc-meta" style="margin-left: 10px;">PR checklist and process</span>
             </div>
             <div>
               <span class="mock-gate-select">ONBOARDING</span>
@@ -618,7 +610,7 @@
           <div class="mock-decomp-card">
             <div>
               <span class="decomp-title">Security Reporting Process</span>
-              <span class="decomp-lines" style="margin-left: 10px;">lines 12–38</span>
+              <span class="decomp-lines" style="margin-left: 10px;">lines 12:38</span>
             </div>
             <div>
               <span class="mock-gate-select">SECURITY</span>
@@ -628,7 +620,7 @@
           <div class="mock-decomp-card">
             <div>
               <span class="decomp-title">PR Format and Contribution Workflow</span>
-              <span class="decomp-lines" style="margin-left: 10px;">lines 39–112</span>
+              <span class="decomp-lines" style="margin-left: 10px;">lines 39:112</span>
             </div>
             <div>
               <span class="mock-gate-select">ONBOARDING</span>
@@ -638,7 +630,7 @@
           <div class="mock-decomp-card">
             <div>
               <span class="decomp-title">Code Style Requirements</span>
-              <span class="decomp-lines" style="margin-left: 10px;">lines 113–148</span>
+              <span class="decomp-lines" style="margin-left: 10px;">lines 113:148</span>
             </div>
             <div>
               <span class="mock-gate-select">STYLE</span>
@@ -650,7 +642,7 @@
           <div class="mock-decomp-card">
             <div>
               <span class="decomp-title">Testing Requirements and CI Pipeline</span>
-              <span class="decomp-lines" style="margin-left: 10px;">lines 1–67</span>
+              <span class="decomp-lines" style="margin-left: 10px;">lines 1:67</span>
             </div>
             <div>
               <span class="mock-gate-select">ONBOARDING</span>
@@ -658,7 +650,12 @@
             </div>
           </div>
 
-          <div style="margin-top: 16px; display: flex; gap: 10px;">
+          <div class="mock-upload-area">
+            &#128228; Drag &amp; drop files here, or click to browse
+            <div class="upload-hint">.md, .rst, .txt &bull; max 5MB</div>
+          </div>
+
+          <div style="margin-top: 12px; display: flex; gap: 10px;">
             <span style="display:inline-block; padding:8px 18px; background:#000; color:#fff; border-radius:5px; font-size:0.8rem; font-weight:600; font-family: -apple-system, sans-serif;">&#x2705; Confirm &amp; Complete Setup</span>
             <span style="display:inline-block; padding:8px 18px; background:#fff; color:#000; border:1px solid #d0d0d0; border-radius:5px; font-size:0.8rem; font-weight:600; font-family: -apple-system, sans-serif;">&#x1f504; Re-scan Repository</span>
           </div>
@@ -666,9 +663,7 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
     <!-- FIVE REVIEW GATES -->
-    <!-- ═══════════════════════════════════════════════ -->
     <div class="section">
       <h2>Five review gates.</h2>
       <p>
@@ -677,7 +672,7 @@
         &#128270; <strong>doc-backed</strong> or &#128173; <strong>AI suggestion</strong> so your team
         knows exactly what's policy and what's observation. Doc-backed findings cite the specific
         document, section title, and line range. AI suggestions are clearly marked as the model's
-        opinion — useful, but not authoritative.
+        opinion, useful but not authoritative.
       </p>
       <ul class="gate-list">
         <li><span class="gate-label">Security</span> API keys, auth patterns, secrets in code, data exposure, injection risks</li>
@@ -688,9 +683,7 @@
       </ul>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
     <!-- TWO-PASS HALLUCINATION GUARD -->
-    <!-- ═══════════════════════════════════════════════ -->
     <div class="section">
       <h2>Two-pass hallucination guard.</h2>
       <p>
@@ -702,13 +695,13 @@
       </p>
       <p>
         This isn't a confidence threshold. It's a second model independently checking the first model's
-        work. Pass 2 tracks removal rates per gate — if a gate's findings are getting killed at a high
+        work. Pass 2 tracks removal rates per gate. If a gate's findings are getting killed at a high
         rate, it flags the pass 1 prompt for tuning. The system monitors its own accuracy and surfaces
         drift before it becomes a problem.
       </p>
       <p>
         Docs stay fresh automatically. Someone updates a security policy, merges a new architecture
-        decision, adds a testing requirement — CodeReview detects the change via SHA comparison before
+        decision, adds a testing requirement. CodeReview detects the change via SHA comparison before
         the next review and re-ingests the updated content. No stale rules. No re-setup. The knowledge
         base tracks the repo.
       </p>
@@ -717,13 +710,13 @@
         <span class="pipe-label">GitHub PR Webhook</span><br>
         &nbsp; ↓<br>
         <span class="pipe-label">[Pass 1]</span> Five parallel gate reviews<br>
-        &nbsp; ├── Security — auth, injection, secrets, data exposure<br>
-        &nbsp; ├── Architecture — patterns, boundaries, coupling, API contracts<br>
-        &nbsp; ├── Legal — licensing, CLA, copyright compliance<br>
-        &nbsp; ├── Style — naming, formatting, linting, import order<br>
-        &nbsp; └── Onboarding — PR format, checklists, test requirements<br>
+        &nbsp; ├── Security: auth, injection, secrets, data exposure<br>
+        &nbsp; ├── Architecture: patterns, boundaries, coupling, API contracts<br>
+        &nbsp; ├── Legal: licensing, CLA, copyright compliance<br>
+        &nbsp; ├── Style: naming, formatting, linting, import order<br>
+        &nbsp; └── Onboarding: PR format, checklists, test requirements<br>
         &nbsp; ↓<br>
-        <span class="pipe-label">[Pass 2]</span> Hallucination verification <span class="pipe-dim">— re-checks each finding against source docs</span><br>
+        <span class="pipe-label">[Pass 2]</span> Hallucination verification <span class="pipe-dim">re-checks each finding against source docs</span><br>
         &nbsp; ↓<br>
         <span class="pipe-label">[Traffic Light]</span> RED <span class="pipe-dim">(blocking)</span> / YELLOW <span class="pipe-dim">(needs fixes)</span> / GREEN <span class="pipe-dim">(ready)</span><br>
         &nbsp; ↓<br>
@@ -731,35 +724,32 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- RESULTS + MOCK: PR Comment -->
-    <!-- ═══════════════════════════════════════════════ -->
+    <!-- RESULTS + PR Comment Mock -->
     <div class="section">
       <h2>Results.</h2>
       <p>
         Results post as a single PR comment within two minutes of the PR opening. Traffic light
-        at the top — red means fix this before merge, yellow means heads up, green means good to go.
+        at the top. Red means fix this before merge, yellow means heads up, green means good to go.
         Each gate gets its own section with individual status. Every finding includes the violation
         type, a description, the source document and line range, and the relevant lines in the PR diff.
         Expandable details keep the comment scannable. Clean, actionable, and designed to be read in
         under 30 seconds.
       </p>
 
-      <!-- Mock: PR comment output -->
       <div class="mock-ui">
         <div class="mock-ui-header">
           <span class="mock-dot dot-red"></span>
           <span class="mock-dot dot-yellow"></span>
           <span class="mock-dot dot-green"></span>
-          &nbsp; PR comment &mdash; pull request #142
+          &nbsp; PR comment: pull request #142
         </div>
         <div class="mock-ui-body">
-          <div class="mock-pr-header">&#128308; CodeReview AI — RED</div>
+          <div class="mock-pr-header">&#128308; CodeReview AI: RED</div>
 
           <div class="mock-gate-header">&#128308; SECURITY</div>
           <div class="mock-finding">
             &#128270; <span class="finding-tag">[HARDCODED_SECRET]</span> API key appears to be hardcoded in config/settings.py on line 24. Secrets must be loaded from environment variables per your security policy.
-            <span class="doc-ref">&#128214; SECURITY.md, lines 18–22</span>
+            <span class="doc-ref">&#128214; SECURITY.md, lines 18:22</span>
             <span class="doc-ref">&#128221; config/settings.py:24</span>
           </div>
           <div class="mock-finding">
@@ -769,7 +759,7 @@
           <div class="mock-gate-header">&#128993; STYLE</div>
           <div class="mock-finding">
             &#128270; <span class="finding-tag">[NAMING_CONVENTION]</span> Function <code>getData</code> uses camelCase. Your style guide requires snake_case for all Python functions.
-            <span class="doc-ref">&#128214; docs/STYLE_GUIDE.md, lines 31–35</span>
+            <span class="doc-ref">&#128214; docs/STYLE_GUIDE.md, lines 31:35</span>
             <span class="doc-ref">&#128221; src/api/handlers.py:67</span>
           </div>
 
@@ -790,18 +780,18 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
     <!-- TESTED AGAINST REAL REPOS -->
-    <!-- ═══════════════════════════════════════════════ -->
     <div class="section">
       <h2>Tested against real repos.</h2>
       <p>
-        The discovery and classification pipeline has been tested against production repositories
-        including Cal.com, Stripe, Next.js, and Supabase — with messy multi-topic docs, strict
-        contribution policies, monorepo structures, and large codebases. The three-step classification
-        pipeline (filename heuristics → LLM content analysis → user confirmation) handles edge cases
-        like READMEs that mix onboarding with security policies, CONTRIBUTING files that embed style
-        rules, and docs directories with hundreds of markdown files.
+        The full pipeline has been tested end to end against production repositories including Cal.com,
+        Stripe, Next.js, and Supabase. Not just the discovery and classification. Real PRs were opened
+        against real codebases with messy multi-topic docs, strict contribution policies, monorepo
+        structures, and thousands of files. The system produced accurate, document-backed findings
+        across all five gates and the results were verified manually against the source documentation.
+        The three-step classification pipeline (filename heuristics → LLM content analysis →
+        user confirmation) handled edge cases like READMEs that mix onboarding with security policies,
+        CONTRIBUTING files that embed style rules, and docs directories with hundreds of markdown files.
       </p>
       <p>
         Currently in beta and free to use. Actively looking for teams to install it, push real PRs
@@ -809,17 +799,15 @@
       </p>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- ARCHITECTURE -->
-    <!-- ═══════════════════════════════════════════════ -->
+    <!-- UNDER THE HOOD -->
     <div class="section">
       <h2>Under the hood.</h2>
       <p>
         CodeReview AI is built on a fail-closed architecture. If the system can't prove a finding
         from your documentation, the finding doesn't ship. If GitHub is unreachable, the review
         degrades gracefully and posts an error comment rather than failing silently. If a document
-        can't be fetched during the freshness check, the review runs with cached docs — stale docs
-        are better than no review. Every decision path has a fallback, and every fallback logs
+        can't be fetched during the freshness check, the review runs with cached docs because stale
+        docs are better than no review. Every decision path has a fallback, and every fallback logs
         why it activated.
       </p>
       <p>
@@ -828,7 +816,7 @@
         and an empty-with-flag return if the API is down entirely. File classification runs a three-pass
         pipeline: exact filename match at ~80% accuracy, LLM content analysis at ~95% accuracy, and
         user confirmation at 100%. The decomposer uses LLM section identification followed by
-        deterministic line-range extraction — the AI identifies boundaries, but content is pulled by
+        deterministic line-range extraction. The AI identifies boundaries, but content is pulled by
         line number, not regenerated.
       </p>
       <p>
@@ -839,9 +827,7 @@
       </p>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
     <!-- STACK -->
-    <!-- ═══════════════════════════════════════════════ -->
     <div class="section">
       <h2>Stack.</h2>
       <div class="tech-stack">
@@ -857,16 +843,14 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
     <!-- ROADMAP -->
-    <!-- ═══════════════════════════════════════════════ -->
     <div class="roadmap">
       <h2>V2 Roadmap.</h2>
       <p>
-        Two tiers. Tier 1 is everything above — document-grounded PR reviews with five gates, two-pass
+        Two tiers. Tier 1 is everything above: document-grounded PR reviews with five gates, two-pass
         verification, and automatic doc freshness tracking. Tier 2 adds full codebase analysis on setup.
         When you install, CodeReview scores your entire repository across all five gates with a baseline
-        strength rating for each. A historical dashboard tracks how each gate trends over time — are
+        strength rating for each. A historical dashboard tracks how each gate trends over time. Are
         your security practices improving since last month? Is architectural drift creeping in? Are
         new contributors following the PR process? Tier 1 tells you what's wrong with this PR. Tier 2
         tells you what's happening to your codebase.
