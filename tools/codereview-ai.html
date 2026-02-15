@@ -351,6 +351,37 @@
     .pipeline-flow .pipe-dim {
       color: #999;
     }
+    /* Open dropdown mock */
+    .mock-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 4px;
+      background: #fff;
+      border: 1px solid #d0d0d0;
+      border-radius: 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 10;
+      min-width: 130px;
+      overflow: hidden;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.68rem;
+    }
+    .mock-dropdown-item {
+      padding: 5px 10px;
+      color: #555;
+      cursor: default;
+    }
+    .mock-dropdown-item:hover {
+      background: #f7f7f7;
+    }
+    .mock-dropdown-selected {
+      background: #f0f7ff;
+      color: #0969da;
+      font-weight: 600;
+    }
+
+    /* Upload area mock */
     .mock-upload-area {
       margin-top: 16px;
       padding: 14px;
@@ -561,15 +592,22 @@
               <span class="mock-badge badge-green" style="margin-left: 6px;">97%</span>
             </div>
           </div>
-          <div class="mock-doc-card">
+          <div class="mock-doc-card" style="position: relative;">
             <div>
               <span style="margin-right: 6px;">&#9745;</span>
               <span class="doc-name">docs/ARCHITECTURE.md</span>
               <span class="doc-meta" style="margin-left: 10px;">System design and module boundaries</span>
             </div>
-            <div>
-              <span class="mock-gate-select">ARCHITECTURE</span>
+            <div style="position: relative;">
+              <span class="mock-gate-select" style="border-color: #0969da; background: #f0f7ff;">ARCHITECTURE &#9662;</span>
               <span class="mock-badge badge-green" style="margin-left: 6px;">94%</span>
+              <div class="mock-dropdown">
+                <div class="mock-dropdown-item">SECURITY</div>
+                <div class="mock-dropdown-item mock-dropdown-selected">ARCHITECTURE</div>
+                <div class="mock-dropdown-item">LEGAL</div>
+                <div class="mock-dropdown-item">STYLE</div>
+                <div class="mock-dropdown-item">ONBOARDING</div>
+              </div>
             </div>
           </div>
           <div class="mock-doc-card">
@@ -627,14 +665,21 @@
               <span class="mock-badge badge-green" style="margin-left: 6px;">93%</span>
             </div>
           </div>
-          <div class="mock-decomp-card">
+          <div class="mock-decomp-card" style="position: relative;">
             <div>
               <span class="decomp-title">Code Style Requirements</span>
               <span class="decomp-lines" style="margin-left: 10px;">lines 113:148</span>
             </div>
-            <div>
-              <span class="mock-gate-select">STYLE</span>
+            <div style="position: relative;">
+              <span class="mock-gate-select" style="border-color: #0969da; background: #f0f7ff;">STYLE &#9662;</span>
               <span class="mock-badge badge-yellow" style="margin-left: 6px;">78%</span>
+              <div class="mock-dropdown">
+                <div class="mock-dropdown-item">SECURITY</div>
+                <div class="mock-dropdown-item">ARCHITECTURE</div>
+                <div class="mock-dropdown-item">LEGAL</div>
+                <div class="mock-dropdown-item mock-dropdown-selected">STYLE</div>
+                <div class="mock-dropdown-item">ONBOARDING</div>
+              </div>
             </div>
           </div>
 
@@ -863,7 +908,7 @@
     </div>
 
     <div class="legal-links">
-      <a href="/tools/codereview-ai-privacy.html">Privacy Policy</a> &middot; <a href="/tools/codereview-ai-terms.html">Terms of Service</a> &middot; <a href="mailto:alexandersucala@gmail.com">Contact</a>
+      <a href="/tools/codereview-ai-privacy.html">Privacy Policy</a> &middot; <a href="/tools/codereview-ai-terms.html">Terms of Service</a> &middot; <a href="/cdn-cgi/l/email-protection#355459504d545b515047464056545954755258545c591b565a58">Contact</a>
     </div>
   </main>
 
@@ -879,8 +924,4 @@
     <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>
   </footer>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cl
