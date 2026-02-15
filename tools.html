@@ -4,186 +4,75 @@
   <meta charset="UTF-8">
   <title>Tools — Alexander Sucala</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Production AI tools by Alexander Sucala — fail-closed stock analysis, automated code review, and AI-powered daily briefings.">
+  <meta name="description" content="Working demonstrations of Alexander Sucala's patents and research in production systems.">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* ── Tool Cards ─────────────────────────────────────── */
-    .tool-grid {
-      display: grid;
-      gap: 2.5rem;
-      margin-top: 2.5rem;
-    }
-
     .tool-card {
-      border: 1px solid #e0e0e0;
-      padding: 2rem;
-      position: relative;
+      margin-top: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid #e0e0e0;
     }
-
-    .tool-card h2 {
-      margin-top: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 2px 8px;
-      border-radius: 3px;
-      vertical-align: middle;
-      text-transform: uppercase;
-    }
-
-    .badge-live {
-      background: #0a7c42;
-      color: #fff;
-    }
-
-    .badge-dev {
-      background: #b45309;
-      color: #fff;
-    }
-
-    .badge-personal {
-      background: #555;
-      color: #fff;
-    }
-
-    .badge-v2 {
-      background: #4338ca;
-      color: #fff;
-    }
-
-    .badge-beta {
-      background: #1e40af;
-      color: #fff;
-    }
-
-    /* ── Architecture Diagrams (text-based) ──────────────── */
-    .pipeline {
-      background: #f7f7f7;
-      border: 1px solid #e0e0e0;
-      padding: 1.2rem 1.5rem;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      font-size: 0.78rem;
-      line-height: 1.7;
-      overflow-x: auto;
-      margin: 1.2rem 0;
-      white-space: pre;
-    }
-
-    /* ── Quality Scores (mimicking the V2 screenshot) ───── */
-    .quality-panel {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 0.8rem;
-      margin: 1.2rem 0;
-    }
-
-    .quality-item {
-      border: 1px solid #e0e0e0;
-      padding: 0.8rem 1rem;
-    }
-
-    .quality-item strong {
-      display: block;
-      font-size: 0.82rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .quality-item span {
-      font-size: 0.75rem;
-      opacity: 0.7;
-    }
-
-    /* ── Gate list ────────────────────────────────────────── */
-    .gate-list {
-      margin: 1rem 0;
-      padding-left: 0;
-      list-style: none;
-    }
-
-    .gate-list li {
-      padding: 0.4rem 0;
-      font-size: 0.92rem;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .gate-list li:last-child {
+    .tool-card:last-child {
       border-bottom: none;
     }
-
-    .gate-label {
-      font-weight: 600;
-      display: inline-block;
-      min-width: 5.5rem;
+    .tool-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-
-    /* ── Launch button ───────────────────────────────────── */
+    .tool-header h2 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      top: -1px;
+    }
+    .status-live {
+      background: #000;
+      color: #fff;
+    }
+    .status-dev {
+      background: #fff;
+      color: #000;
+      border: 1.5px solid #000;
+    }
     .launch-btn {
       display: inline-block;
-      margin-top: 1.2rem;
-      padding: 0.6rem 1.8rem;
+      padding: 12px 24px;
       background: #000;
       color: #fff;
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-      transition: background 0.2s;
+      border: 2px solid #000;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
     }
-
     .launch-btn:hover {
-      background: #333;
+      background: #fff;
+      color: #000;
     }
-
-    /* ── Sidebar note (personal tools) ───────────────────── */
-    .sidebar-note {
-      border-left: 3px solid #ccc;
-      padding-left: 1rem;
-      margin-top: 2.5rem;
-      opacity: 0.85;
-    }
-
-    .sidebar-note h3 {
-      margin-top: 0;
-      font-size: 1rem;
-    }
-
-    /* ── Tech stack chips ────────────────────────────────── */
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.8rem;
-    }
-
-    .chip {
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border: 1px solid #d0d0d0;
-      border-radius: 2px;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      white-space: nowrap;
-    }
-
-    /* ── Legal links ─────────────────────────────────────── */
-    .legal-links {
-      margin-top: 1rem;
-      font-size: 0.78rem;
-      opacity: 0.7;
-    }
-
-    .legal-links a {
-      color: inherit;
+    .launch-btn-disabled {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #f5f5f5;
+      color: #999;
+      text-decoration: none;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: default;
     }
   </style>
 </head>
@@ -206,183 +95,163 @@
     <h1>Tools</h1>
 
     <p>
-      Production systems that implement fail-closed execution, deterministic state management, 
-      and artifact-based authority control. Each tool demonstrates patents and research in working software.
+      Production systems demonstrating fail-closed execution, deterministic state management, 
+      and artifact-based authority control. Each tool implements one or more of Alexander's 
+      patented architectures.
     </p>
 
-    <div class="tool-grid">
-
-      <!-- ════════════════════════════════════════════════════ -->
-      <!-- TOOL 1: Finance Assistant V2                        -->
-      <!-- ════════════════════════════════════════════════════ -->
-      <section class="tool-card">
-        <h2>
-          Finance Assistant
-          <span class="badge badge-v2">V2</span>
-          <span class="badge badge-live">Live</span>
-        </h2>
-
-        <p>
-          Fail-closed AI stock analysis with compliance gates. Implements <em>Fail-Closed Execution</em>,
-          <em>State-Locked AI Orchestration</em>, <em>Artifact-Based Authority</em>, and
-          <em>Intent-Contract Enforcement</em> patents in a production market intelligence system.
-        </p>
-
-        <p>
-          <strong>Why it matters:</strong> Most AI systems fail open — producing output regardless of data quality.
-          This system fails closed, gating all responses behind a three-stage LLM pipeline with
-          dual compliance gates and three-dimensional confidence scoring.
-        </p>
-
-        <h3>Pipeline Architecture</h3>
-
-        <div class="pipeline">User Query
-  ↓
-[Gate A] Intent Classifier — blocks advisory requests (regex fast-path + LLM fallback)
-  ↓
-[Data Fetch] Alpha Vantage (market) + Brave Search (news)
-  ↓
-[Stage 1] Draft Builder — structured analysis with citation refs (Sonnet)
-  ↓
-[Stage 2] Delivery Filter — transforms to natural language (Haiku)
-  ↓
-[Stage 3] Policy Scanner — deterministic + LLM compliance check (Haiku)
-  ↓
-[Gate B] Output Validation — PASS / REWRITE / FAIL_CLOSED
-  ↓
-Final Report + Trace Log</div>
-
-        <h3>Analysis Quality Scores</h3>
-        <p>
-          Replaces single "confidence" with three independent dimensions displayed on every report:
-        </p>
-        <div class="quality-panel">
-          <div class="quality-item">
-            <strong>Data Quality</strong>
-            <span>Source freshness, data completeness, timestamp coherence</span>
-          </div>
-          <div class="quality-item">
-            <strong>Compliance</strong>
-            <span>Policy scan result — PASS / REWRITE / FAIL_CLOSED</span>
-          </div>
-          <div class="quality-item">
-            <strong>Sources</strong>
-            <span>Citation count, support strength, unsupported claim penalties</span>
-          </div>
-        </div>
-
-        <div class="tech-stack">
-          <span class="chip">FastAPI</span>
-          <span class="chip">Claude API</span>
-          <span class="chip">Alpha Vantage</span>
-          <span class="chip">Brave Search</span>
-          <span class="chip">Railway</span>
-          <span class="chip">GitHub Pages</span>
-        </div>
-
-        <a href="tools/finance-assistant-v2.html" class="launch-btn">Launch Finance Assistant →</a>
-      </section>
-
-      <!-- ════════════════════════════════════════════════════ -->
-      <!-- TOOL 2: CodeReview AI                               -->
-      <!-- ════════════════════════════════════════════════════ -->
-      <section class="tool-card">
-        <h2>
-          CodeReview AI
-          <span class="badge badge-live">Live</span>
-          <span class="badge badge-beta">Beta</span>
-        </h2>
-
-        <p>
-          AI-powered code reviews grounded in your team's actual documentation.
-          Install the GitHub App, and CodeReview AI automatically scans your repo for docs,
-          classifies them into review gates, and reviews every PR against your own standards —
-          not generic best practices.
-        </p>
-
-        <p>
-          <strong>Why it matters:</strong> Every finding cites the specific document and line range
-          it's based on. Findings are tagged 🔎 <em>doc-backed</em> or 💭 <em>AI suggestion</em>
-          so reviewers know what's policy enforcement and what's an intelligent observation.
-          A two-pass hallucination guard ensures no fabricated findings reach your PR.
-        </p>
-
-        <h3>Five Review Gates</h3>
-        <ul class="gate-list">
-          <li><span class="gate-label">Security</span> API keys, auth patterns, secrets, data exposure</li>
-          <li><span class="gate-label">Architecture</span> Design patterns, module boundaries, dependency rules</li>
-          <li><span class="gate-label">Legal</span> Licensing, CLA, copyright compliance</li>
-          <li><span class="gate-label">Style</span> Naming, formatting, linting, code standards</li>
-          <li><span class="gate-label">Onboarding</span> PR process, testing requirements, contribution workflow</li>
-        </ul>
-
-        <h3>Setup Flow</h3>
-        <p>
-          Install the app and CodeReview AI auto-detects your repo, scans the tree for documentation,
-          and presents classified results with live progress — file by file, in real time.
-          Multi-topic documents (like a CONTRIBUTING.md covering security, style, and process)
-          are automatically decomposed into gate-specific sections. Confirm, and reviews start
-          on your next PR.
-        </p>
-
-        <h3>Document Discovery Pipeline</h3>
-        <ul class="gate-list">
-          <li><span class="gate-label">Step 1</span> Filename heuristics — fast pattern matching</li>
-          <li><span class="gate-label">Step 2</span> LLM content analysis — reads and classifies document content</li>
-          <li><span class="gate-label">Step 3</span> Multi-gate decomposition — splits large docs into gate-specific sections</li>
-          <li><span class="gate-label">Step 4</span> User confirmation — human-in-the-loop final review</li>
-        </ul>
-
-        <p>
-          Results post directly as a PR comment with a traffic light summary:
-          🟢 GREEN (clean), 🟡 YELLOW (needs attention), or 🔴 RED (blocking issues).
-        </p>
-
-        <div class="tech-stack">
-          <span class="chip">FastAPI</span>
-          <span class="chip">Claude API</span>
-          <span class="chip">GitHub App</span>
-          <span class="chip">Railway</span>
-          <span class="chip">Background Workers</span>
-          <span class="chip">Structured Logging</span>
-        </div>
-
-        <a href="https://github.com/apps/codereview-ai-dev" class="launch-btn">Install GitHub App →</a>
-
-        <div class="legal-links">
-          <a href="tools/codereview-ai-privacy.html">Privacy Policy</a> · <a href="tools/codereview-ai-terms.html">Terms of Service</a>
-        </div>
-      </section>
-
-    </div><!-- /tool-grid -->
-
-    <!-- ════════════════════════════════════════════════════ -->
-    <!-- SIDEBAR: Morning Briefing (personal tool)           -->
-    <!-- ════════════════════════════════════════════════════ -->
-    <div class="sidebar-note">
-      <h3>
-        Morning Briefing
-        <span class="badge badge-personal">Personal</span>
-      </h3>
-      <p>
-        Automated daily email system that sends a personalized morning briefing at 6 AM PST every day,
-        regardless of whether my computer is on. Claude generates the full HTML email using web search
-        for live data, then sends via SendGrid. Content includes weather, industry news,
-        market pulse, a "Great Mind of the Day" (alternating historical and living figures),
-        and a patent/invention spotlight.
-      </p>
-      <p>
-        Each email is auto-summarized and appended to a running history file, giving the system
-        persistent memory across executions despite being stateless per run. Runs on Railway as a
-        cron job — costs under $1/month.
-      </p>
-      <div class="tech-stack">
-        <span class="chip">Claude API + Web Search</span>
-        <span class="chip">SendGrid</span>
-        <span class="chip">Railway Cron</span>
-        <span class="chip">Auto-Summary → History</span>
+    <!-- 1. CodeReview AI — LIVE -->
+    <section class="tool-card">
+      <div class="tool-header">
+        <h2>CodeReview AI</h2>
+        <span class="status-badge status-live">Live</span>
       </div>
-    </div>
+
+      <p>
+        <strong>What it is:</strong> A GitHub App that performs document-grounded compliance reviews 
+        on pull requests. Instead of generic linting, CodeReview AI ingests a company's actual 
+        documentation — security policies, style guides, architecture standards, legal requirements — 
+        and reviews every PR against that ground truth.
+      </p>
+
+      <p>
+        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em> and 
+        <em>Artifact-Based Authority</em> patents applied to code review. Every finding is tagged 
+        DOCUMENT_BACKED or LLM_OPINION, so teams know exactly which findings come from their own 
+        rules and which are the model's suggestion. A two-pass pipeline (analysis + hallucination guard) 
+        ensures the system never fabricates policy violations.
+      </p>
+
+      <p>
+        <strong>Technical implementation:</strong> Multi-gate review pipeline (Security, Architecture, 
+        Style, Legal, Onboarding) with per-gate document retrieval, structured finding generation with 
+        citation references, hallucination verification pass, and traffic-light output (RED/YELLOW/GREEN). 
+        Deployed on Railway with GitHub webhook integration. Discovery module auto-classifies repository 
+        documentation into review gates during setup.
+      </p>
+
+      <p style="margin-top: 1.5rem;">
+        <a href="https://github.com/alexandersucala/codereview-ai" class="launch-btn">
+          View on GitHub →
+        </a>
+      </p>
+    </section>
+
+    <!-- 2. TradeEngine — IN DEV -->
+    <section class="tool-card">
+      <div class="tool-header">
+        <h2>TradeEngine</h2>
+        <span class="status-badge status-dev">In Development</span>
+      </div>
+
+      <p>
+        <strong>What it is:</strong> An autonomous AI trading agent built on a two-phase trigger system. 
+        Deterministic technical analysis runs continuously as passive radar, and when indicators converge 
+        on a high-probability setup, AI analysis comes online to verify and execute. Every trade passes 
+        through fail-closed gates. Every decision is fully auditable.
+      </p>
+
+      <p>
+        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em>, 
+        <em>Zero-Loop Control</em>, and <em>State-Locked AI Orchestration</em> patents applied to 
+        autonomous financial execution. The deterministic layer computes technical indicators locally 
+        in microseconds with zero hallucination risk. The AI interprets deterministic ground truth — 
+        it does not originate signals from raw data. A hallucination verification gate compares AI 
+        output against deterministic values before any capital moves.
+      </p>
+
+      <p>
+        <strong>Technical implementation:</strong> Two-phase "gun-cocking" trigger system with 
+        deterministic passive radar, multi-dimensional signal ranking, dynamic strategy confidence 
+        weighting (30/70 to 70/30 AI-to-deterministic ratios depending on trade type), TTL management 
+        with cached analysis, constrained self-correction schema preventing permanent bad lessons, 
+        phantom trade logging tracking missed opportunities, five independent circuit breakers, and 
+        API cost optimization gating. The agent learns through structured context injection — not 
+        fine-tuning — and is architecturally incapable of blowing up the account.
+      </p>
+
+      <p style="margin-top: 1.5rem;">
+        <span class="launch-btn-disabled">
+          Available after paper trading validation
+        </span>
+      </p>
+    </section>
+
+    <!-- 3. Finance Assistant — LIVE -->
+    <section class="tool-card">
+      <div class="tool-header">
+        <h2>Finance Assistant</h2>
+        <span class="status-badge status-live">Live</span>
+      </div>
+
+      <p>
+        <strong>What it is:</strong> A production stock analysis system with a 3-stage LLM pipeline 
+        and dual compliance gates. Ask it about any publicly traded company and it returns 
+        confidence-scored analysis grounded in live market data and current news.
+      </p>
+
+      <p>
+        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em>, 
+        <em>State-Locked AI Orchestration</em>, <em>Artifact-Based Authority</em>, and 
+        <em>Intent-Contract Enforcement</em> patents in a production system. Most AI systems fail 
+        open — producing output regardless of data quality. This system fails closed, gating all 
+        responses behind explicit confidence scores (HIGH/MEDIUM/LOW) derived from data freshness 
+        and source validation.
+      </p>
+
+      <p>
+        <strong>Technical implementation:</strong> Gate A intent classification, Stage 1 Draft Builder 
+        (Sonnet), Stage 2 Delivery Filter (Haiku), Stage 3 Policy Scanner (Haiku), and Gate B output 
+        validation (PASS/REWRITE/FAIL_CLOSED). Uses Alpha Vantage for market data, Brave Search for 
+        news, and Anthropic Claude for analysis — all wrapped in fail-closed validation. Response time 
+        optimized from 32s to 20s through model-tier allocation.
+      </p>
+
+      <p style="margin-top: 1.5rem;">
+        <a href="tools/finance-assistant.html" class="launch-btn">
+          Launch Finance Assistant →
+        </a>
+      </p>
+
+      <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">
+        <strong>Note:</strong> Educational use only. Not financial advice. Demonstrates patent architecture, 
+        not investment recommendations.
+      </p>
+    </section>
+
+    <!-- 4. Morning Briefing — LIVE -->
+    <section class="tool-card">
+      <div class="tool-header">
+        <h2>Morning Briefing</h2>
+        <span class="status-badge status-live">Live</span>
+      </div>
+
+      <p>
+        <strong>What it is:</strong> An automated daily email system that delivers a personalized 
+        morning briefing — weather, tech news, market data, and curated intellectual content — 
+        at 6 AM every day via cloud execution.
+      </p>
+
+      <p>
+        <strong>What it demonstrates:</strong> <em>State-Locked AI Orchestration</em> applied to 
+        recurring automated workflows. A two-LLM pipeline with structured history prevents content 
+        repetition across days. Each run is fully stateless — all context is reconstructed fresh 
+        per execution through structured prompt injection.
+      </p>
+
+      <p>
+        <strong>Technical implementation:</strong> Claude Sonnet with web search tools generates 
+        full HTML email content, sent via SendGrid API. Deployed on Railway with cron-based 
+        scheduling. Inline CSS only for Gmail compatibility. Structured summarization of each 
+        sent email prevents repetition without persistent memory. Runs under $1/month in API costs.
+      </p>
+
+      <p style="margin-top: 1.5rem;">
+        <span class="launch-btn-disabled">
+          Automated — no public interface
+        </span>
+      </p>
+    </section>
 
   </main>
 
