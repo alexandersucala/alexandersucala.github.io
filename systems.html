@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Alexander Sucala</title>
+  <title>Systems &mdash; Alexander Sucala</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Independent researcher and systems engineer working on deterministic AI governance and geometry driven field computation AUFG.">
+  <meta name="description" content="Production AI systems built on fail-closed execution, hallucination verification, and deterministic-first architecture. 30+ patents. Four deployed systems.">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
@@ -26,68 +26,172 @@
   </div>
 </header>
 
-
   <main>
     <h1>Systems</h1>
 
     <p>
-      Alexander builds execution governed systems for exploratory computation and AI workflows.
-      The focus is reliability under iteration with determinism auditability and fail closed control.
+      Every system on this page is built on the same foundation: fail-closed execution,
+      deterministic-first control, and artifact-based authority. The same patented architectural
+      patterns show up in code review, financial analysis, autonomous trading, and automated
+      intelligence delivery. The domain changes. The engineering doesn't.
+    </p>
+
+    <h2>Core Architecture: Fail-Closed Multi-Stage Pipelines</h2>
+    <p>
+      Most AI systems fail open &mdash; they produce output regardless of whether the data, context,
+      or reasoning behind it is sound. These systems fail closed. If a verification gate can't confirm
+      the output is grounded, the pipeline stops. No confident-sounding garbage reaches the user.
+      No trade executes on a hallucinated signal. No compliance finding ships without a document citation.
+    </p>
+    <p>
+      Each pipeline separates concerns into independent stages with explicit contracts between them.
+      AI components are treated as probabilistic tools embedded within deterministic control structures &mdash;
+      never as autonomous decision-makers. The math tells the AI what's happening. The AI tells the
+      math what it means. If they disagree, the math wins.
+    </p>
+
+    <h2>Hallucination Verification</h2>
+    <p>
+      Every system that uses LLM output implements a verification layer that checks AI assertions
+      against independently computed or retrieved ground truth before any action is taken.
+      In CodeReview AI, a second model re-reads each finding against the source document and kills
+      anything it can't prove. In TradeEngine, the hallucination gate compares AI-stated indicator
+      values against locally computed deterministic values &mdash; if the AI says RSI is 28 but the math
+      says 45, the signal is rejected. In Finance Assistant, Gate B validates every claim in the
+      final output against the structured evidence from Stage 1.
+    </p>
+    <p>
+      This isn't a confidence threshold. It's a structurally independent verification pass that
+      treats every AI output as untrusted until proven against authoritative data.
+    </p>
+
+    <h2>Confidence Provenance Classification</h2>
+    <p>
+      Standard AI confidence scoring tells you how sure the model is. That's not useful &mdash; models
+      are confidently wrong all the time. These systems classify confidence by <em>type</em>, not
+      just magnitude. Every finding is tagged with its provenance: DOCUMENT_BACKED means the AI found
+      it in your actual documentation and can cite the source, section, and line range. LLM_OPINION
+      means the model thinks it's a good idea but can't prove it from your artifacts.
+    </p>
+    <p>
+      This classification runs across CodeReview AI (five independent review gates each producing
+      typed findings), Finance Assistant (claims require source references or get classified as
+      unknowns), and TradeEngine (deterministic signals vs AI interpretations are tracked separately
+      through the entire pipeline). The traffic-light aggregation &mdash; RED, YELLOW, GREEN &mdash; is
+      computed from typed findings, not raw model confidence.
+    </p>
+
+    <h2>Deterministic-First AI Triggering</h2>
+    <p>
+      TradeEngine's two-phase "gun-cocking" method is the clearest expression of a pattern that
+      runs through every system: deterministic computation handles the heavy lifting, and AI
+      activates only when the deterministic layer has already identified something worth analyzing.
+      The deterministic radar scans continuously in microseconds with zero hallucination risk. When
+      indicators converge, AI weapons come online with the deterministic output as ground truth.
+      The AI interprets the math &mdash; it does not originate signals from raw data.
+    </p>
+    <p>
+      The same pattern appears in CodeReview AI (filename heuristics classify documents before LLM
+      content analysis), Finance Assistant (Gate A uses deterministic pattern matching before LLM
+      intent classification), and Morning Briefing (structured templates constrain LLM output into
+      deterministic section boundaries).
+    </p>
+
+    <h2>Constrained Self-Correction</h2>
+    <p>
+      TradeEngine's self-improvement system is structurally incapable of learning permanent bad
+      lessons. Every correction note must conform to a schema requiring measurable metrics,
+      conditional applicability, time-bounded validity, and severity tiers with escalating minimum
+      sample sizes (10/20/30/50 observations) before corrections can increase in scope. The agent
+      learns through structured context injection &mdash; not fine-tuning &mdash; and recency bias is
+      prevented by requiring corrections to expire if not re-validated.
+    </p>
+
+    <h2>Bidirectional Decision Quality Analysis</h2>
+    <p>
+      Most learning systems only learn from mistakes. TradeEngine learns equally from all four
+      decision outcomes: correct trades (real wins validate current parameters), incorrect trades
+      (real losses generate evidence for adjustment), correct rejections (phantom losses confirm
+      the gates are working), and incorrect rejections (phantom wins reveal the gates are too tight).
+      Every correction carries a direction &mdash; EVIDENCE (something needs to change) or VALIDATION
+      (current parameters are confirmed correct) &mdash; and a source &mdash; REAL or PHANTOM. Phantom
+      trades maintain full data parity with real trade records so counterfactual analysis generates
+      corrections with equal structural weight.
+    </p>
+    <p>
+      This is the difference between a system that only knows what went wrong and a system that
+      knows what went right, what went wrong, what it correctly avoided, and what it shouldn't
+      have avoided. Four feedback channels instead of one.
+    </p>
+
+    <h2>Four-Quadrant Diagnostic Regime Detection</h2>
+    <p>
+      The bidirectional correction stream feeds into a diagnostic matrix that maps combined real
+      and phantom pressure vectors into four regimes: STABLE (both validation-dominant &mdash; system
+      is calibrated correctly), REGIME_SHIFT (both evidence-dominant &mdash; market conditions have
+      changed, full recalibration needed), GATE_ISSUE (real trades performing but phantom evidence
+      shows gates are rejecting too many winners &mdash; loosen thresholds), and EXECUTION_ISSUE
+      (filtering is correct but executed trades are underperforming &mdash; problem is in strategy
+      parameters or execution timing, not signal selection).
+    </p>
+    <p>
+      This tells you WHERE in the pipeline to fix, not just THAT there's a problem. A system
+      that knows it's losing money is basic. A system that knows whether the losses come from
+      bad signal selection, overly aggressive gates, poor execution timing, or a regime shift
+      it hasn't adapted to yet &mdash; that's diagnostic intelligence.
+    </p>
+
+    <h2>Zero-Loop Control</h2>
+    <p>
+      No system is permitted to reinterpret its own output as authoritative input. The AI cannot
+      retry a failed operation, cannot advance workflow state without explicit gate authorization,
+      and cannot use its own prior responses as evidence for current decisions. One mulligan on TTL
+      expiry, then the analysis is deleted and the pipeline moves on. This prevents feedback loops,
+      runaway self-reinforcement, and the kind of compounding errors that turn a small mistake into
+      a catastrophic one.
+    </p>
+
+    <h2>Production Deployments</h2>
+    <p>
+      Four systems currently implement these architectural patterns in production:
+      <a href="tools.html">CodeReview AI</a> (document-grounded PR reviews via GitHub App),
+      <a href="tools.html">Finance Assistant</a> (three-stage compliance-gated financial analysis),
+      <a href="tools.html">TradeEngine</a> (autonomous crypto trading with fail-closed execution),
+      and <a href="tools.html">Morning Briefing</a> (automated daily intelligence delivery).
+      Each is described in detail on the <a href="tools.html">Tools</a> page.
     </p>
 
     <h2>AUFG Research System</h2>
     <p>
-      AUFG Alexandrian Unified Field Geometry is operated as a lab grade computational program.
-      Every experiment is state locked reproducible and falsification first.
-      Runs produce structured artifacts including metadata logs failures and summaries under deterministic authority rules,
-      allowing results to be replayed exactly and compared across revisions.
-      The goal is stable measurement so that when something changes the system proves why.
+      AUFG (Alexandrian Unified Field Geometry) runs as a lab-grade computational program under
+      the same governance principles. Every experiment is state-locked, reproducible, and
+      falsification-first. Runs produce structured artifacts &mdash; metadata, logs, failure traces,
+      and summaries &mdash; under deterministic authority rules. The goal is stable measurement:
+      when something changes, the system proves why.
     </p>
 
-    <h2>Fail Closed Execution Governance</h2>
+    <h2>Corpus-Governed Novelty Checking</h2>
     <p>
-      A run is treated as invalid unless correctness is explicitly established.
-      Preflight validation and runtime enforcement convert silent failure modes into explicit invalid runs,
-      preventing successful but incorrect outputs from contaminating results.
+      New inventions are evaluated against a canonical, hash-verified corpus of prior patents and
+      papers before any claims are drafted. The system enforces explicit citation to corpus entries,
+      prevents hallucinated prior art, and classifies novelty status as Likely Novel, Partial Overlap,
+      or Not Novel with mandatory design-around paths when overlap exists. This is how a portfolio
+      grows from 23 patents to 30+ without self-collision.
     </p>
-
-    <h2>Artifact First Authority</h2>
-    <p>
-      Execution produces authoritative artifacts for every attempt whether successful or not.
-      Metadata failure logs and run directories are created or reserved before computation begins,
-      enabling traceability and post hoc auditing at scale.
-    </p>
-
-    <h2>Deterministic Seed and Interface Authority</h2>
-    <p>
-      Determinism is enforced as an execution invariant.
-      Seeds are derived from canonical inputs rather than runtime randomness.
-      Parameter transmission and callable interfaces are enforced at runtime to prevent silent drift.
-    </p>
-
-    <h2>Corpus Governed Novelty Checking</h2>
-    <p>
-      New ideas are evaluated against a canonical indexed corpus of prior patents and papers.
-      The workflow is designed to reduce overlap risk and accelerate iteration through index scanning verdicts and design around paths.
-    </p>
-
-    <h2>Exploratory Research Infrastructure</h2>
-    <p>
-      Long horizon experimentation requires governance beyond unit tests and continuous integration.
-      Alexander designs systems that preserve development velocity while maintaining reproducibility and interpretability across runs.
-    </p>
-
-    <footer class="footerbar">
-      <nav class="footernav" aria-label="Footer">
-        <a href="index.html">Home</a>
-        <a href="research.html">Research</a>
-        <a href="systems.html">Systems</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
-    </footer>
 
   </main>
+
+  <footer class="footerbar">
+    <nav class="footernav" aria-label="Footer">
+      <a href="index.html">Home</a>
+      <a href="research.html">Papers</a>
+      <a href="patents.html">Patents</a>
+      <a href="systems.html">Systems</a>
+      <a href="tools.html">Tools</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>
+  </footer>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();

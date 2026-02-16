@@ -2,12 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Alexander Sucala Plain Language</title>
+  <title>Alexander Sucala &mdash; Systems (Plain Language)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta
-    name="description"
-    content="Plain language overview of the systems Alexander Sucala builds focused on trustworthy AI outputs enforced context and reproducible research workflows."
-  >
+  <meta name="description" content="Plain-language overview of Alexander Sucala's production AI systems: how they work, why they're built this way, and what makes them different.">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
@@ -34,88 +31,147 @@
     <section class="hero">
       <h1>Systems</h1>
       <p class="subtag">
-        Alexander builds systems that keep research and AI programs reliable while improvement happens quickly so results are not trusted
-        just because they look confident.
+        Four production systems built on the same principle: if the AI can't prove its answer
+        is correct, the answer doesn't ship.
       </p>
     </section>
 
     <section class="about" aria-label="Overview">
-      <h2>What these systems are for</h2>
+      <h2>The core problem</h2>
 
       <p>
-        A lot of AI systems fail in a subtle way. The software runs correctly and nothing crashes, but the answer itself is unreliable.
-        Large language models are designed to produce the most statistically likely response from limited information.
-        When required context or authoritative information is missing, the model fills the gaps with plausible guesses.
-        The result looks confident and complete, but may be wrong in ways that are difficult to notice later.
+        Most AI systems have a dangerous habit. When they don't have enough information to answer
+        correctly, they don't tell you &mdash; they just fill in the blanks with something that sounds right.
+        The output looks confident and complete, but it might be wrong in ways nobody notices until
+        real damage is done. A wrong compliance finding. A bad trade. A hallucinated policy violation.
       </p>
 
       <p>
-        These systems are designed to make that almost impossible.
-        Inputs context and prior work are safeguarded so the AI only uses verified and allowed information.
-        If required information is missing or cannot be verified, the system stops instead of producing a convincing but untrustworthy answer.
-      </p>
-
-      <p>
-        In short Alexander designs AI systems that either produce answers backed by known information or refuse to answer until the correct
-        information is present.
+        Alexander builds systems that make this structurally impossible. Every system on this page
+        follows the same rule: if required information is missing, if a verification check fails, or
+        if the AI contradicts the actual data, the system stops rather than producing an answer it
+        can't back up. The same architectural patterns &mdash; covered by 30+ patent filings &mdash; run
+        through code review, financial analysis, autonomous trading, and automated briefings.
       </p>
     </section>
 
-    <section class="highlights" aria-label="Systems list">
-      <h2>Core systems</h2>
+    <section class="highlights" aria-label="Systems">
+      <h2>How these systems work</h2>
 
-      <h3>AUFG research system</h3>
+      <h3>Everything fails closed</h3>
       <p>
-        AUFG runs like a lab program.
-        Each experiment creates its own historical record with locked inputs and repeatable conditions,
-        making results easy to reproduce and compare across changes.
-        The goal is not impressive charts but trustworthy measurement.
+        "Fail closed" means the system treats silence as safer than a guess. If a code review
+        can't find your policy document to back up a finding, the finding gets killed instead of
+        posted. If a trading signal can't pass eight independent safety checks, no money moves.
+        If a financial analysis can't verify its data sources, it tells you what it doesn't know
+        instead of making something up. Every system is designed so that failure looks like
+        "I don't have enough information" rather than "here's a confident wrong answer."
       </p>
 
-      <h3>Fail closed execution</h3>
+      <h3>The AI doesn't get to make things up</h3>
       <p>
-        If required information is missing or a validation check fails the run is marked invalid and stops early.
-        This prevents outputs that look finished but are actually based on incomplete context or unsupported assumptions.
+        Every system has a verification layer that checks the AI's work against real data before
+        anything reaches you. In code review, a second AI model re-reads every finding against
+        your actual documentation &mdash; if it can't prove the finding from what's written, the finding
+        dies. In trading, the AI's stated numbers get compared against math that was computed
+        independently &mdash; if they don't match, the trade is rejected. In financial analysis, every
+        claim must trace back to a specific data source or it gets flagged as unverifiable.
       </p>
 
-      <h3>Artifact first records</h3>
+      <h3>You can tell where the answer came from</h3>
       <p>
-        Every attempt leaves behind a clear record.
-        Even failed runs produce useful evidence including metadata logs and failure traces,
-        making debugging faster and decisions easier to defend later.
+        Normal AI confidence scores tell you how sure the model is. That's not very useful &mdash; AI
+        models are confidently wrong all the time. These systems tell you <em>why</em> the model
+        is confident. Every finding is labeled: either it came from your actual documentation
+        (with a citation you can check), or it's the AI's own suggestion (clearly marked as such).
+        The traffic-light system &mdash; red means stop, yellow means look, green means go &mdash; is built
+        on top of these labeled findings, not on how sure the AI feels about itself.
       </p>
 
-      <h3>Deterministic inputs and enforced interfaces</h3>
+      <h3>Math first, AI second</h3>
       <p>
-        Randomness is controlled instead of left to chance.
-        Inputs interfaces and parameters are enforced so small silent changes do not slip in unnoticed
-        and so repeated runs use the same authoritative context.
+        In every system, the straightforward computational work happens first using regular
+        deterministic code that can't hallucinate. The AI only gets involved when there's
+        something that requires judgment or interpretation &mdash; and even then, it works from the
+        math's output as its starting point, not from raw data. In the trading system, technical
+        indicators are computed locally in microseconds. The AI only activates when the math says
+        "something interesting is happening here, figure out what it means." This keeps the AI
+        on a leash: it interprets verified facts rather than inventing its own.
       </p>
 
-      <h3>Novelty checking against prior work</h3>
+      <h3>The system can't teach itself bad habits</h3>
       <p>
-        New ideas are checked against a trusted library of prior papers and patents.
-        This helps catch overlap early and speeds up iteration through a simple flow of checking deciding and adjusting.
+        The trading system improves over time, but it does so under strict rules. Every lesson it
+        learns has an expiration date, a minimum number of observations before it takes effect,
+        and limits on how much it can change at once. It can't lock in a bad lesson permanently
+        based on a small run of bad luck.
       </p>
 
-      <h3>Exploratory research infrastructure</h3>
+      <h3>It learns from what it didn't do, not just what it did</h3>
       <p>
-        Long term exploration needs more than basic testing.
-        These systems protect context traceability and result integrity while still allowing work to move quickly.
+        Most systems only learn from their mistakes. This one learns from four things at once:
+        trades that worked (keep doing this), trades that didn't work (stop doing this),
+        trades it rejected that would have lost (good call, the safety checks are working), and
+        trades it rejected that would have won (the safety checks might be too strict here).
+        Every rejected trade is tracked with the same level of detail as an executed trade, so
+        the system can compare what it did against what would have happened if it hadn't said no.
+      </p>
+
+      <h3>It knows where the problem is, not just that there is one</h3>
+      <p>
+        The four types of feedback feed into a diagnostic system that answers a specific question:
+        if something is going wrong, is it because the signal selection is off, the safety gates
+        are too tight, the execution timing is bad, or the whole market has changed? A system that
+        knows it's losing money is basic. A system that can tell you <em>why</em> &mdash; and whether
+        the fix is in the filters, the strategy, or the market conditions &mdash; is diagnostic
+        intelligence.
+      </p>
+
+      <h3>No feedback loops</h3>
+      <p>
+        None of these systems are allowed to use their own previous output as evidence for their
+        next decision. The AI can't retry a failed operation on its own. It can't treat something
+        it said earlier as a fact. It can't build on top of its own guesses. Every decision starts
+        from verified data, not from the AI's prior conclusions. This prevents the kind of
+        compounding errors where a small early mistake snowballs into a catastrophic one.
       </p>
     </section>
 
-    <footer class="footerbar">
-      <nav class="footernav" aria-label="Footer">
-        <a href="index_plain.html">Home</a>
-        <a href="research_plain.html">Research</a>
-        <a href="systems_plain.html">Systems</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
-    </footer>
+    <section class="about" aria-label="Production systems">
+      <h2>What's running right now</h2>
+
+      <p>
+        Four systems currently implement these patterns in production:
+        <strong>CodeReview AI</strong> reviews pull requests against your team's actual documentation.
+        <strong>Finance Assistant</strong> analyzes stocks through a three-stage pipeline with dual
+        compliance gates. <strong>TradeEngine</strong> is an autonomous crypto trading agent with
+        five circuit breakers and fail-closed execution at every step. <strong>Morning Briefing</strong>
+        delivers a personalized daily intelligence email. Each is described in detail on the
+        <a href="tools.html">Tools</a> page.
+      </p>
+
+      <p>
+        The AUFG (Alexandrian Unified Field Geometry) research program runs under the same governance:
+        every experiment is locked, reproducible, and falsification-first. New inventions are checked
+        against a verified library of prior patents and papers to prevent overlap before any claims
+        are drafted. This is how a patent portfolio grows without accidentally re-inventing something
+        you've already filed.
+      </p>
+    </section>
 
   </main>
+
+  <footer class="footerbar">
+    <nav class="footernav" aria-label="Footer">
+      <a href="index_plain.html">Home</a>
+      <a href="research_plain.html">Papers</a>
+      <a href="patents_plain.html">Patents</a>
+      <a href="systems_plain.html">Systems</a>
+      <a href="tools.html">Tools</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>
+  </footer>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
