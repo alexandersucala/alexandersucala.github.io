@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alexander Sucala | Tools (Plain Language)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plain-language overview of Alexander Sucala's production AI tools: what they do, how they work, and why they're built differently.">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .tool-card {
+      margin-top: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .tool-card:last-child {
+      border-bottom: none;
+    }
+    .tool-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .tool-header h2 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      top: -1px;
+    }
+    .status-live {
+      background: #000;
+      color: #fff;
+    }
+    .status-dev {
+      background: #fff;
+      color: #000;
+      border: 1.5px solid #000;
+    }
+    .launch-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      border: 2px solid #000;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .launch-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+    .launch-btn-outline {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      border: 2px solid #000;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .launch-btn-outline:hover {
+      background: #000;
+      color: #fff;
+    }
+    .launch-btn-disabled {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #f5f5f5;
+      color: #999;
+      text-decoration: none;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: default;
+    }
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <nav class="topnav" aria-label="Primary">
+        <a href="index_plain.html">Home</a>
+        <a href="research_plain.html">Papers</a>
+        <a href="patents_plain.html">Patents</a>
+        <a href="systems_plain.html">Systems</a>
+        <a href="tools_plain.html" aria-current="page">Tools</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <a class="toggle" href="tools.html">Translate back to engineering</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Tools</h1>
+
+    <p>
+      These are working products that demonstrate how the architectural patterns described on the
+      <a href="systems_plain.html">Systems</a> page behave in real-world use. Three are live and
+      publicly accessible. One is in development.
+    </p>
+
+    <section class="tool-card" id="codereview">
+      <div class="tool-header">
+        <h2>CodeReview AI</h2>
+        <span class="status-badge status-live">Live</span>
+      </div>
+
+      <p>
+        <strong>What it does:</strong> When your team opens a pull request on GitHub, CodeReview AI
+        reads your company's actual documentation (security policies, style guides, architecture
+        standards, legal requirements) and checks the code changes against those rules. It's not
+        generic advice. It reviews against <em>your</em> ground truth.
+      </p>
+
+      <p>
+        <strong>How it's different:</strong> Every finding is clearly labeled: either it came from
+        your documentation (with a citation you can verify), or it's the AI's own suggestion
+        (marked as such). A second AI pass re-reads every finding against the source document
+        before posting. If it can't prove the finding from what's actually written, the finding
+        gets killed. The result shows up as a simple traffic light: red means fix before merge,
+        yellow means take a look, green means good to go.
+      </p>
+
+      <p>
+        <strong>What's next:</strong> V2 adds full codebase scoring at install, a baseline
+        strength rating across security, architecture, style, legal, and onboarding. A dashboard
+        tracks how each area trends over time. V1 tells you what's wrong with this PR. V2 tells you
+        what's happening to your codebase.
+      </p>
+
+      <div class="btn-row">
+        <a href="tools/codereview-ai.html" class="launch-btn">Learn More &rarr;</a>
+        <a href="https://github.com/apps/codereview-ai-dev" class="launch-btn-outline">Install GitHub App &rarr;</a>
+      </div>
+    </section>
+
+    <section class="tool-card" id="tradeengine">
+      <div class="tool-header">
+        <h2>TradeEngine</h2>
+        <span class="status-badge status-dev">In Development</span>
+      </div>
+
+      <p>
+        <strong>What it does:</strong> An autonomous trading agent for cryptocurrency. The system
+        watches the market continuously using standard math (technical indicators), and when the
+        numbers line up on a promising opportunity, the AI comes online to analyze the situation
+        and decide whether to execute. Every trade must pass eight independent safety checks before
+        any money moves.
+      </p>
+
+      <p>
+        <strong>How it's different:</strong> The math runs first. The AI runs second. And the AI
+        only works with numbers the math already verified. It doesn't get to invent its own data.
+        If the AI says one thing and the math says another, the trade is rejected automatically.
+        The system also learns from four types of feedback: trades that worked, trades that didn't,
+        trades it rejected that would have lost (confirming the safety checks are good), and trades
+        it rejected that would have won (revealing where the safety checks might be too strict).
+        A diagnostic system maps all four feedback types to pinpoint whether problems are in signal
+        selection, execution, gate calibration, or market conditions, not just that something is off.
+      </p>
+
+      <p>
+        <strong>Safety:</strong> Five independent circuit breakers. Daily loss limits enforced in
+        code, not suggestions. Position sizing constrained by three overlapping limits (the most
+        conservative always wins). If any single safety check fails, no trade executes. The system
+        is architecturally incapable of blowing up the account.
+      </p>
+
+      <p style="margin-top: 1.5rem;">
+        <span class="launch-btn-disabled">
+          Available after paper trading validation
+        </span>
+      </p>
+    </section>
+
+    <section class="tool-card" id="finance">
+      <div class="tool-header">
+        <h2>Finance Assistant</h2>
+        <span class="status-badge status-live">Live</span>
+      </div>
+
+      <p>
+        <strong>What it does:</strong> Ask it about any publicly traded company and it returns
+        a confidence-scored analysis based on live market data and current news. It tells you what
+        it knows, how confident it is, and what it doesn't know.
+      </p>
+
+      <p>
+        <strong>How it's different:</strong> The analysis runs through three separate AI stages,
+        each with a different job. The first stage does deep research without any restrictions.
+        The second stage rewrites the research into something safe and compliant for a user to read.
+        The third stage checks that nothing slipped through. Two gates (one at the front, one
+        at the back) validate that the request makes sense going in and that the response meets
+        quality standards coming out. If it doesn't pass, the system tells you why instead of
+        guessing its way to an answer.
+      </p>
+
+      <p style="margin-top: 1.5rem;">
+        <a href="tools/finance-assistant.html" class="launch-btn">
+          Launch Finance Assistant &rarr;
+        </a>
+      </p>
+
+      <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">
+        <strong>Note:</strong> Educational use only. Not financial advice. Demonstrates patent
+        architecture, not investment recommendations.
+      </p>
+    </section>
+
+    <section class="tool-card" id="briefing">
+      <div class="tool-header">
+        <h2>Morning Briefing</h2>
+        <span class="status-badge status-live">Live</span>
+      </div>
+
+      <p>
+        <strong>What it does:</strong> Sends a personalized morning email every day at 6 AM with
+        weather, tech news, market data, and curated content. Fully automated with no human
+        intervention required after setup.
+      </p>
+
+      <p>
+        <strong>How it's different:</strong> Each email is generated fresh by AI with live data,
+        but a structured summary of every previous email prevents content repetition across days.
+        The system has no memory between runs. All context is reconstructed from scratch each
+        morning. This means it can't drift, can't accumulate errors over time, and can't develop
+        blind spots from stale cached data. Runs for under $1/month.
+      </p>
+
+      <p style="margin-top: 1.5rem;">
+        <span class="launch-btn-disabled">
+          Automated, no public interface
+        </span>
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="footerbar">
+    <nav class="footernav" aria-label="Footer">
+      <a href="index_plain.html">Home</a>
+      <a href="research_plain.html">Papers</a>
+      <a href="patents_plain.html">Patents</a>
+      <a href="systems_plain.html">Systems</a>
+      <a href="tools_plain.html">Tools</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

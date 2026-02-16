@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Alexander Sucala &mdash; Systems (Plain Language)</title>
+  <title>Alexander Sucala | Systems (Plain Language)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Plain-language overview of Alexander Sucala's production AI systems: how they work, why they're built this way, and what makes them different.">
 
@@ -18,7 +18,7 @@
       <a href="research_plain.html">Papers</a>
       <a href="patents_plain.html">Patents</a>
       <a href="systems_plain.html" aria-current="page">Systems</a>
-      <a href="tools.html">Tools</a>
+      <a href="tools_plain.html">Tools</a>
       <a href="contact.html">Contact</a>
     </nav>
 
@@ -41,7 +41,7 @@
 
       <p>
         Most AI systems have a dangerous habit. When they don't have enough information to answer
-        correctly, they don't tell you &mdash; they just fill in the blanks with something that sounds right.
+        correctly, they don't tell you. They just fill in the blanks with something that sounds right.
         The output looks confident and complete, but it might be wrong in ways nobody notices until
         real damage is done. A wrong compliance finding. A bad trade. A hallucinated policy violation.
       </p>
@@ -50,7 +50,7 @@
         Alexander builds systems that make this structurally impossible. Every system on this page
         follows the same rule: if required information is missing, if a verification check fails, or
         if the AI contradicts the actual data, the system stops rather than producing an answer it
-        can't back up. The same architectural patterns &mdash; covered by 30+ patent filings &mdash; run
+        can't back up. The same architectural patterns, covered by 30+ patent filings, run
         through code review, financial analysis, autonomous trading, and automated briefings.
       </p>
     </section>
@@ -72,19 +72,19 @@
       <p>
         Every system has a verification layer that checks the AI's work against real data before
         anything reaches you. In code review, a second AI model re-reads every finding against
-        your actual documentation &mdash; if it can't prove the finding from what's written, the finding
+        your actual documentation. If it can't prove the finding from what's written, the finding
         dies. In trading, the AI's stated numbers get compared against math that was computed
-        independently &mdash; if they don't match, the trade is rejected. In financial analysis, every
+        independently. If they don't match, the trade is rejected. In financial analysis, every
         claim must trace back to a specific data source or it gets flagged as unverifiable.
       </p>
 
       <h3>You can tell where the answer came from</h3>
       <p>
-        Normal AI confidence scores tell you how sure the model is. That's not very useful &mdash; AI
-        models are confidently wrong all the time. These systems tell you <em>why</em> the model
+        Normal AI confidence scores tell you how sure the model is. That's not very useful because
+        AI models are confidently wrong all the time. These systems tell you <em>why</em> the model
         is confident. Every finding is labeled: either it came from your actual documentation
         (with a citation you can check), or it's the AI's own suggestion (clearly marked as such).
-        The traffic-light system &mdash; red means stop, yellow means look, green means go &mdash; is built
+        The traffic-light system (red means stop, yellow means look, green means go) is built
         on top of these labeled findings, not on how sure the AI feels about itself.
       </p>
 
@@ -92,7 +92,7 @@
       <p>
         In every system, the straightforward computational work happens first using regular
         deterministic code that can't hallucinate. The AI only gets involved when there's
-        something that requires judgment or interpretation &mdash; and even then, it works from the
+        something that requires judgment or interpretation, and even then, it works from the
         math's output as its starting point, not from raw data. In the trading system, technical
         indicators are computed locally in microseconds. The AI only activates when the math says
         "something interesting is happening here, figure out what it means." This keeps the AI
@@ -122,8 +122,8 @@
         The four types of feedback feed into a diagnostic system that answers a specific question:
         if something is going wrong, is it because the signal selection is off, the safety gates
         are too tight, the execution timing is bad, or the whole market has changed? A system that
-        knows it's losing money is basic. A system that can tell you <em>why</em> &mdash; and whether
-        the fix is in the filters, the strategy, or the market conditions &mdash; is diagnostic
+        knows it's losing money is basic. A system that can tell you <em>why</em>, and whether
+        the fix is in the filters, the strategy, or the market conditions? That's diagnostic
         intelligence.
       </p>
 
@@ -142,12 +142,12 @@
 
       <p>
         Four systems currently implement these patterns in production:
-        <strong>CodeReview AI</strong> reviews pull requests against your team's actual documentation.
-        <strong>Finance Assistant</strong> analyzes stocks through a three-stage pipeline with dual
-        compliance gates. <strong>TradeEngine</strong> is an autonomous crypto trading agent with
-        five circuit breakers and fail-closed execution at every step. <strong>Morning Briefing</strong>
+        <strong><a href="tools_plain.html#codereview">CodeReview AI</a></strong> reviews pull requests against your team's actual documentation.
+        <strong><a href="tools_plain.html#finance">Finance Assistant</a></strong> analyzes stocks through a three-stage pipeline with dual
+        compliance gates. <strong><a href="tools_plain.html#tradeengine">TradeEngine</a></strong> is an autonomous crypto trading agent with
+        five circuit breakers and fail-closed execution at every step. <strong><a href="tools_plain.html#briefing">Morning Briefing</a></strong>
         delivers a personalized daily intelligence email. Each is described in detail on the
-        <a href="tools.html">Tools</a> page.
+        <a href="tools_plain.html">Tools</a> page.
       </p>
 
       <p>
@@ -167,7 +167,7 @@
       <a href="research_plain.html">Papers</a>
       <a href="patents_plain.html">Patents</a>
       <a href="systems_plain.html">Systems</a>
-      <a href="tools.html">Tools</a>
+      <a href="tools_plain.html">Tools</a>
       <a href="contact.html">Contact</a>
     </nav>
     <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>

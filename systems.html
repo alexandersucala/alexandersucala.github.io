@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Systems &mdash; Alexander Sucala</title>
+  <title>Systems | Alexander Sucala</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Production AI systems built on fail-closed execution, hallucination verification, and deterministic-first architecture. 30+ patents. Four deployed systems.">
 
@@ -38,14 +38,14 @@
 
     <h2>Core Architecture: Fail-Closed Multi-Stage Pipelines</h2>
     <p>
-      Most AI systems fail open &mdash; they produce output regardless of whether the data, context,
+      Most AI systems fail open. They produce output regardless of whether the data, context,
       or reasoning behind it is sound. These systems fail closed. If a verification gate can't confirm
       the output is grounded, the pipeline stops. No confident-sounding garbage reaches the user.
       No trade executes on a hallucinated signal. No compliance finding ships without a document citation.
     </p>
     <p>
       Each pipeline separates concerns into independent stages with explicit contracts between them.
-      AI components are treated as probabilistic tools embedded within deterministic control structures &mdash;
+      AI components are treated as probabilistic tools embedded within deterministic control structures,
       never as autonomous decision-makers. The math tells the AI what's happening. The AI tells the
       math what it means. If they disagree, the math wins.
     </p>
@@ -56,7 +56,7 @@
       against independently computed or retrieved ground truth before any action is taken.
       In CodeReview AI, a second model re-reads each finding against the source document and kills
       anything it can't prove. In TradeEngine, the hallucination gate compares AI-stated indicator
-      values against locally computed deterministic values &mdash; if the AI says RSI is 28 but the math
+      values against locally computed deterministic values. If the AI says RSI is 28 but the math
       says 45, the signal is rejected. In Finance Assistant, Gate B validates every claim in the
       final output against the structured evidence from Stage 1.
     </p>
@@ -67,17 +67,17 @@
 
     <h2>Confidence Provenance Classification</h2>
     <p>
-      Standard AI confidence scoring tells you how sure the model is. That's not useful &mdash; models
-      are confidently wrong all the time. These systems classify confidence by <em>type</em>, not
-      just magnitude. Every finding is tagged with its provenance: DOCUMENT_BACKED means the AI found
-      it in your actual documentation and can cite the source, section, and line range. LLM_OPINION
-      means the model thinks it's a good idea but can't prove it from your artifacts.
+      Standard AI confidence scoring tells you how sure the model is. That's not useful because
+      models are confidently wrong all the time. These systems classify confidence by <em>type</em>,
+      not just magnitude. Every finding is tagged with its provenance: DOCUMENT_BACKED means the AI
+      found it in your actual documentation and can cite the source, section, and line range.
+      LLM_OPINION means the model thinks it's a good idea but can't prove it from your artifacts.
     </p>
     <p>
       This classification runs across CodeReview AI (five independent review gates each producing
       typed findings), Finance Assistant (claims require source references or get classified as
       unknowns), and TradeEngine (deterministic signals vs AI interpretations are tracked separately
-      through the entire pipeline). The traffic-light aggregation &mdash; RED, YELLOW, GREEN &mdash; is
+      through the entire pipeline). The traffic-light aggregation (RED, YELLOW, GREEN) is
       computed from typed findings, not raw model confidence.
     </p>
 
@@ -88,7 +88,7 @@
       activates only when the deterministic layer has already identified something worth analyzing.
       The deterministic radar scans continuously in microseconds with zero hallucination risk. When
       indicators converge, AI weapons come online with the deterministic output as ground truth.
-      The AI interprets the math &mdash; it does not originate signals from raw data.
+      The AI interprets the math. It does not originate signals from raw data.
     </p>
     <p>
       The same pattern appears in CodeReview AI (filename heuristics classify documents before LLM
@@ -103,7 +103,7 @@
       lessons. Every correction note must conform to a schema requiring measurable metrics,
       conditional applicability, time-bounded validity, and severity tiers with escalating minimum
       sample sizes (10/20/30/50 observations) before corrections can increase in scope. The agent
-      learns through structured context injection &mdash; not fine-tuning &mdash; and recency bias is
+      learns through structured context injection, not fine-tuning, and recency bias is
       prevented by requiring corrections to expire if not re-validated.
     </p>
 
@@ -113,8 +113,8 @@
       decision outcomes: correct trades (real wins validate current parameters), incorrect trades
       (real losses generate evidence for adjustment), correct rejections (phantom losses confirm
       the gates are working), and incorrect rejections (phantom wins reveal the gates are too tight).
-      Every correction carries a direction &mdash; EVIDENCE (something needs to change) or VALIDATION
-      (current parameters are confirmed correct) &mdash; and a source &mdash; REAL or PHANTOM. Phantom
+      Every correction carries a direction (EVIDENCE meaning something needs to change, or VALIDATION
+      meaning current parameters are confirmed correct) and a source (REAL or PHANTOM). Phantom
       trades maintain full data parity with real trade records so counterfactual analysis generates
       corrections with equal structural weight.
     </p>
@@ -127,18 +127,18 @@
     <h2>Four-Quadrant Diagnostic Regime Detection</h2>
     <p>
       The bidirectional correction stream feeds into a diagnostic matrix that maps combined real
-      and phantom pressure vectors into four regimes: STABLE (both validation-dominant &mdash; system
-      is calibrated correctly), REGIME_SHIFT (both evidence-dominant &mdash; market conditions have
-      changed, full recalibration needed), GATE_ISSUE (real trades performing but phantom evidence
-      shows gates are rejecting too many winners &mdash; loosen thresholds), and EXECUTION_ISSUE
-      (filtering is correct but executed trades are underperforming &mdash; problem is in strategy
+      and phantom pressure vectors into four regimes: STABLE (both validation-dominant, system
+      is calibrated correctly), REGIME_SHIFT (both evidence-dominant, market conditions have
+      changed and full recalibration is needed), GATE_ISSUE (real trades performing but phantom
+      evidence shows gates are rejecting too many winners, loosen thresholds), and EXECUTION_ISSUE
+      (filtering is correct but executed trades are underperforming, problem is in strategy
       parameters or execution timing, not signal selection).
     </p>
     <p>
       This tells you WHERE in the pipeline to fix, not just THAT there's a problem. A system
       that knows it's losing money is basic. A system that knows whether the losses come from
       bad signal selection, overly aggressive gates, poor execution timing, or a regime shift
-      it hasn't adapted to yet &mdash; that's diagnostic intelligence.
+      it hasn't adapted to yet? That's diagnostic intelligence.
     </p>
 
     <h2>Zero-Loop Control</h2>
@@ -154,10 +154,10 @@
     <h2>Production Deployments</h2>
     <p>
       Four systems currently implement these architectural patterns in production:
-      <a href="tools.html">CodeReview AI</a> (document-grounded PR reviews via GitHub App),
-      <a href="tools.html">Finance Assistant</a> (three-stage compliance-gated financial analysis),
-      <a href="tools.html">TradeEngine</a> (autonomous crypto trading with fail-closed execution),
-      and <a href="tools.html">Morning Briefing</a> (automated daily intelligence delivery).
+      <a href="tools.html#codereview">CodeReview AI</a> (document-grounded PR reviews via GitHub App),
+      <a href="tools.html#finance">Finance Assistant</a> (three-stage compliance-gated financial analysis),
+      <a href="tools.html#tradeengine">TradeEngine</a> (autonomous crypto trading with fail-closed execution),
+      and <a href="tools.html#briefing">Morning Briefing</a> (automated daily intelligence delivery).
       Each is described in detail on the <a href="tools.html">Tools</a> page.
     </p>
 
@@ -165,8 +165,8 @@
     <p>
       AUFG (Alexandrian Unified Field Geometry) runs as a lab-grade computational program under
       the same governance principles. Every experiment is state-locked, reproducible, and
-      falsification-first. Runs produce structured artifacts &mdash; metadata, logs, failure traces,
-      and summaries &mdash; under deterministic authority rules. The goal is stable measurement:
+      falsification-first. Runs produce structured artifacts including metadata, logs, failure
+      traces, and summaries under deterministic authority rules. The goal is stable measurement:
       when something changes, the system proves why.
     </p>
 

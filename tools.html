@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tools — Alexander Sucala</title>
+  <title>Tools | Alexander Sucala</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Working demonstrations of Alexander Sucala's patents and research in production systems.">
 
@@ -109,6 +109,8 @@
         <a href="tools.html" aria-current="page">Tools</a>
         <a href="contact.html">Contact</a>
       </nav>
+
+      <a class="toggle" href="tools_plain.html">Translate for non-engineers</a>
     </div>
   </header>
 
@@ -116,86 +118,90 @@
     <h1>Tools</h1>
 
     <p>
-      Production systems demonstrating fail-closed execution, deterministic state management, 
-      and artifact-based authority control. Each tool implements one or more of Alexander's 
+      Production systems demonstrating fail-closed execution, deterministic state management,
+      and artifact-based authority control. Each tool implements one or more of Alexander's
       patented architectures.
     </p>
 
-    <!-- 1. CodeReview AI — LIVE -->
-    <section class="tool-card">
+    <section class="tool-card" id="codereview">
       <div class="tool-header">
         <h2>CodeReview AI</h2>
         <span class="status-badge status-live">Live</span>
       </div>
 
       <p>
-        <strong>What it is:</strong> A GitHub App that performs document-grounded compliance reviews 
-        on pull requests. Instead of generic linting, CodeReview AI ingests a company's actual 
-        documentation — security policies, style guides, architecture standards, legal requirements — 
+        <strong>What it is:</strong> A GitHub App that performs document-grounded compliance reviews
+        on pull requests. Instead of generic linting, CodeReview AI ingests a company's actual
+        documentation (security policies, style guides, architecture standards, legal requirements)
         and reviews every PR against that ground truth.
       </p>
 
       <p>
-        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em> and 
-        <em>Artifact-Based Authority</em> patents applied to code review. Every finding is tagged 
-        DOCUMENT_BACKED or LLM_OPINION, so teams know exactly which findings come from their own 
-        rules and which are the model's suggestion. A two-pass pipeline (analysis + hallucination guard) 
+        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em> and
+        <em>Artifact-Based Authority</em> patents applied to code review. Every finding is tagged
+        DOCUMENT_BACKED or LLM_OPINION, so teams know exactly which findings come from their own
+        rules and which are the model's suggestion. A two-pass pipeline (analysis + hallucination guard)
         ensures the system never fabricates policy violations.
       </p>
 
       <p>
-        <strong>Technical implementation:</strong> Multi-gate review pipeline (Security, Architecture, 
-        Style, Legal, Onboarding) with per-gate document retrieval, structured finding generation with 
-        citation references, hallucination verification pass, and traffic-light output (RED/YELLOW/GREEN). 
-        Deployed on Railway with GitHub webhook integration. Discovery module auto-classifies repository 
+        <strong>Technical implementation:</strong> Multi-gate review pipeline (Security, Architecture,
+        Style, Legal, Onboarding) with per-gate document retrieval, structured finding generation with
+        citation references, hallucination verification pass, and traffic-light output (RED/YELLOW/GREEN).
+        Deployed on Railway with GitHub webhook integration. Discovery module auto-classifies repository
         documentation into review gates during setup.
       </p>
 
       <p>
-        <strong>V2 Roadmap:</strong> V2 will have 2 tiers, Tier 1 is everything above. Tier 2 adds 
-        full codebase analysis on setup — scoring your repo across all five gates with a baseline strength 
-        rating for each. A historical dashboard tracks how each gate trends over time so you can see whether 
-        your codebase is improving or declining since install. Tier 1 tells you what's wrong with this PR. 
+        <strong>V2 Roadmap:</strong> V2 will have 2 tiers, Tier 1 is everything above. Tier 2 adds
+        full codebase analysis on setup, scoring your repo across all five gates with a baseline strength
+        rating for each. A historical dashboard tracks how each gate trends over time so you can see whether
+        your codebase is improving or declining since install. Tier 1 tells you what's wrong with this PR.
         Tier 2 tells you what's happening to your codebase.
       </p>
 
       <div class="btn-row">
-        <a href="tools/codereview-ai.html" class="launch-btn">Learn More →</a>
-        <a href="https://github.com/apps/codereview-ai-dev" class="launch-btn-outline">Install GitHub App →</a>
+        <a href="tools/codereview-ai.html" class="launch-btn">Learn More &rarr;</a>
+        <a href="https://github.com/apps/codereview-ai-dev" class="launch-btn-outline">Install GitHub App &rarr;</a>
       </div>
     </section>
 
-    <!-- 2. TradeEngine — IN DEV -->
-    <section class="tool-card">
+    <section class="tool-card" id="tradeengine">
       <div class="tool-header">
         <h2>TradeEngine</h2>
         <span class="status-badge status-dev">In Development</span>
       </div>
 
       <p>
-        <strong>What it is:</strong> An autonomous AI trading agent built on a two-phase trigger system. 
-        Deterministic technical analysis runs continuously as passive radar, and when indicators converge 
-        on a high-probability setup, AI analysis comes online to verify and execute. Every trade passes 
+        <strong>What it is:</strong> An autonomous AI trading agent built on a two-phase trigger system.
+        Deterministic technical analysis runs continuously as passive radar, and when indicators converge
+        on a high-probability setup, AI analysis comes online to verify and execute. Every trade passes
         through fail-closed gates. Every decision is fully auditable.
       </p>
 
       <p>
-        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em>, 
-        <em>Zero-Loop Control</em>, and <em>State-Locked AI Orchestration</em> patents applied to 
-        autonomous financial execution. The deterministic layer computes technical indicators locally 
-        in microseconds with zero hallucination risk. The AI interprets deterministic ground truth — 
-        it does not originate signals from raw data. A hallucination verification gate compares AI 
+        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em>,
+        <em>Zero-Loop Control</em>, <em>State-Locked AI Orchestration</em>,
+        <em>Bidirectional Decision Quality Analysis</em>, and
+        <em>Four-Quadrant Diagnostic Regime Detection</em> patents applied to
+        autonomous financial execution. The deterministic layer computes technical indicators locally
+        in microseconds with zero hallucination risk. The AI interprets deterministic ground truth.
+        It does not originate signals from raw data. A hallucination verification gate compares AI
         output against deterministic values before any capital moves.
       </p>
 
       <p>
-        <strong>Technical implementation:</strong> Two-phase "gun-cocking" trigger system with 
-        deterministic passive radar, multi-dimensional signal ranking, dynamic strategy confidence 
-        weighting (30/70 to 70/30 AI-to-deterministic ratios depending on trade type), TTL management 
-        with cached analysis, constrained self-correction schema preventing permanent bad lessons, 
-        phantom trade logging tracking missed opportunities, five independent circuit breakers, and 
-        API cost optimization gating. The agent learns through structured context injection — not 
-        fine-tuning — and is architecturally incapable of blowing up the account.
+        <strong>Technical implementation:</strong> Two-phase "gun-cocking" trigger system with
+        deterministic passive radar, multi-dimensional signal ranking, dynamic strategy confidence
+        weighting (30/70 to 70/30 AI-to-deterministic ratios depending on trade type), TTL management
+        with cached analysis, constrained self-correction schema preventing permanent bad lessons,
+        bidirectional learning from all four decision outcomes (correct trades, incorrect trades,
+        correct rejections, incorrect rejections) with full data parity between real and phantom trades,
+        four-quadrant diagnostic regime detection (STABLE/REGIME_SHIFT/GATE_ISSUE/EXECUTION_ISSUE)
+        that pinpoints where in the pipeline to fix rather than just flagging that something is wrong,
+        five independent circuit breakers, and API cost optimization gating. The agent learns through
+        structured context injection, not fine-tuning, and is architecturally incapable of
+        blowing up the account.
       </p>
 
       <p style="margin-top: 1.5rem;">
@@ -205,78 +211,76 @@
       </p>
     </section>
 
-    <!-- 3. Finance Assistant — LIVE -->
-    <section class="tool-card">
+    <section class="tool-card" id="finance">
       <div class="tool-header">
         <h2>Finance Assistant</h2>
         <span class="status-badge status-live">Live</span>
       </div>
 
       <p>
-        <strong>What it is:</strong> A production stock analysis system with a 3-stage LLM pipeline 
-        and dual compliance gates. Ask it about any publicly traded company and it returns 
+        <strong>What it is:</strong> A production stock analysis system with a 3-stage LLM pipeline
+        and dual compliance gates. Ask it about any publicly traded company and it returns
         confidence-scored analysis grounded in live market data and current news.
       </p>
 
       <p>
-        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em>, 
-        <em>State-Locked AI Orchestration</em>, <em>Artifact-Based Authority</em>, and 
-        <em>Intent-Contract Enforcement</em> patents in a production system. Most AI systems fail 
-        open — producing output regardless of data quality. This system fails closed, gating all 
-        responses behind explicit confidence scores (HIGH/MEDIUM/LOW) derived from data freshness 
+        <strong>What it demonstrates:</strong> <em>Fail-Closed Execution</em>,
+        <em>State-Locked AI Orchestration</em>, <em>Artifact-Based Authority</em>, and
+        <em>Intent-Contract Enforcement</em> patents in a production system. Most AI systems fail
+        open, producing output regardless of data quality. This system fails closed, gating all
+        responses behind explicit confidence scores (HIGH/MEDIUM/LOW) derived from data freshness
         and source validation.
       </p>
 
       <p>
-        <strong>Technical implementation:</strong> Gate A intent classification, Stage 1 Draft Builder 
-        (Sonnet), Stage 2 Delivery Filter (Haiku), Stage 3 Policy Scanner (Haiku), and Gate B output 
-        validation (PASS/REWRITE/FAIL_CLOSED). Uses Alpha Vantage for market data, Brave Search for 
-        news, and Anthropic Claude for analysis — all wrapped in fail-closed validation. Response time 
+        <strong>Technical implementation:</strong> Gate A intent classification, Stage 1 Draft Builder
+        (Sonnet), Stage 2 Delivery Filter (Haiku), Stage 3 Policy Scanner (Haiku), and Gate B output
+        validation (PASS/REWRITE/FAIL_CLOSED). Uses Alpha Vantage for market data, Brave Search for
+        news, and Anthropic Claude for analysis, all wrapped in fail-closed validation. Response time
         optimized from 32s to 20s through model-tier allocation.
       </p>
 
       <p style="margin-top: 1.5rem;">
         <a href="tools/finance-assistant.html" class="launch-btn">
-          Launch Finance Assistant →
+          Launch Finance Assistant &rarr;
         </a>
       </p>
 
       <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">
-        <strong>Note:</strong> Educational use only. Not financial advice. Demonstrates patent architecture, 
+        <strong>Note:</strong> Educational use only. Not financial advice. Demonstrates patent architecture,
         not investment recommendations.
       </p>
     </section>
 
-    <!-- 4. Morning Briefing — LIVE -->
-    <section class="tool-card">
+    <section class="tool-card" id="briefing">
       <div class="tool-header">
         <h2>Morning Briefing</h2>
         <span class="status-badge status-live">Live</span>
       </div>
 
       <p>
-        <strong>What it is:</strong> An automated daily email system that delivers a personalized 
-        morning briefing — weather, tech news, market data, and curated intellectual content — 
+        <strong>What it is:</strong> An automated daily email system that delivers a personalized
+        morning briefing with weather, tech news, market data, and curated intellectual content
         at 6 AM every day via cloud execution.
       </p>
 
       <p>
-        <strong>What it demonstrates:</strong> <em>State-Locked AI Orchestration</em> applied to 
-        recurring automated workflows. A two-LLM pipeline with structured history prevents content 
-        repetition across days. Each run is fully stateless — all context is reconstructed fresh 
+        <strong>What it demonstrates:</strong> <em>State-Locked AI Orchestration</em> applied to
+        recurring automated workflows. A two-LLM pipeline with structured history prevents content
+        repetition across days. Each run is fully stateless with all context reconstructed fresh
         per execution through structured prompt injection.
       </p>
 
       <p>
-        <strong>Technical implementation:</strong> Claude Sonnet with web search tools generates 
-        full HTML email content, sent via SendGrid API. Deployed on Railway with cron-based 
-        scheduling. Inline CSS only for Gmail compatibility. Structured summarization of each 
+        <strong>Technical implementation:</strong> Claude Sonnet with web search tools generates
+        full HTML email content, sent via SendGrid API. Deployed on Railway with cron-based
+        scheduling. Inline CSS only for Gmail compatibility. Structured summarization of each
         sent email prevents repetition without persistent memory. Runs under $1/month in API costs.
       </p>
 
       <p style="margin-top: 1.5rem;">
         <span class="launch-btn-disabled">
-          Automated — no public interface
+          Automated, no public interface
         </span>
       </p>
     </section>
@@ -292,7 +296,7 @@
       <a href="tools.html">Tools</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
+    <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>
   </footer>
 
   <script>
