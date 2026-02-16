@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Alexander Sucala Plain Language</title>
+  <title>Alexander Sucala | Plain Language</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Plain language overview of Alexander Sucala’s work focusing on deterministic AI governance reliable execution and trustworthy research systems.">
+  <meta name="description" content="Plain-language overview of Alexander Sucala's work: production AI systems, 30+ patents, and research in AI safety and reliability.">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
@@ -18,7 +18,7 @@
       <a href="research_plain.html">Papers</a>
       <a href="patents_plain.html">Patents</a>
       <a href="systems_plain.html">Systems</a>
-      <a href="tools.html">Tools</a>
+      <a href="tools_plain.html">Tools</a>
       <a href="contact.html">Contact</a>
     </nav>
 
@@ -26,12 +26,12 @@
   </div>
 </header>
 
-
   <main>
     <section class="hero">
       <h1>Alexander Sucala</h1>
       <p class="subtag">
-        Alexander builds reliable systems that keep complex software and AI experiments from quietly breaking.
+        Alexander builds AI systems that either prove their answers are correct or refuse
+        to answer. 30+ patent filings. 14+ published papers. 4 production systems running right now.
       </p>
     </section>
 
@@ -39,51 +39,52 @@
       <h2>What Alexander does</h2>
 
       <p>
-       A lot of AI systems fail in a subtle way. The software runs correctly and nothing crashes, but the answer itself is unreliable.
-      Large language models are designed to produce the most statistically likely response from limited information.
-      When required context or authoritative information is missing, the model fills the gaps with plausible guesses.
-      The result looks confident and complete, but may be wrong in ways that are difficult to notice until it's too late.
-     </p>
-
-     <p>
-      Alexander’s work is to stop that from happening. He builds systems that safeguard inputs, context, and prior work so that AI
-      cannot silently guess its way through missing information. If required information is not present or cannot be verified,
-      the system stops instead of producing a convincing but untrustworthy answer.
-    </p>
-
-    </section>
-
-    <section class="highlights" aria-label="Highlights">
-      <h2>What that means in real life</h2>
-      <ul>
-       <li>The system refuses to answer when required information is missing</li>
-       <li>AI outputs are based only on verified and allowed context</li>
-       <li>It is always clear what information the AI was allowed to use</li>
-       <li>Confident but unsupported guesses are blocked before they appear</li>
-      </ul>
-      <p class="note">
-       In short, fewer false confidence failures, less rework, and results that can actually be trusted.
+        Most AI systems have a dangerous habit: when they don't have enough information to answer
+        correctly, they guess and present the guess as if it were fact. The output looks confident.
+        It might be completely wrong. And you can't tell the difference until real damage is done.
       </p>
 
+      <p>
+        Alexander builds systems that make this impossible. If the AI can't prove its answer from
+        real data, the answer doesn't ship. If the math says one thing and the AI says another,
+        the math wins. Every finding is labeled with where it came from so you can tell the
+        difference between something backed by your actual documentation and something the AI
+        thinks is a good idea.
+      </p>
+
+      <p>
+        These aren't research prototypes. There are four systems running in production right now,
+        each one implementing the same patented architectural patterns across different domains:
+        <a href="tools_plain.html#codereview">automated code review</a>,
+        <a href="tools_plain.html#finance">financial analysis</a>,
+        <a href="tools_plain.html#tradeengine">autonomous trading</a>, and
+        <a href="tools_plain.html#briefing">daily intelligence briefings</a>.
+        The <a href="systems_plain.html">Systems</a> page explains how they work.
+        The <a href="patents_plain.html">Patents</a> and <a href="research_plain.html">Papers</a>
+        pages document the ideas behind them.
+      </p>
     </section>
 
     <section class="personal" aria-label="Personal">
       <h2>Outside of work</h2>
       <p>
-        Outside of work Alexander rides motorcycles, hikes, travels, reads books and keeps building systems, tools, and experiments.
+        Motorcycles, hiking, travel, reading, and building things that don't break.
       </p>
     </section>
 
-    <footer class="footerbar">
-      <nav class="footernav" aria-label="Footer">
-        <a href="index_plain.html">Home</a>
-        <a href="research.html">Research</a>
-        <a href="systems.html">Systems</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <p class="footer-note">© <span id="y"></span> Alexander Sucala</p>
-    </footer>
   </main>
+
+  <footer class="footerbar">
+    <nav class="footernav" aria-label="Footer">
+      <a href="index_plain.html">Home</a>
+      <a href="research_plain.html">Papers</a>
+      <a href="patents_plain.html">Patents</a>
+      <a href="systems_plain.html">Systems</a>
+      <a href="tools_plain.html">Tools</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>
+  </footer>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
