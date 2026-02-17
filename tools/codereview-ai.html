@@ -2,924 +2,840 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CodeReview AI | Alexander Sucala</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="AI-powered code reviews grounded in your team's documentation. Not generic best practices. Your rules, your standards, enforced on every PR.">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeReview AI — Document-backed code review for teams that can't afford to guess</title>
+  <meta name="description" content="CodeReview AI reads your company's actual documentation and enforces it on every pull request. Not generic linting. Your rules, your docs, every PR.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    .hero {
-      margin-top: 1rem;
-      margin-bottom: 3rem;
-    }
-    .hero p {
-      font-size: 1.05rem;
-      line-height: 1.75;
-    }
-    .section {
-      margin-top: 2.5rem;
-    }
-    .section h2 {
-      font-size: 1.15rem;
-      margin-bottom: 0.8rem;
-    }
-    .section p, .section .expanded {
-      line-height: 1.75;
-    }
-    .gate-list {
-      margin: 1rem 0;
-      padding-left: 0;
-      list-style: none;
-    }
-    .gate-list li {
-      padding: 0.5rem 0;
-      font-size: 0.92rem;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    .gate-list li:last-child {
-      border-bottom: none;
-    }
-    .gate-label {
-      font-weight: 600;
-      display: inline-block;
-      min-width: 5.5rem;
-    }
-    .btn-row {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-    .btn-primary {
-      display: inline-block;
-      padding: 12px 24px;
-      background: #000;
-      color: #fff;
-      text-decoration: none;
-      border: 2px solid #000;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .btn-primary:hover {
-      background: #fff;
-      color: #000;
-    }
-    .btn-secondary {
-      display: inline-block;
-      padding: 12px 24px;
-      background: #fff;
-      color: #000;
-      text-decoration: none;
-      border: 2px solid #000;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .btn-secondary:hover {
-      background: #000;
-      color: #fff;
-    }
-    .status-badge {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      position: relative;
-      top: -3px;
-    }
-    .status-live {
-      background: #000;
-      color: #fff;
-    }
-    .status-beta {
-      background: #1e40af;
-      color: #fff;
-    }
-    .roadmap {
-      border-left: 3px solid #ccc;
-      padding-left: 1rem;
-      margin-top: 2.5rem;
-    }
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.8rem;
-    }
-    .chip {
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border: 1px solid #d0d0d0;
-      border-radius: 2px;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      white-space: nowrap;
-    }
-    .legal-links {
-      margin-top: 2.5rem;
-      font-size: 0.78rem;
-      opacity: 0.7;
-    }
-    .legal-links a {
-      color: inherit;
+    :root {
+      --bg: #fafaf9;
+      --bg-alt: #f5f5f4;
+      --surface: #ffffff;
+      --border: #e7e5e4;
+      --border-subtle: #f0eeec;
+      --text: #1c1917;
+      --text-secondary: #57534e;
+      --text-muted: #a8a29e;
+      --accent: #0c4a6e;
+      --accent-light: #e0f2fe;
+      --accent-hover: #075985;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --yellow: #d97706;
+      --yellow-bg: #fffbeb;
+      --yellow-border: #fde68a;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --terminal-bg: #0d1117;
+      --terminal-text: #c9d1d9;
+      --radius: 6px;
+      --radius-lg: 10px;
     }
 
-    /* Mock UI Components */
-    .mock-ui {
-      margin: 1.8rem 0;
-      border: 1px solid #d0d0d0;
-      border-radius: 8px;
-      overflow: hidden;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      font-size: 0.78rem;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 249, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #fff !important;
+      padding: 7px 16px;
+      border-radius: var(--radius);
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent-hover) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px 48px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    .hero h1 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 32px;
       line-height: 1.7;
     }
-    .mock-ui-header {
-      background: #f7f7f7;
-      border-bottom: 1px solid #d0d0d0;
-      padding: 8px 14px;
-      font-size: 0.7rem;
+    .hero-cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      font-size: 0.92rem;
       font-weight: 600;
-      color: #555;
-      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+    .btn-secondary:hover { border-color: var(--text-muted); }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
       text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
     }
-    .mock-ui-header .mock-dot {
-      width: 8px; height: 8px; border-radius: 50%; display: inline-block;
-    }
-    .mock-ui-header .dot-red { background: #ff5f57; }
-    .mock-ui-header .dot-yellow { background: #febc2e; }
-    .mock-ui-header .dot-green { background: #28c840; }
-    .mock-ui-body {
-      background: #fafafa;
-      padding: 14px 16px;
-      color: #1a1a1a;
-    }
-    .mock-ui-body-dark {
-      background: #0d1117;
-      padding: 14px 16px;
-      color: #c9d1d9;
-    }
-    .mock-step {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 2px 0;
-    }
-    .mock-step .icon-done { color: #1a7f37; }
-    .mock-step .icon-active { color: #0969da; }
-    .mock-step .text-done { color: #555; }
-    .mock-step .text-active { color: #1a1a1a; font-weight: 600; }
-    .mock-step .elapsed { color: #999; font-size: 0.68rem; margin-left: auto; }
-    .mock-pr-header {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #1a1a1a;
-    }
-    .mock-gate-header {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      margin-top: 14px;
-      margin-bottom: 6px;
-      color: #1a1a1a;
-    }
-    .mock-finding {
-      padding: 4px 0 4px 8px;
-      border-left: 2px solid #e0e0e0;
-      margin: 5px 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.82rem;
-      line-height: 1.5;
-      color: #333;
-    }
-    .mock-finding .finding-tag {
+    section h2 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.7rem;
       font-weight: 600;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      font-size: 0.72rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      color: var(--text);
     }
-    .mock-finding .doc-ref {
+    section p.section-desc {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+
+    .divider {
+      max-width: 1080px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* ── THE PROBLEM ── */
+    .problem-section {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .problem-section section { padding-top: 56px; padding-bottom: 56px; }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .problem-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .problem-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .problem-icon {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
       display: block;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+    .how-step {
+      text-align: center;
+    }
+    .how-step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-light);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .how-step h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .how-step p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ── MOCK UIs ── */
+    .mock-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03);
+    }
+    .mock-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
-      color: #777;
-      margin-top: 2px;
-      font-style: italic;
+      color: var(--text-muted);
     }
-    .mock-pass {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.82rem;
-      color: #555;
-      padding: 2px 0 2px 8px;
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ef4444; }
+    .dot-y { background: #eab308; }
+    .dot-g { background: #22c55e; }
+
+    /* PR Review Mock */
+    .pr-body { padding: 20px; font-size: 0.84rem; }
+    .pr-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      margin-bottom: 16px;
     }
-    .mock-pr-footer {
+    .pr-status-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .gate-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 0;
       margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px solid #e0e0e0;
-      font-size: 0.68rem;
-      color: #999;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      border-bottom: 1px solid var(--border-subtle);
     }
-    .mock-gate-summary {
+    .finding {
+      padding: 10px 0 10px 16px;
+      border-left: 2px solid var(--border);
+      margin: 8px 0;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .finding-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .doc-ref {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .gate-pass {
+      padding: 6px 0 6px 16px;
+      font-size: 0.82rem;
+      color: var(--green);
+    }
+    .pr-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Terminal Mock */
+    .terminal-body {
+      background: var(--terminal-bg);
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 2;
+    }
+    .terminal-body .mock-titlebar {
+      background: #161b22;
+      border-color: #30363d;
+      color: #8b949e;
+    }
+    .t-done { color: #3fb950; }
+    .t-dim { color: #8b949e; }
+    .t-active { color: #c9d1d9; }
+    .t-elapsed { color: #484f58; float: right; }
+    .t-spinner { color: #58a6ff; }
+
+    .mock-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+      .mock-pair { grid-template-columns: 1fr; }
+    }
+
+    /* ── DIFFERENTIATOR ── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    @media (max-width: 768px) {
+      .diff-grid { grid-template-columns: 1fr; }
+    }
+    .diff-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      background: var(--surface);
+    }
+    .diff-card h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diff-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .diff-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .badge-doc { background: var(--accent-light); color: var(--accent); }
+    .badge-ai { background: #f3e8ff; color: #7c3aed; }
+
+    /* ── TRUST ── */
+    .trust-section { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .trust-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+    .trust-card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+    .trust-card p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ── PRICING ── */
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .price-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      background: var(--surface);
+      text-align: center;
+    }
+    .price-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .price-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .price-card .price {
+      font-family: 'Source Serif 4', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 12px 0 4px;
+    }
+    .price-card .price-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .price-card ul {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+    .price-card ul li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 5px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .price-card ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ── BETA CTA ── */
+    .beta-section {
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .beta-section h2 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    .beta-section p {
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto 28px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--text-secondary); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ── TESTED BADGE ── */
+    .tested-row {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-top: 16px;
     }
-    .mock-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 10px;
-      border-radius: 4px;
+    .tested-chip {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-weight: 600;
-      border: 1px solid #d0d0d0;
-      background: #fff;
-    }
-    .mock-pill .pill-dot {
-      width: 7px; height: 7px; border-radius: 50%; display: inline-block;
-    }
-    .mock-pill .pill-dot-green { background: #1a7f37; }
-    .mock-pill .pill-dot-empty { background: #d0d0d0; }
-    .mock-doc-card {
-      border: 1px solid #e0e0e0;
-      border-radius: 6px;
-      padding: 10px 12px;
-      margin-bottom: 8px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .mock-doc-card .doc-name {
-      font-weight: 600;
-      color: #1a1a1a;
-    }
-    .mock-doc-card .doc-meta {
-      color: #777;
-      font-size: 0.7rem;
-    }
-    .mock-badge {
-      display: inline-block;
-      padding: 1px 7px;
-      border-radius: 3px;
-      font-size: 0.65rem;
-      font-weight: 700;
-    }
-    .badge-green { background: #dafbe1; color: #1a7f37; }
-    .badge-yellow { background: #fff8c5; color: #9a6700; }
-    .mock-gate-select {
-      display: inline-block;
-      padding: 2px 8px;
-      border: 1px solid #d0d0d0;
-      border-radius: 3px;
-      font-size: 0.68rem;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      background: #f7f7f7;
-      color: #333;
-    }
-    .mock-spinner {
-      display: inline-block;
-      width: 10px; height: 10px;
-      border: 2px solid #d0d0d0;
-      border-top-color: #0969da;
-      border-radius: 50%;
-      animation: mock-spin 0.8s linear infinite;
-    }
-    @keyframes mock-spin { to { transform: rotate(360deg); } }
-    .mock-decomp-label {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.75rem;
-      color: #777;
-      margin-top: 12px;
-      margin-bottom: 6px;
-    }
-    .mock-decomp-card {
-      border: 1px solid #e0e0e0;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin-bottom: 6px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.78rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .mock-decomp-card .decomp-title {
-      font-weight: 600;
-      color: #1a1a1a;
-    }
-    .mock-decomp-card .decomp-lines {
-      color: #999;
-      font-size: 0.68rem;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-    }
-    .mock-label {
-      font-size: 0.68rem;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-    }
-    .pipeline-flow {
-      margin: 1.5rem 0;
-      padding: 1.2rem;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      background: #fafafa;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      font-size: 0.75rem;
-      line-height: 1.8;
-      color: #333;
-      overflow-x: auto;
-    }
-    .pipeline-flow .pipe-label {
-      font-weight: 700;
-      color: #000;
-    }
-    .pipeline-flow .pipe-dim {
-      color: #999;
-    }
-    /* Open dropdown mock */
-    .mock-dropdown {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 4px;
-      background: #fff;
-      border: 1px solid #d0d0d0;
-      border-radius: 5px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      z-index: 10;
-      min-width: 130px;
-      overflow: hidden;
-      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-      font-size: 0.68rem;
-    }
-    .mock-dropdown-item {
-      padding: 5px 10px;
-      color: #555;
-      cursor: default;
-    }
-    .mock-dropdown-item:hover {
-      background: #f7f7f7;
-    }
-    .mock-dropdown-selected {
-      background: #f0f7ff;
-      color: #0969da;
-      font-weight: 600;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      background: var(--surface);
     }
 
-    /* Upload area mock */
-    .mock-upload-area {
-      margin-top: 16px;
-      padding: 14px;
-      border: 1px dashed #d0d0d0;
-      border-radius: 6px;
-      text-align: center;
-      font-family: -apple-system, sans-serif;
-      font-size: 0.78rem;
-      color: #999;
-      background: #fff;
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .mock-upload-area .upload-hint {
-      font-size: 0.68rem;
-      margin-top: 4px;
+    .hero, .mock-container, .problem-card, .diff-card, .trust-card, .price-card {
+      animation: fadeUp 0.5s ease-out both;
     }
+    .problem-card:nth-child(2) { animation-delay: 0.08s; }
+    .problem-card:nth-child(3) { animation-delay: 0.16s; }
   </style>
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="topbar-inner">
-      <nav class="topnav" aria-label="Primary">
-        <a href="/index.html">Home</a>
-        <a href="/research.html">Papers</a>
-        <a href="/patents.html">Patents</a>
-        <a href="/systems.html">Systems</a>
-        <a href="/tools.html">Tools</a>
-        <a href="/contact.html">Contact</a>
-      </nav>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">CodeReview AI</a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://github.com/apps/codereview-ai-dev" class="nav-cta">Install free &rarr;</a>
+      </div>
     </div>
-  </header>
+  </nav>
 
-  <main>
-    <h1>
-      CodeReview AI
-      <span class="status-badge status-live">Live</span>
-      <span class="status-badge status-beta">Beta</span>
-    </h1>
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-badge">Currently in beta &middot; Free to use</span>
+    <h1>Your docs already have the rules.<br>Now they enforce themselves.</h1>
+    <p class="hero-sub">
+      CodeReview AI reads your team's actual documentation — security policies, style guides, architecture standards — and checks every pull request against them. Findings cite the exact doc and line range. No guessing.
+    </p>
+    <div class="hero-cta-row">
+      <a href="https://github.com/apps/codereview-ai-dev" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        Install on GitHub
+      </a>
+      <a href="#how" class="btn-secondary">See how it works</a>
+    </div>
+  </div>
 
-    <div class="hero">
-      <p>
-        Built for engineers who are tired of repeating themselves.
+  <!-- PROBLEM -->
+  <div class="problem-section">
+    <section>
+      <div class="section-label">The problem</div>
+      <h2>Your team's knowledge doesn't enforce itself.</h2>
+      <p class="section-desc">
+        The docs exist. The standards are written down. But none of it is wired into the review process where it actually matters.
       </p>
-      <p>
-        Contributing guides, security policies, testing requirements, architecture decisions. The
-        docs exist, but they don't enforce themselves. The same comments show up on PR after PR.
-        The same sections get pointed to over and over. Senior engineers burn time on things that
-        should be automatic. New contributors push code that violates standards nobody told them
-        about. Knowledge is scattered across wikis, markdown files, and Slack threads, and none
-        of it is wired into the actual review process.
-      </p>
-      <p>
-        CodeReview AI reads your team's documentation and enforces it on every pull request,
-        automatically. Every word, every section, every update. Findings cite the exact document
-        name and line range so the conversation starts at the right place instead of from scratch.
-        The obvious stuff is already flagged before a human reviewer opens the PR. Reviews can
-        focus on architecture and judgment calls, the things that actually need a person.
-      </p>
-      <p>
-        And when a comment comes up that isn't in the docs yet, update the doc. CodeReview picks
-        it up automatically before the next review. That comment never needs to be made again.
-        The docs become a living system. Not shelf-ware.
-      </p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <span class="problem-icon">&#128260;</span>
+          <h3>Same comments, every PR</h3>
+          <p>Senior engineers repeat the same feedback on every pull request. The naming convention, the auth pattern, the testing requirement. It's all in the docs, but nobody checks.</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-icon">&#128203;</span>
+          <h3>New contributors fly blind</h3>
+          <p>Onboarding docs, contributing guides, security policies — they exist in wikis and markdown files. New team members push code that violates standards nobody told them about.</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-icon">&#9201;</span>
+          <h3>Review bottlenecks slow shipping</h3>
+          <p>When senior engineers are the only ones who know the rules, every PR waits in their queue. The obvious stuff should be flagged before a human opens the review.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-label">How it works</div>
+    <h2>Two minutes to set up. Zero config files.</h2>
+    <p class="section-desc">
+      Install the GitHub App. CodeReview scans your repo, finds your docs, classifies them into review gates, and starts reviewing PRs. That's it.
+    </p>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <h3>Install</h3>
+        <p>One-click GitHub App install. Pick your repos. No tokens to manage, no webhooks to configure.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <h3>Scan</h3>
+        <p>CodeReview scans your repo tree, finds documentation files, and classifies each into review gates: Security, Architecture, Style, Legal, Onboarding.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <h3>Confirm</h3>
+        <p>You see what it found and confirm. Multi-topic docs get decomposed into gate-specific sections with exact line ranges. You're in control.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">4</div>
+        <h3>Review</h3>
+        <p>Open a PR. CodeReview posts findings as a comment — traffic light summary, per-gate breakdown, doc citations. Done in seconds.</p>
+      </div>
     </div>
 
-    <div class="btn-row">
-      <a href="https://github.com/apps/codereview-ai-dev" class="btn-primary">Install CodeReview AI &rarr;</a>
-    </div>
-
-    <!-- HOW IT WORKS + Setup Terminal Mock -->
-    <div class="section">
-      <h2>How it works.</h2>
-      <p>
-        Setup takes two minutes. Install the GitHub App, and CodeReview auto-detects your repository.
-        It scans the full file tree, identifies documentation files, and classifies every one into
-        review categories: Security, Architecture, Legal, Style, Onboarding. You see live progress
-        as each file is discovered, fetched, and classified. Multi-topic docs get surgically decomposed
-        into gate-specific sections with exact line ranges using a two-model pipeline: an LLM identifies
-        topical boundaries, then content is extracted deterministically by line number. No re-generation,
-        no drift. Confirm what it found and you're live. No config files. No YAML. No re-setup when
-        docs change.
-      </p>
-
-      <div class="mock-ui">
-        <div class="mock-ui-header">
-          <span class="mock-dot dot-red"></span>
-          <span class="mock-dot dot-yellow"></span>
-          <span class="mock-dot dot-green"></span>
+    <!-- MOCK UIs side by side -->
+    <div class="mock-pair">
+      <!-- Setup Terminal -->
+      <div class="mock-container">
+        <div class="mock-titlebar" style="background:#161b22; border-color:#30363d; color:#8b949e;">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
           &nbsp; Setup: scanning stripe/stripe-python
         </div>
-        <div class="mock-ui-body-dark" style="color: #c9d1d9;">
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Connecting to GitHub for stripe/stripe-python...</span>
-            <span class="elapsed" style="color:#484f58;">0.4s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Scanning repository tree...</span>
-            <span class="elapsed" style="color:#484f58;">1.2s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Found 8 doc files in 4,217 repo files</span>
-            <span class="elapsed" style="color:#484f58;">1.3s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Classifying CONTRIBUTING.md (1/8)</span>
-            <span class="elapsed" style="color:#484f58;">2.1s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Classifying SECURITY.md (2/8)</span>
-            <span class="elapsed" style="color:#484f58;">2.8s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Classifying CODE_OF_CONDUCT.md (3/8)</span>
-            <span class="elapsed" style="color:#484f58;">3.4s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Classifying docs/ARCHITECTURE.md (4/8)</span>
-            <span class="elapsed" style="color:#484f58;">4.6s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Classifying docs/STYLE_GUIDE.md (5/8)</span>
-            <span class="elapsed" style="color:#484f58;">5.2s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Classifying .github/PULL_REQUEST_TEMPLATE.md (6/8)</span>
-            <span class="elapsed" style="color:#484f58;">5.9s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Classifying LICENSE (7/8)</span>
-            <span class="elapsed" style="color:#484f58;">6.1s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Classifying docs/testing.md (8/8)</span>
-            <span class="elapsed" style="color:#484f58;">7.0s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Found 2 multi-gate files to decompose</span>
-            <span class="elapsed" style="color:#484f58;">7.1s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Decomposing CONTRIBUTING.md (1/2)</span>
-            <span class="elapsed" style="color:#484f58;">9.4s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span class="text-done" style="color:#8b949e;">Decomposing docs/testing.md (2/2)</span>
-            <span class="elapsed" style="color:#484f58;">11.8s</span>
-          </div>
-          <div class="mock-step">
-            <span class="icon-done" style="color:#3fb950;">&#x2713;</span>
-            <span style="color:#f0f6fc; font-weight:600;">Done: 7 docs classified, 4 sections extracted</span>
-            <span class="elapsed" style="color:#484f58;">12.0s</span>
-          </div>
+        <div class="terminal-body">
+          <div><span class="t-done">&#x2713;</span> <span class="t-dim">Connecting to GitHub for stripe/stripe-python...</span> <span class="t-elapsed">0.4s</span></div>
+          <div><span class="t-done">&#x2713;</span> <span class="t-dim">Scanning repository tree...</span> <span class="t-elapsed">1.2s</span></div>
+          <div><span class="t-done">&#x2713;</span> <span class="t-dim">Found 8 doc files in 4,217 repo files</span> <span class="t-elapsed">1.3s</span></div>
+          <div><span class="t-done">&#x2713;</span> <span class="t-dim">Classifying CONTRIBUTING.md (1/8)</span> <span class="t-elapsed">2.1s</span></div>
+          <div><span class="t-done">&#x2713;</span> <span class="t-dim">Classifying SECURITY.md (2/8)</span> <span class="t-elapsed">2.8s</span></div>
+          <div><span class="t-done">&#x2713;</span> <span class="t-dim">Decomposing README.md &rarr; 3 gate sections</span> <span class="t-elapsed">3.6s</span></div>
+          <div><span class="t-done">&#x2713;</span> <span class="t-dim">Classifying docs/ARCHITECTURE.md (4/8)</span> <span class="t-elapsed">4.2s</span></div>
+          <div><span class="t-spinner">&#x25cf;</span> <span class="t-active">Classifying docs/STYLE_GUIDE.md (5/8)...</span></div>
         </div>
       </div>
-    </div>
 
-    <!-- CONFIRM SCREEN MOCK -->
-    <div class="section">
-      <h2>Confirm what it found.</h2>
-      <p>
-        After the scan, CodeReview shows you every document it discovered and how it classified each one.
-        Single-gate files show a confidence score based on the three-step classification pipeline:
-        filename heuristics first, LLM content analysis second, your confirmation third. Multi-topic
-        documents are decomposed into gate-specific sections with exact line ranges. You can override
-        any assignment, upload your own docs that aren't in the repo, or re-scan. Nothing gets ingested
-        until you hit confirm.
-      </p>
-
-      <div class="mock-ui">
-        <div class="mock-ui-header">
-          <span class="mock-dot dot-red"></span>
-          <span class="mock-dot dot-yellow"></span>
-          <span class="mock-dot dot-green"></span>
-          &nbsp; Setup: review results
-        </div>
-        <div class="mock-ui-body">
-          <div class="mock-gate-summary">
-            <div class="mock-pill"><span class="pill-dot pill-dot-green"></span> SECURITY (2)</div>
-            <div class="mock-pill"><span class="pill-dot pill-dot-green"></span> ARCHITECTURE (1)</div>
-            <div class="mock-pill"><span class="pill-dot pill-dot-green"></span> LEGAL (1)</div>
-            <div class="mock-pill"><span class="pill-dot pill-dot-green"></span> STYLE (2)</div>
-            <div class="mock-pill"><span class="pill-dot pill-dot-green"></span> ONBOARDING (3)</div>
-          </div>
-
-          <div class="mock-doc-card">
-            <div>
-              <span style="margin-right: 6px;">&#9745;</span>
-              <span class="doc-name">SECURITY.md</span>
-              <span class="doc-meta" style="margin-left: 10px;">Vulnerability reporting and security policy</span>
-            </div>
-            <div>
-              <span class="mock-gate-select">SECURITY</span>
-              <span class="mock-badge badge-green" style="margin-left: 6px;">97%</span>
-            </div>
-          </div>
-          <div class="mock-doc-card" style="position: relative;">
-            <div>
-              <span style="margin-right: 6px;">&#9745;</span>
-              <span class="doc-name">docs/ARCHITECTURE.md</span>
-              <span class="doc-meta" style="margin-left: 10px;">System design and module boundaries</span>
-            </div>
-            <div style="position: relative;">
-              <span class="mock-gate-select" style="border-color: #0969da; background: #f0f7ff;">ARCHITECTURE &#9662;</span>
-              <span class="mock-badge badge-green" style="margin-left: 6px;">94%</span>
-              <div class="mock-dropdown">
-                <div class="mock-dropdown-item">SECURITY</div>
-                <div class="mock-dropdown-item mock-dropdown-selected">ARCHITECTURE</div>
-                <div class="mock-dropdown-item">LEGAL</div>
-                <div class="mock-dropdown-item">STYLE</div>
-                <div class="mock-dropdown-item">ONBOARDING</div>
-              </div>
-            </div>
-          </div>
-          <div class="mock-doc-card">
-            <div>
-              <span style="margin-right: 6px;">&#9745;</span>
-              <span class="doc-name">LICENSE</span>
-              <span class="doc-meta" style="margin-left: 10px;">MIT License terms</span>
-            </div>
-            <div>
-              <span class="mock-gate-select">LEGAL</span>
-              <span class="mock-badge badge-green" style="margin-left: 6px;">99%</span>
-            </div>
-          </div>
-          <div class="mock-doc-card">
-            <div>
-              <span style="margin-right: 6px;">&#9745;</span>
-              <span class="doc-name">docs/STYLE_GUIDE.md</span>
-              <span class="doc-meta" style="margin-left: 10px;">Naming, formatting, linting rules</span>
-            </div>
-            <div>
-              <span class="mock-gate-select">STYLE</span>
-              <span class="mock-badge badge-green" style="margin-left: 6px;">92%</span>
-            </div>
-          </div>
-          <div class="mock-doc-card">
-            <div>
-              <span style="margin-right: 6px;">&#9745;</span>
-              <span class="doc-name">.github/PULL_REQUEST_TEMPLATE.md</span>
-              <span class="doc-meta" style="margin-left: 10px;">PR checklist and process</span>
-            </div>
-            <div>
-              <span class="mock-gate-select">ONBOARDING</span>
-              <span class="mock-badge badge-green" style="margin-left: 6px;">95%</span>
-            </div>
-          </div>
-
-          <div class="mock-decomp-label">&#128196; Extracted from CONTRIBUTING.md</div>
-          <div class="mock-decomp-card">
-            <div>
-              <span class="decomp-title">Security Reporting Process</span>
-              <span class="decomp-lines" style="margin-left: 10px;">lines 12:38</span>
-            </div>
-            <div>
-              <span class="mock-gate-select">SECURITY</span>
-              <span class="mock-badge badge-green" style="margin-left: 6px;">91%</span>
-            </div>
-          </div>
-          <div class="mock-decomp-card">
-            <div>
-              <span class="decomp-title">PR Format and Contribution Workflow</span>
-              <span class="decomp-lines" style="margin-left: 10px;">lines 39:112</span>
-            </div>
-            <div>
-              <span class="mock-gate-select">ONBOARDING</span>
-              <span class="mock-badge badge-green" style="margin-left: 6px;">93%</span>
-            </div>
-          </div>
-          <div class="mock-decomp-card" style="position: relative;">
-            <div>
-              <span class="decomp-title">Code Style Requirements</span>
-              <span class="decomp-lines" style="margin-left: 10px;">lines 113:148</span>
-            </div>
-            <div style="position: relative;">
-              <span class="mock-gate-select" style="border-color: #0969da; background: #f0f7ff;">STYLE &#9662;</span>
-              <span class="mock-badge badge-yellow" style="margin-left: 6px;">78%</span>
-              <div class="mock-dropdown">
-                <div class="mock-dropdown-item">SECURITY</div>
-                <div class="mock-dropdown-item">ARCHITECTURE</div>
-                <div class="mock-dropdown-item">LEGAL</div>
-                <div class="mock-dropdown-item mock-dropdown-selected">STYLE</div>
-                <div class="mock-dropdown-item">ONBOARDING</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mock-decomp-label">&#128196; Extracted from docs/testing.md</div>
-          <div class="mock-decomp-card">
-            <div>
-              <span class="decomp-title">Testing Requirements and CI Pipeline</span>
-              <span class="decomp-lines" style="margin-left: 10px;">lines 1:67</span>
-            </div>
-            <div>
-              <span class="mock-gate-select">ONBOARDING</span>
-              <span class="mock-badge badge-green" style="margin-left: 6px;">89%</span>
-            </div>
-          </div>
-
-          <div class="mock-upload-area">
-            &#128228; Drag &amp; drop files here, or click to browse
-            <div class="upload-hint">.md, .rst, .txt &bull; max 5MB</div>
-          </div>
-
-          <div style="margin-top: 12px; display: flex; gap: 10px;">
-            <span style="display:inline-block; padding:8px 18px; background:#000; color:#fff; border-radius:5px; font-size:0.8rem; font-weight:600; font-family: -apple-system, sans-serif;">&#x2705; Confirm &amp; Complete Setup</span>
-            <span style="display:inline-block; padding:8px 18px; background:#fff; color:#000; border:1px solid #d0d0d0; border-radius:5px; font-size:0.8rem; font-weight:600; font-family: -apple-system, sans-serif;">&#x1f504; Re-scan Repository</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FIVE REVIEW GATES -->
-    <div class="section">
-      <h2>Five review gates.</h2>
-      <p>
-        Every PR goes through five independent review gates. Each gate pulls only the documents
-        relevant to its category and reviews the diff against that subset. Findings are tagged
-        &#128270; <strong>doc-backed</strong> or &#128173; <strong>AI suggestion</strong> so your team
-        knows exactly what's policy and what's observation. Doc-backed findings cite the specific
-        document, section title, and line range. AI suggestions are clearly marked as the model's
-        opinion, useful but not authoritative.
-      </p>
-      <ul class="gate-list">
-        <li><span class="gate-label">Security</span> API keys, auth patterns, secrets in code, data exposure, injection risks</li>
-        <li><span class="gate-label">Architecture</span> Design patterns, module boundaries, dependency rules, API contracts</li>
-        <li><span class="gate-label">Legal</span> Licensing, CLA requirements, copyright headers, redistribution compliance</li>
-        <li><span class="gate-label">Style</span> Naming conventions, formatting, linting, import order, code standards</li>
-        <li><span class="gate-label">Onboarding</span> PR process, testing requirements, commit format, contribution workflow</li>
-      </ul>
-    </div>
-
-    <!-- TWO-PASS HALLUCINATION GUARD -->
-    <div class="section">
-      <h2>Two-pass hallucination guard.</h2>
-      <p>
-        Every finding goes through a two-pass verification pipeline before it reaches the PR. Pass 1
-        generates findings by reviewing the diff against your documentation. Pass 2 is a separate
-        verification model that re-reads each finding against the source document and asks: can this
-        actually be proven from what's written? If the answer is no, the finding gets killed. Findings
-        that can't survive verification never reach the PR comment.
-      </p>
-      <p>
-        This isn't a confidence threshold. It's a second model independently checking the first model's
-        work. Pass 2 tracks removal rates per gate. If a gate's findings are getting killed at a high
-        rate, it flags the pass 1 prompt for tuning. The system monitors its own accuracy and surfaces
-        drift before it becomes a problem.
-      </p>
-      <p>
-        Docs stay fresh automatically. Someone updates a security policy, merges a new architecture
-        decision, adds a testing requirement. CodeReview detects the change via SHA comparison before
-        the next review and re-ingests the updated content. No stale rules. No re-setup. The knowledge
-        base tracks the repo.
-      </p>
-
-      <div class="pipeline-flow">
-        <span class="pipe-label">GitHub PR Webhook</span><br>
-        &nbsp; ↓<br>
-        <span class="pipe-label">[Pass 1]</span> Five parallel gate reviews<br>
-        &nbsp; ├── Security: auth, injection, secrets, data exposure<br>
-        &nbsp; ├── Architecture: patterns, boundaries, coupling, API contracts<br>
-        &nbsp; ├── Legal: licensing, CLA, copyright compliance<br>
-        &nbsp; ├── Style: naming, formatting, linting, import order<br>
-        &nbsp; └── Onboarding: PR format, checklists, test requirements<br>
-        &nbsp; ↓<br>
-        <span class="pipe-label">[Pass 2]</span> Hallucination verification <span class="pipe-dim">re-checks each finding against source docs</span><br>
-        &nbsp; ↓<br>
-        <span class="pipe-label">[Traffic Light]</span> RED <span class="pipe-dim">(blocking)</span> / YELLOW <span class="pipe-dim">(needs fixes)</span> / GREEN <span class="pipe-dim">(ready)</span><br>
-        &nbsp; ↓<br>
-        <span class="pipe-label">PR Comment</span> <span class="pipe-dim">with cited findings</span>
-      </div>
-    </div>
-
-    <!-- RESULTS + PR Comment Mock -->
-    <div class="section">
-      <h2>Results.</h2>
-      <p>
-        Results post as a single PR comment within two minutes of the PR opening. Traffic light
-        at the top. Red means fix this before merge, yellow means heads up, green means good to go.
-        Each gate gets its own section with individual status. Every finding includes the violation
-        type, a description, the source document and line range, and the relevant lines in the PR diff.
-        Expandable details keep the comment scannable. Clean, actionable, and designed to be read in
-        under 30 seconds.
-      </p>
-
-      <div class="mock-ui">
-        <div class="mock-ui-header">
-          <span class="mock-dot dot-red"></span>
-          <span class="mock-dot dot-yellow"></span>
-          <span class="mock-dot dot-green"></span>
+      <!-- PR Review Output -->
+      <div class="mock-container">
+        <div class="mock-titlebar">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
           &nbsp; PR comment: pull request #142
         </div>
-        <div class="mock-ui-body">
-          <div class="mock-pr-header">&#128308; CodeReview AI: RED</div>
+        <div class="pr-body">
+          <div class="pr-status pr-status-red">&#128308; CodeReview AI: RED</div>
 
-          <div class="mock-gate-header">&#128308; SECURITY</div>
-          <div class="mock-finding">
-            &#128270; <span class="finding-tag">[HARDCODED_SECRET]</span> API key appears to be hardcoded in config/settings.py on line 24. Secrets must be loaded from environment variables per your security policy.
-            <span class="doc-ref">&#128214; SECURITY.md, lines 18:22</span>
+          <div class="gate-header">&#128308; SECURITY</div>
+          <div class="finding">
+            &#128270; <span class="finding-tag">[HARDCODED_SECRET]</span> API key hardcoded in config/settings.py on line 24. Secrets must be loaded from environment variables per your security policy.
+            <span class="doc-ref">&#128214; SECURITY.md, lines 18–22</span>
             <span class="doc-ref">&#128221; config/settings.py:24</span>
           </div>
-          <div class="mock-finding">
-            &#128173; <span class="finding-tag">[AUTH_PATTERN]</span> This endpoint accepts user input without rate limiting. Consider adding throttling to prevent brute-force attempts.
+
+          <div class="gate-header">&#128993; STYLE</div>
+          <div class="finding">
+            &#128270; <span class="finding-tag">[NAMING]</span> Function <code>getData</code> uses camelCase. Your style guide requires snake_case for Python.
+            <span class="doc-ref">&#128214; docs/STYLE_GUIDE.md, lines 31–35</span>
           </div>
 
-          <div class="mock-gate-header">&#128993; STYLE</div>
-          <div class="mock-finding">
-            &#128270; <span class="finding-tag">[NAMING_CONVENTION]</span> Function <code>getData</code> uses camelCase. Your style guide requires snake_case for all Python functions.
-            <span class="doc-ref">&#128214; docs/STYLE_GUIDE.md, lines 31:35</span>
-            <span class="doc-ref">&#128221; src/api/handlers.py:67</span>
-          </div>
+          <div class="gate-header">&#128994; ARCHITECTURE</div>
+          <div class="gate-pass">&#10004; No issues found</div>
 
-          <div class="mock-gate-header">&#128994; ARCHITECTURE</div>
-          <div class="mock-pass">&#10004; No issues found</div>
+          <div class="gate-header">&#128994; LEGAL</div>
+          <div class="gate-pass">&#10004; No issues found</div>
 
-          <div class="mock-gate-header">&#128994; LEGAL</div>
-          <div class="mock-pass">&#10004; No issues found</div>
+          <div class="gate-header">&#128994; ONBOARDING</div>
+          <div class="gate-pass">&#10004; No issues found</div>
 
-          <div class="mock-gate-header">&#128994; ONBOARDING</div>
-          <div class="mock-pass">&#10004; No issues found</div>
-
-          <div class="mock-pr-footer">
+          <div class="pr-footer">
             &#128270; = doc-backed finding &nbsp;&middot;&nbsp; &#128173; = AI suggestion<br>
-            Powered by CodeReview AI &middot; Report incorrect finding
+            Powered by CodeReview AI
           </div>
         </div>
       </div>
     </div>
 
-    <!-- TESTED AGAINST REAL REPOS -->
-    <div class="section">
-      <h2>Tested against real repos.</h2>
-      <p>
-        The full pipeline has been tested end to end against production repositories including Cal.com,
-        Stripe, Next.js, and Supabase. Not just the discovery and classification. Real PRs were opened
-        against real codebases with messy multi-topic docs, strict contribution policies, monorepo
-        structures, and thousands of files. The system produced accurate, document-backed findings
-        across all five gates and the results were verified manually against the source documentation.
-        The three-step classification pipeline (filename heuristics → LLM content analysis →
-        user confirmation) handled edge cases like READMEs that mix onboarding with security policies,
-        CONTRIBUTING files that embed style rules, and docs directories with hundreds of markdown files.
-      </p>
-      <p>
-        Currently in beta and free to use. Actively looking for teams to install it, push real PRs
-        against it, break things, and help shape what comes next.
-      </p>
+    <div class="tested-row" style="margin-top:24px; justify-content: center;">
+      <span style="font-size: 0.78rem; color: var(--text-muted); margin-right: 4px;">Tested against:</span>
+      <span class="tested-chip">Cal.com</span>
+      <span class="tested-chip">Stripe</span>
+      <span class="tested-chip">Next.js</span>
+      <span class="tested-chip">Supabase</span>
     </div>
+  </section>
 
-    <!-- UNDER THE HOOD -->
-    <div class="section">
-      <h2>Under the hood.</h2>
-      <p>
-        CodeReview AI is built on a fail-closed architecture. If the system can't prove a finding
-        from your documentation, the finding doesn't ship. If GitHub is unreachable, the review
-        degrades gracefully and posts an error comment rather than failing silently. If a document
-        can't be fetched during the freshness check, the review runs with cached docs because stale
-        docs are better than no review. Every decision path has a fallback, and every fallback logs
-        why it activated.
-      </p>
-      <p>
-        The discovery module has its own fallback chain: full tree scan via the git/trees API first
-        (single request, fastest), targeted path checks via the contents API if the tree is truncated,
-        and an empty-with-flag return if the API is down entirely. File classification runs a three-pass
-        pipeline: exact filename match at ~80% accuracy, LLM content analysis at ~95% accuracy, and
-        user confirmation at 100%. The decomposer uses LLM section identification followed by
-        deterministic line-range extraction. The AI identifies boundaries, but content is pulled by
-        line number, not regenerated.
-      </p>
-      <p>
-        Structured logging with JSON output and request IDs runs through the entire pipeline. Every
-        scan, classification, decomposition, review, and verification step is traceable. Background
-        scan workers run in separate threads so the event loop stays free to serve progress polls.
-        The frontend polls every 500ms for live updates during setup.
-      </p>
-    </div>
+  <hr class="divider">
 
-    <!-- STACK -->
-    <div class="section">
-      <h2>Stack.</h2>
-      <div class="tech-stack">
-        <span class="chip">Python</span>
-        <span class="chip">FastAPI</span>
-        <span class="chip">Claude API</span>
-        <span class="chip">GitHub App</span>
-        <span class="chip">Railway</span>
-        <span class="chip">SQLAlchemy</span>
-        <span class="chip">Background Workers</span>
-        <span class="chip">Structured Logging</span>
-        <span class="chip">Jinja2 Templates</span>
+  <!-- WHAT MAKES IT DIFFERENT -->
+  <section>
+    <div class="section-label">What makes it different</div>
+    <h2>Every finding tells you where it came from.</h2>
+    <p class="section-desc">
+      Other tools check against generic rules. CodeReview AI checks against your team's actual documentation. And it tells you which is which.
+    </p>
+
+    <div class="diff-grid">
+      <div class="diff-card">
+        <h3><span class="diff-badge badge-doc">&#128270; DOCUMENT-BACKED</span></h3>
+        <p>Finding came from your documentation. Cites the exact file, section, and line range. You can verify it in 10 seconds. This is a rule your team wrote down — the system is just enforcing it.</p>
+      </div>
+      <div class="diff-card">
+        <h3><span class="diff-badge badge-ai">&#128173; AI SUGGESTION</span></h3>
+        <p>Finding is the model's own suggestion based on general best practices. Clearly labeled so your team knows it's not from your docs. Useful context, but never presented as your policy.</p>
+      </div>
+      <div class="diff-card">
+        <h3>Hallucination guard</h3>
+        <p>A second AI pass re-reads every finding against the source document before posting. If it can't prove the finding from what's actually written, the finding gets killed. The system doesn't fabricate policy violations.</p>
+      </div>
+      <div class="diff-card">
+        <h3>Living documentation</h3>
+        <p>When a comment comes up that isn't in the docs yet — update the doc. CodeReview picks it up automatically before the next review. That comment never needs to be made again. The docs become a system, not shelf-ware.</p>
       </div>
     </div>
+  </section>
 
-    <!-- ROADMAP -->
-    <div class="roadmap">
-      <h2>V2 Roadmap.</h2>
-      <p>
-        Two tiers. Tier 1 is everything above: document-grounded PR reviews with five gates, two-pass
-        verification, and automatic doc freshness tracking. Tier 2 adds full codebase analysis on setup.
-        When you install, CodeReview scores your entire repository across all five gates with a baseline
-        strength rating for each. A historical dashboard tracks how each gate trends over time. Are
-        your security practices improving since last month? Is architectural drift creeping in? Are
-        new contributors following the PR process? Tier 1 tells you what's wrong with this PR. Tier 2
-        tells you what's happening to your codebase.
+  <!-- TRUST -->
+  <div class="trust-section">
+    <section>
+      <div class="section-label">Trust &amp; security</div>
+      <h2>We know we're asking for repo access.</h2>
+      <p class="section-desc">
+        We're a small team asking you to install a GitHub App on your private repos. We take that seriously. Here's how the system is built.
       </p>
-    </div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <h3>Fail-closed architecture</h3>
+          <p>If the system can't prove a finding from your docs, the finding doesn't ship. If GitHub is unreachable, the review posts an error comment rather than failing silently. Every decision path has a fallback, and every fallback logs why.</p>
+        </div>
+        <div class="trust-card">
+          <h3>Read-only by default</h3>
+          <p>CodeReview AI reads your code diffs and documentation to produce review comments. It does not modify your code, merge PRs, or access anything outside the repositories you explicitly grant.</p>
+        </div>
+        <div class="trust-card">
+          <h3>No code storage</h3>
+          <p>Code diffs are processed in memory during the review and are not persisted. Your documentation is cached for review performance and refreshed on each scan. You can re-scan or disconnect at any time.</p>
+        </div>
+        <div class="trust-card">
+          <h3>Full audit trail</h3>
+          <p>Structured logging with request IDs runs through the entire pipeline. Every scan, classification, review, and verification step is traceable. You can see exactly what happened and why.</p>
+        </div>
+      </div>
+    </section>
+  </div>
 
-    <div class="btn-row">
-      <a href="https://github.com/apps/codereview-ai-dev" class="btn-primary">Install CodeReview AI &rarr;</a>
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="section-label">Pricing</div>
+    <h2 style="text-align:center;">Start free. Upgrade when it's earning its keep.</h2>
+    <p class="section-desc" style="text-align:center; margin: 0 auto 40px;">
+      No credit card required. No contracts. Cancel anytime.
+    </p>
+    <div class="pricing-cards">
+      <div class="price-card">
+        <h3>Free</h3>
+        <div class="price">$0</div>
+        <div class="price-sub">Your first 20 PR reviews</div>
+        <ul>
+          <li>All 5 review gates</li>
+          <li>Document-backed findings</li>
+          <li>Hallucination guard</li>
+          <li>Traffic light summaries</li>
+          <li>Unlimited repos</li>
+        </ul>
+        <a href="https://github.com/apps/codereview-ai-dev" class="btn-secondary" style="width:100%; justify-content:center;">Install free</a>
+      </div>
+      <div class="price-card featured">
+        <h3>Pro</h3>
+        <div class="price">$20<span style="font-size:1rem; font-weight:400; color:var(--text-muted);">/mo</span></div>
+        <div class="price-sub">Unlimited PR reviews</div>
+        <ul>
+          <li>Everything in Free</li>
+          <li>Unlimited reviews</li>
+          <li>Priority processing</li>
+          <li>Email support</li>
+          <li>Usage dashboard</li>
+        </ul>
+        <a href="https://github.com/apps/codereview-ai-dev" class="btn-primary" style="width:100%; justify-content:center;">Start with 20 free reviews</a>
+      </div>
     </div>
+  </section>
 
-    <div class="legal-links">
-      <a href="/tools/codereview-ai-privacy.html">Privacy Policy</a> &middot; <a href="/tools/codereview-ai-terms.html">Terms of Service</a> &middot; <a href="/cdn-cgi/l/email-protection#355459504d545b515047464056545954755258545c591b565a58">Contact</a>
+  <hr class="divider">
+
+  <!-- BETA CTA -->
+  <div class="beta-section">
+    <h2>We're early. We'd rather be honest about that.</h2>
+    <p>
+      CodeReview AI is in active beta. It works — it's been tested against production repos including Cal.com, Stripe, Next.js, and Supabase. But we're still learning from every install. If you're on a compliance-heavy team and willing to try it, we'd genuinely appreciate the feedback.
+    </p>
+    <a href="https://github.com/apps/codereview-ai-dev" class="btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      Try CodeReview AI &rarr;
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="/tools/codereview-ai-privacy.html">Privacy</a>
+      <a href="/tools/codereview-ai-terms.html">Terms</a>
+      <a href="mailto:sucalaalex2@gmail.com">Contact</a>
+      <a href="https://alexandersucala.com">alexandersucala.com</a>
     </div>
-  </main>
-
-  <footer class="footerbar">
-    <nav class="footernav" aria-label="Footer">
-      <a href="/index.html">Home</a>
-      <a href="/research.html">Papers</a>
-      <a href="/patents.html">Patents</a>
-      <a href="/systems.html">Systems</a>
-      <a href="/tools.html">Tools</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-    <p class="footer-note">&copy; <span id="y"></span> Alexander Sucala</p>
+    <span class="footer-copy">&copy; 2026 Alexander Sucala</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cl
+</body>
+</html>
